@@ -1,0 +1,8 @@
+apiVersion: v1
+appVersion: "3.9"
+description: Deploy a basic Alpine Linux pod
+maintainers:
+  - email: paul.seddon@ktech.com
+    name: Paul Seddon
+name: alpine
+version: 0.1.0
