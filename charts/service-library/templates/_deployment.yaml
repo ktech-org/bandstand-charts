@@ -1,0 +1,58 @@
+{{- define "service-library.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace }}
+  labels: {{- include "service-library.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{- include "service-library.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels: {{- include "service-library.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ .Release.Name }}
+      containers:
+        - name: {{ .Release.Name }}
+          image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/{{ .Release.Name }}/config"
+              readOnly: true
+          resources:
+            requests:
+              cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
+              memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
+            limits:
+              cpu: {{ (.Values.resources).limits.cpu | default "500m" }}
+              memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
+          readinessProbe:
+            httpGet:
+              path: {{ (.Values.readinessProbe).path | default "/" }}
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          env:
+            - name: ENV
+              value: {{ .Values.env }}
+            - name: VERSION
+              value: {{ .Values.image.tag }}
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}
+            items:
+              - key: "app.properties"
+                path: "app.properties"
+{{- end -}}

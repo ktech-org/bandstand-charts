@@ -1,0 +1,7 @@
+apiVersion: v2
+name: service-library
+version: 0.1.0
+description: Library chart of templates for an http service
+type: library
+maintainers:
+  - name: ktech-developer-platform

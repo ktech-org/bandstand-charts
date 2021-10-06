@@ -1,0 +1,16 @@
+{{- define "service-library.hpa" -}}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace }}
+  labels: {{- include "service-library.labels" . | nindent 4 }}
+spec:
+  minReplicas: {{ ((.Values.hpa).minReplicas) | default 1 }}
+  maxReplicas: {{ ((.Values.hpa).maxReplicas) | default 3 }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Release.Name }}
+  targetCPUUtilizationPercentage: {{ ((.Values.hpa).averageCpuUtilization) | default 50 }}
+{{- end -}}

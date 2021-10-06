@@ -1,0 +1,15 @@
+{{- define "service-library.all" }}
+
+{{ include "service-library.configmap" . }}
+---
+{{ include "service-library.deployment" . }}
+---
+{{ include "service-library.hpa" . }}
+---
+{{ include "service-library.ingress" . }}
+---
+{{ include "service-library.service" . }}
+---
+{{ include "service-library.serviceaccount" . }}
+
+{{- end }}

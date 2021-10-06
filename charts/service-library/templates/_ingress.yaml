@@ -1,0 +1,27 @@
+{{- define "service-library.ingress" -}}
+{{- if .Values.ingress.enabled }}{{ if or (eq .Values.ingress.visibility "private") (eq .Values.ingress.visibility "public") }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace }}
+  labels: {{- include "service-library.labels" . | nindent 4 }}
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/group.name: {{ .Values.ingress.domain }}-internal
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+spec:
+  rules:
+    - host: "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}
+                port:
+                  number: 80
+{{- end }}{{ end }}
+{{- end }}

@@ -1,0 +1,10 @@
+{{- define "service-library.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.namespace }}
+  labels: {{- include "service-library.labels" . | nindent 4 }}
+data:
+  app.properties: {{ .Values.properties | toYaml | indent 2 }}
+{{- end -}}
