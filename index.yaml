@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  example-v1:
+  - apiVersion: v1
+    appVersion: "3.9"
+    created: "2021-10-12T14:18:34.831970493Z"
+    description: Deploy a basic Alpine Linux pod
+    digest: 102495a6bd3d33b4ea569abf59d778168e5cff3b4e7d6e4c7fe4518812d10bc8
+    home: https://helm.sh/helm
+    maintainers:
+    - email: email@example.com
+      name: Name
+    name: example-v1
+    sources:
+    - https://github.com/helm/helm
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/example-v1-0.1.11/example-v1-0.1.11.tgz
+    version: 0.1.11
+generated: "2021-10-12T14:18:34.831977493Z"
