@@ -1,8 +1,15 @@
 Usage
 =====
 
+Add repository:
+
 ```
-helm repo add bandstand helm repo add bandstand-charts https://ktech-org.github.io/bandstand-charts
+helm repo add bandstand https://ktech-org.github.io/bandstand-charts
 helm repo update
-helm upgrade -i alpine bandstand-charts/alpine
+```
+
+Then install chart:
+
+```
+helm upgrade -i alpine bandstand/alpine
 ```
