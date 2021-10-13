@@ -13,4 +13,16 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/alpine-0.1.0/alpine-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-13T10:24:42.03322852Z"
+  service-library:
+  - apiVersion: v2
+    created: "2021-10-13T17:09:59.34250272Z"
+    description: Library chart of boilerplate templates for a simple service
+    digest: d4469224c9cf7dd1ce0dd8bdec5e592ed3842d3aa8dd482567de84a7aea5579b
+    maintainers:
+    - name: ktech-developer-platform
+    name: service-library
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-10-13T17:09:59.34250782Z"
