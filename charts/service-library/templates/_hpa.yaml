@@ -3,7 +3,6 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Release.Name }}
-  namespace: {{ .Values.namespace }}
   labels: {{- include "service-library.labels" . | nindent 4 }}
 spec:
   minReplicas: {{ ((.Values.hpa).minReplicas) | default 1 }}

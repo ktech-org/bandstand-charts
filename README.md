@@ -1,15 +1,18 @@
-Usage
-=====
+# Usage
 
-Add repository:
+## Library Charts
 
+Add as a dependency in `Chart.yaml`:
 ```
-helm repo add bandstand https://ktech-org.github.io/bandstand-charts
-helm repo update
+dependencies:
+  - name: service-library
+    version: 0.1.0
+    repository: https://ktech-org.github.io/bandstand-charts/
 ```
 
-Then install chart:
+And update dependencies:
+```
+helm dependency update .
+```
 
-```
-helm upgrade -i alpine bandstand/alpine
-```
+This will add the dependency to the chart's `charts` subdirectory. 

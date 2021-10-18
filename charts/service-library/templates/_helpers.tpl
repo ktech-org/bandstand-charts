@@ -2,8 +2,7 @@
 application: {{ .Release.Name }}
 version: {{ .Values.image.tag }}
 environment: {{ .Values.env }}
-managed-by: {{ .Release.Service }}
-owner: {{ .Values.team }}
+owner: {{ .Values.owner }}
 {{- end }}
 
 {{- define "service-library.selectorLabels" -}}

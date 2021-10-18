@@ -3,12 +3,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}
-  namespace: {{ .Values.namespace }}
 spec:
   selector: {{- include "service-library.selectorLabels" . | nindent 4 }}
-  {{- if .Values.ingress.enabled }}{{ if or (eq .Values.ingress.visibility "private") (eq .Values.ingress.visibility "public") }}
+  {{ if or (eq .Values.ingress.visibility "private") (eq .Values.ingress.visibility "public") }}
   type: NodePort
-  {{- end }}{{ end }}
+  {{- end }}
   ports:
     - port: 80
       targetPort: 8080
