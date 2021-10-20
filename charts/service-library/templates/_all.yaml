@@ -11,5 +11,7 @@
 {{ include "service-library.service" . }}
 ---
 {{ include "service-library.serviceaccount" . }}
+---
+{{ include "service-library.tests.pod" . }}
 
 {{- end }}

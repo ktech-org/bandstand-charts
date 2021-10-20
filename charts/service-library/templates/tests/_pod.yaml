@@ -1,0 +1,25 @@
+{{- define "service-library.tests.pod" -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Release.Name }}-acceptance-tests
+  labels: {{- include "service-library.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: {{ .Release.Name }}-acceptance-tests
+      image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}-acceptance-tests:{{ .Values.image.tag }}
+      imagePullPolicy: Always
+      resources:
+        requests:
+          cpu: 250m
+          memory: 250Mi
+        limits:
+          cpu: 500m
+          memory: 750Mi
+      env:
+        - name: ENV
+          value: {{ .Values.env }}
+  restartPolicy: Never
+{{- end }}
