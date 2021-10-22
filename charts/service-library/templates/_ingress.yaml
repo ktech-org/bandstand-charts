@@ -1,5 +1,5 @@
 {{- define "service-library.ingress" -}}
-{{ if .Values.ingress.enabled }}
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,9 +7,14 @@ metadata:
   labels: {{- include "service-library.labels" . | nindent 4 }}
   annotations:
     kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    {{- if eq .Values.ingress.visibility "public" }}
+    alb.ingress.kubernetes.io/group.name: {{ .Values.ingress.domain }}
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    {{- else }}
     alb.ingress.kubernetes.io/group.name: {{ .Values.ingress.domain }}-internal
     alb.ingress.kubernetes.io/scheme: internal
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    {{- end }}
 spec:
   rules:
     - host: "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"

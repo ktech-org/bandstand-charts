@@ -5,10 +5,10 @@ metadata:
   name: {{ .Release.Name }}
 spec:
   selector: {{- include "service-library.selectorLabels" . | nindent 4 }}
-  {{ if or (eq .Values.ingress.visibility "private") (eq .Values.ingress.visibility "public") }}
+  {{ if .Values.ingress.enabled }}
   type: NodePort
   {{- end }}
   ports:
     - port: 80
       targetPort: 8080
-{{- end -}}
+{{- end }}
