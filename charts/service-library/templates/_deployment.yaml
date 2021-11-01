@@ -22,6 +22,9 @@ spec:
             - name: http
               containerPort: 8080
           volumeMounts:
+            - name: tmp-dir
+              mountPath: /tmp
+              readOnly: false
             - name: config
               mountPath: "/etc/{{ .Release.Name }}/config"
               readOnly: true
@@ -47,6 +50,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - all
       volumes:
         - name: config
           configMap:
@@ -54,4 +64,8 @@ spec:
             items:
               - key: "app.properties"
                 path: "app.properties"
+        - name: tmp-dir
+          emptyDir: {}
+      securityContext:
+        runAsUser: 1000
 {{- end -}}
