@@ -6,7 +6,7 @@ Add as a dependency in `Chart.yaml`:
 ```
 dependencies:
   - name: service-library
-    version: 0.1.0
+    version: 0.3.0
     repository: https://ktech-org.github.io/bandstand-charts/
 ```
 
