@@ -1,0 +1,36 @@
+repository:
+  description: Library of common helm charts for use with bandstand
+  topics: helm, kubernetes, bandstand
+  has_issues: false
+  has_wiki: false
+  has_downloads: false
+  default_branch: main
+  delete_branch_on_merge: true
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  enable_vulnerability_alerts: true
+  enable_automated_security_fixes: true
+
+teams:
+  - name: ktech-developer-platform
+    permission: admin
+
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        dismissal_restrictions:
+          users: []
+          teams: []
+      required_status_checks:
+        strict: true
+        contexts: []
+      enforce_admins: true
+      restrictions:
+        apps: []
+        users: []
+        teams: []
