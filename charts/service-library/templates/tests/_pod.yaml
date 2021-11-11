@@ -22,5 +22,14 @@ spec:
       env:
         - name: ENV
           value: {{ .Values.env }}
+      securityContext:
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - all
+  securityContext:
+    runAsUser: 1000
   restartPolicy: Never
 {{- end }}
