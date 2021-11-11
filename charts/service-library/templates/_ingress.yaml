@@ -6,16 +6,15 @@ metadata:
   name: {{ .Release.Name }}
   labels: {{- include "service-library.labels" . | nindent 4 }}
   annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
-    {{- if eq .Values.ingress.visibility "public" }}
-    alb.ingress.kubernetes.io/group.name: {{ .Values.ingress.domain }}
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    {{- else }}
-    alb.ingress.kubernetes.io/group.name: {{ .Values.ingress.domain }}-internal
-    alb.ingress.kubernetes.io/scheme: internal
-    {{- end }}
+    # this annotation is purely here to let external-dns-private-nginx find this ingress and create a record
+    # we may want to use a bespoke annotation or remove annotation filtering completely and just have a single
+    # external dns controller
+    service.beta.kubernetes.io/aws-load-balancer-type: external
 spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
   rules:
     - host: "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
       http:

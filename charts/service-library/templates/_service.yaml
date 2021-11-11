@@ -5,9 +5,6 @@ metadata:
   name: {{ .Release.Name }}
 spec:
   selector: {{- include "service-library.selectorLabels" . | nindent 4 }}
-  {{ if .Values.ingress.enabled }}
-  type: NodePort
-  {{- end }}
   ports:
     - port: 80
       targetPort: 8080
