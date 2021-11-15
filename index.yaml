@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   service-library:
   - apiVersion: v2
+    created: "2021-11-15T15:43:47.186444751Z"
+    description: Library chart of templates for an http service
+    digest: 0b020e8b6aaf104b92b6b422affc2af620c418153facf4afaf76fb0477d25d04
+    maintainers:
+    - name: ktech-developer-platform
+    name: service-library
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.3.6/service-library-0.3.6.tgz
+    version: 0.3.6
+  - apiVersion: v2
     created: "2021-11-15T12:41:21.835493113Z"
     description: Library chart of templates for an http service
     digest: 406b0897be9c902128c2ae4fa40c9c43834fa9b0dabd14dd93eec0d4fce314df
@@ -78,4 +89,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-15T12:41:21.835520715Z"
+generated: "2021-11-15T15:43:47.186574652Z"
