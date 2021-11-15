@@ -22,9 +22,11 @@ spec:
       env:
         - name: ENV
           value: {{ .Values.env }}
+        - name: GRADLE_USER_HOME
+          value: /tmp/gradle-home
       volumeMounts:
         - name: gradle-home
-          mountPath: /home/gradle
+          mountPath: /tmp/gradle-home
           readOnly: false
       securityContext:
         runAsNonRoot: true
