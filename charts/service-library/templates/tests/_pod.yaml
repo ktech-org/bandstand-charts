@@ -22,11 +22,9 @@ spec:
       env:
         - name: ENV
           value: {{ .Values.env }}
-        - name: GRADLE_USER_HOME
-          value: /tmp/gradle-home
       volumeMounts:
-        - name: gradle-home
-          mountPath: /tmp/gradle-home
+        - name: workspace
+          mountPath: /tmp/workspace
           readOnly: false
       securityContext:
         runAsNonRoot: true
@@ -36,7 +34,7 @@ spec:
           drop:
             - all
   volumes:
-    - name: gradle-home
+    - name: workspace
       emptyDir: { }
   securityContext:
     runAsUser: 1000
