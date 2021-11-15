@@ -23,7 +23,7 @@ spec:
         - name: ENV
           value: {{ .Values.env }}
       volumeMounts:
-        - name: gradleHome
+        - name: gradle-home
           mountPath: /home/gradle
           readOnly: false
       securityContext:
@@ -34,7 +34,7 @@ spec:
           drop:
             - all
   volumes:
-    - name: gradleHome
+    - name: gradle-home
       emptyDir: { }
   securityContext:
     runAsUser: 1000
