@@ -6,9 +6,9 @@ metadata:
   name: {{ .Release.Name }}
   labels: {{- include "service-library.labels" . | nindent 4 }}
   annotations:
-    bandstand.ktech.com/service-visibility: private
+    bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
 spec:
-  ingressClassName: nginx-private
+  ingressClassName: nginx-{{ .Values.ingress.visibility }}
   tls:
     - hosts:
       - "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
