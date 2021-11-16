@@ -6,12 +6,9 @@ metadata:
   name: {{ .Release.Name }}
   labels: {{- include "service-library.labels" . | nindent 4 }}
   annotations:
-    # this annotation is purely here to let external-dns-private-nginx find this ingress and create a record
-    # we may want to use a bespoke annotation or remove annotation filtering completely and just have a single
-    # external dns controller
-    service.beta.kubernetes.io/aws-load-balancer-type: external
+    bandstand.ktech.com/service-visibility: private
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx-private
   tls:
     - hosts:
       - "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
