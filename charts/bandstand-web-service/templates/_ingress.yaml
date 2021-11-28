@@ -7,6 +7,7 @@ metadata:
   labels: {{- include "service-library.labels" . | nindent 4 }}
   annotations:
     bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
+    nginx.ingress.kubernetes.io/service-upstream: "true"
 spec:
   ingressClassName: nginx-{{ .Values.ingress.visibility }}
   tls:
