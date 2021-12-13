@@ -1,9 +1,10 @@
 {{- define "bandstand-web-service.certificates" -}}
+{{- $relname := .Release.Name -}}
 {{- range $.Values.additionalDomains -}}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ $relname }}
 spec:
   commonName: {{ . }}
   dnsNames:
