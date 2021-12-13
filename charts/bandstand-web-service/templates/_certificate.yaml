@@ -1,0 +1,25 @@
+{{- define "bandstand-web-service.certificates" -}}
+{{- range $.Values.additionalDomains -}}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  commonName: {{ . }}
+  dnsNames:
+    - "*.{{ . }}"
+  duration: 24h
+  issuerRef:
+    group: awspca.cert-manager.io
+    kind: AWSPCAClusterIssuer
+    name: cluster-issuer
+  renewBefore: 2h
+  secretName: additional-domain-cert
+  usages:
+    - server auth
+    - client auth
+  privateKey:
+    algorithm: "RSA"
+    size: 2048
+{{- end -}}
+{{- end -}}

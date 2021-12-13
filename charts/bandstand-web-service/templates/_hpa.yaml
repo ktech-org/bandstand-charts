@@ -1,9 +1,9 @@
-{{- define "service-library.hpa" -}}
+{{- define "bandstand-web-service.hpa" -}}
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ .Release.Name }}
-  labels: {{- include "service-library.labels" . | nindent 4 }}
+  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 spec:
   minReplicas: {{ ((.Values.hpa).minReplicas) | default 1 }}
   maxReplicas: {{ ((.Values.hpa).maxReplicas) | default 3 }}
