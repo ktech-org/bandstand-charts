@@ -1,5 +1,7 @@
 {{- define "bandstand-web-service.all" }}
 
+{{ include "bandstand-web-service.certificates" . }}
+---
 {{ include "bandstand-web-service.configmap" . }}
 ---
 {{ include "bandstand-web-service.deployment" . }}
