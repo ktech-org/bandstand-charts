@@ -1,17 +1,17 @@
-{{- define "service-library.deployment" -}}
+{{- define "bandstand-web-service.deployment" -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  labels: {{- include "service-library.labels" . | nindent 4 }}
+  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 spec:
   selector:
-    matchLabels: {{- include "service-library.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "bandstand-web-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
-      labels: {{- include "service-library.labels" . | nindent 8 }}
+      labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ .Release.Name }}
       containers:

@@ -1,10 +1,10 @@
-{{- define "service-library.service" -}}
+{{- define "bandstand-web-service.service" -}}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}
 spec:
-  selector: {{- include "service-library.selectorLabels" . | nindent 4 }}
+  selector: {{- include "bandstand-web-service.selectorLabels" . | nindent 4 }}
   ports:
     - port: 80
       targetPort: 8080

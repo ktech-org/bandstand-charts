@@ -1,17 +1,19 @@
-{{- define "service-library.all" }}
+{{- define "bandstand-web-service.all" }}
 
-{{ include "service-library.configmap" . }}
+{{ include "bandstand-web-service.certificates" . }}
 ---
-{{ include "service-library.deployment" . }}
+{{ include "bandstand-web-service.configmap" . }}
 ---
-{{ include "service-library.hpa" . }}
+{{ include "bandstand-web-service.deployment" . }}
 ---
-{{ include "service-library.ingress" . }}
+{{ include "bandstand-web-service.hpa" . }}
 ---
-{{ include "service-library.service" . }}
+{{ include "bandstand-web-service.ingress" . }}
 ---
-{{ include "service-library.serviceaccount" . }}
+{{ include "bandstand-web-service.service" . }}
 ---
-{{ include "service-library.tests.pod" . }}
+{{ include "bandstand-web-service.serviceaccount" . }}
+---
+{{ include "bandstand-web-service.tests.pod" . }}
 
 {{- end }}

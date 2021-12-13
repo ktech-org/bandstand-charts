@@ -1,9 +1,9 @@
-{{- define "service-library.tests.pod" -}}
+{{- define "bandstand-web-service.tests.pod" -}}
 apiVersion: v1
 kind: Pod
 metadata:
   name: {{ .Release.Name }}-acceptance-tests
-  labels: {{- include "service-library.labels" . | nindent 4 }}
+  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded

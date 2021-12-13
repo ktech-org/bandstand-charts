@@ -1,9 +1,9 @@
-{{- define "service-library.configmap" -}}
+{{- define "bandstand-web-service.configmap" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}
-  labels: {{- include "service-library.labels" . | nindent 4 }}
+  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 data:
   app.properties: {{ .Values.properties | toYaml | indent 2 }}
 {{- end -}}
