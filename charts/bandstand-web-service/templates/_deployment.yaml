@@ -49,7 +49,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 5
-          env:
+          env: {{- toYaml .Values.additionalEnvVars | nindent 12 }}
             - name: ENV
               value: {{ .Values.env }}
             - name: VERSION
@@ -58,7 +58,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            {{- toYaml .Values.additionalEnvVars | nindent 10 }}
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
