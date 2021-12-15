@@ -54,6 +54,12 @@ spec:
               value: {{ .Values.env }}
             - name: VERSION
               value: {{ .Values.image.tag }}
+            - name: DD_ENV
+              value: {{ .Values.env }}
+            - name: DD_SERVICE
+              value: {{ .Release.Name }}
+            - name: DD_VERSION
+              value: {{ .Values.image.tag }}
             - name: DD_AGENT_HOST
               valueFrom:
                 fieldRef:
