@@ -64,6 +64,9 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+            {{- if .Values.additionalEnvVars }}
+              {{- toYaml .Values.additionalEnvVars | nindent 12 }}
+            {{- end }}
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
