@@ -17,7 +17,7 @@ Check the available versions [here](https://ktech-org.github.io/bandstand-charts
 Add as a dependency in your `Chart.yaml`:
 ```
 dependencies:
-  - name: service-library
+  - name: bandstand-web-service
     version: {version}
     repository: https://ktech-org.github.io/bandstand-charts/
 ```
