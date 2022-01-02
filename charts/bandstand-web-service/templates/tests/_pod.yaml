@@ -3,7 +3,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: {{ .Release.Name }}-acceptance-tests
-  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
+  labels:
+    application-under-test: {{ .Release.Name }}
+    version: {{ .Values.image.tag }}
+    environment: {{ .Values.env }}
+    owner: {{ .Values.owner }}
   annotations:
     "helm.sh/hook": test
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
