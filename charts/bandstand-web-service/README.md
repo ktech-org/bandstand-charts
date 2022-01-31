@@ -1,0 +1,25 @@
+# Bandstand web service
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| additionalDomains | list | `[]` | A list of additional domains for the service |
+| additionalEnvVars | object | `{}` | A list? of additional environment variables |
+| aws.account | string |  | The account number of the deployment either the test, preprod or prod account |
+| containerPort | int |  `8080` | The port |
+| env | string | | ENV, DD_ENV |
+| hpa.averageCpuUtilization | | | Horizontal pod autoscaler, the threshold average CPU ultilization to trigger, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) |
+| hpa.maxReplicas | int | `3` | Horizontal pod autoscaler, minimum number of pods, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) |
+| hpa.minReplicas | int | `1` | Horizontal pod autoscaler, minimum number of pods, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)|
+| image.tag | string | | | The tag on the container image to be used in the serivce |
+| ingress.domain | string | | Primary ingress domain for service, normally ktech.com |
+| ingress.enabled | `bool` | | Whether service has an ingress|
+| ingress.visibility | | | Whether service is externally visible |
+| livenessProbe).path | string | `/` | Path to the endpoint used to determine whether a container is active |
+| owner | string | | Label |
+| properties | | | |
+| readinessProbe.path | string | `/` | Path to the endpoint used to determine whether a container is ready |
+| resources.requests.cpu | string |  `250m` | [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for container CPU resources measured in cpu units, one core is 1000m, see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) |
+| resources.limits.memory  | string | `512Mi` | Container memory [limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits), see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) |
+| resources.requests.memory |  string | `"256Mi` | Container memory [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) |
