@@ -14,10 +14,10 @@
 | hpa.minReplicas | int | `1` | Horizontal pod autoscaler, minimum number of pods, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)|
 | image.tag | string | | | The tag for container image to be used in the serivce |
 | ingress.domain | string | | Primary ingress domain for service, normally ktech.com |
-| ingress.enabled | `bool` | | True if the service has an ingress|
-| ingress.visibility | | | Whether service is externally visible |
+| ingress.enabled | bool | | True if the service has an ingress|
+| ingress.visibility | string| | Whether service is externally visible, either cluster, private or public |
 | livenessProbe.path | string | `/` | Path to the endpoint used to determine whether a container is active |
-| owner | string | | The team that owns the service |
+| owner | string | | The GitHub team that owns the service |
 | properties | object | `{}` | An object containing properties for the service |
 | readinessProbe.path | string | `/` | Path to the endpoint used to determine whether a container is ready |
 | resources.requests.cpu | string |  `250m` | [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for container CPU resources measured in cpu units, one core is 1000m, see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) |
