@@ -85,5 +85,4 @@ spec:
           emptyDir: {}
       securityContext:
         runAsUser: 1000
-        fsGroup: 1000
 {{- end -}}
