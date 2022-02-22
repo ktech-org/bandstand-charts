@@ -4,6 +4,7 @@ kind: Pod
 metadata:
   name: {{ .Release.Name }}-acceptance-tests
   labels:
+    application: {{ .Release.Name }}-acceptance-tests
     application-under-test: {{ .Release.Name }}
     version: {{ .Values.image.tag }}
     environment: {{ .Values.env }}
