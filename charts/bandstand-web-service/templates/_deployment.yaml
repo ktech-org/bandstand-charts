@@ -18,12 +18,13 @@ spec:
         - name: {{ .Release.Name }}
           image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          {{- if .Values.serverContainer.command }}
-          command: {{ .Values.serviceContainer.command }}
+          {{- $serverContainer := .Values.serverContainer | default dict }}
+          {{- if $serverContainer.command }}
+          command: {{ $serverContainer.command }}
           {{- end }}
-          {{- if .Values.serviceContainer.arguments }}
+          {{- if $serverContainer.arguments }}
           args:
-          {{- range .Values.serviceContainer.arguments }}
+          {{- range $serverContainer.arguments }}
           - {{ . }}
           {{- end }}
           {{- end }}
