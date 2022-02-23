@@ -35,5 +35,5 @@ jobs:
           git checkout gh-pages
           git checkout main README.md
           git add README.md
-          git commit -m "Update README."
+          git diff --cached --exit-code || git commit -m "Update README."
           git push origin gh-pages
