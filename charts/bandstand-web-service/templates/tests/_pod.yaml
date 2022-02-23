@@ -22,7 +22,7 @@ spec:
       imagePullPolicy: Always
       {{- if .Values.testContainer.command }}
       command: {{ .Values.testContainer.command }}
-      {{ - end }}
+      {{- end }}
       {{- if .Values.testContainer.arguments }}
       args:
       {{- range .Values.testContainer.arguments }}
