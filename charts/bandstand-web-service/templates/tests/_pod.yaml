@@ -20,6 +20,15 @@ spec:
     - name: {{ .Release.Name }}-acceptance-tests
       image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}-acceptance-tests:{{ .Values.image.tag }}
       imagePullPolicy: Always
+      {{- if .Values.testContainer.command }}
+      command: {{ .Values.testContainer.command }}
+      {{ - end }}
+      {{- if .Values.testContainer.arguments }}
+      args:
+      {{- range .Values.testContainer.arguments }}
+      - {{ . }}
+      {{- end }}
+      {{- end }}
       resources:
         requests:
           cpu: 250m

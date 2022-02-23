@@ -18,6 +18,15 @@ spec:
         - name: {{ .Release.Name }}
           image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}:{{ .Values.image.tag }}
           imagePullPolicy: Always
+          {{- if .Values.serverContainer.command }}
+          command: {{ .Values.serviceContainer.command }}
+          {{- end }}
+          {{- if .Values.serviceContainer.arguments }}
+          args:
+          {{- range .Values.serviceContainer.arguments }}
+          - {{ . }}
+          {{- end }}
+          {{- end }}
           ports:
             - name: http
               containerPort:  {{ .Values.containerPort | default 8080 }}
