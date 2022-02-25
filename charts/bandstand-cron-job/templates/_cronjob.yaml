@@ -33,9 +33,11 @@ spec:
               - name: tmp-dir
                 mountPath: /tmp
                 readOnly: false
+              {{- if .Values.properties }}
               - name: config
                 mountPath: "/etc/{{ .Release.Name }}/config"
                 readOnly: true
+              {{- end }}
             resources:
               requests:
                 cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
