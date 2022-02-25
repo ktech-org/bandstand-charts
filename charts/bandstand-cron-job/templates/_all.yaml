@@ -1,0 +1,9 @@
+{{- define "bandstand-cron-job.all" }}
+
+{{ include "bandstand-cron-job.configmap" . }}
+---
+{{ include "bandstand-cron-job.cronjob" . }}
+---
+{{ include "bandstand-cron-job.serviceaccount" . }}
+
+{{- end }}
