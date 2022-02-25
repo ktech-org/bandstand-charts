@@ -48,6 +48,6 @@ spec:
               {{- toYaml .Values.additionalEnvVars | nindent 12 }}
               {{- end }}
             securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 14 }}
-          volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 10 }}
-          securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 10 }}
+          volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
+          securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
 {{- end -}}
