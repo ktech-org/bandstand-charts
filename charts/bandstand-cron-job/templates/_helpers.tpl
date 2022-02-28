@@ -20,6 +20,8 @@ fsGroup: 1000
 {{- end -}}
 
 {{- define "bandstand-cron-job.common-volumes" -}}
+- name: tmp-dir
+  emptyDir: {}
 {{- if .Values.properties }}
 - name: config
   configMap:
@@ -28,8 +30,6 @@ fsGroup: 1000
       - key: "app.properties"
         path: "app.properties"
 {{- end -}}
-- name: tmp-dir
-  emptyDir: {}
 {{- end -}}
 
 {{- define "bandstand-cron-job.common-envvars" -}}
