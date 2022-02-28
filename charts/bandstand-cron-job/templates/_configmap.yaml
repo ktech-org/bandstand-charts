@@ -6,6 +6,6 @@ metadata:
   name: {{ .Release.Name }}
   labels: {{- include "bandstand-cron-job.labels" . | nindent 4 }}
 data:
-  app.properties: {{ .Values.properties | toYaml | indent 2 }}
+  app.properties: {{- .Values.properties | toYaml | indent 2 }}
 {{- end }}
 {{- end -}}
