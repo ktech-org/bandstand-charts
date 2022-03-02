@@ -1,0 +1,7 @@
+apiVersion: v2
+name: bandstand-test-runner
+version: 0.1.0
+description: Library for running standalone test containers
+type: library
+maintainers:
+  - name: ktech-developer-platform

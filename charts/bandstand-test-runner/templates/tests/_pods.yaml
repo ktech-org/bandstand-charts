@@ -1,0 +1,85 @@
+{{- define "bandstand-test-runner.test-pods" -}}
+{{- range .Values.testRuns }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ $.Release.Name }}-test-run-{{ .name }}
+  labels:
+    application: {{ $.Release.Name }}
+    version: {{ $.Values.image.tag }}
+    environment: {{ $.Values.env }}
+    owner: {{ $.Values.owner }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "polaris.fairwinds.com/readinessProbeMissing-exempt": "true"
+    "polaris.fairwinds.com/livenessProbeMissing-exempt": "true"
+    "linkerd.io/inject": disabled
+    "botkube.io/disable": "true"
+spec:
+  serviceAccountName: {{ $.Release.Name }}
+  containers:
+    - name: {{ $.Release.Name }}
+      image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ $.Release.Name }}:{{ $.Values.image.tag }}
+      imagePullPolicy: Always
+      {{- $testRun := . | default dict }}
+      {{- if $testRun.command }}
+      command:
+      {{- range $testRun.command }}
+      - {{ . }}
+      {{- end }}
+      {{- end }}
+      {{- if $testRun.arguments }}
+      args:
+      {{- range $testRun.arguments }}
+      - {{ . }}
+      {{- end }}
+      {{- end }}
+      resources:
+        requests:
+          cpu: {{ dig "resources" "requests" "cpu" "250m" ($.Values | merge (dict)) }}
+          memory: {{ dig "resources" "requests" "memory" "256Mi" ($.Values | merge (dict)) }}
+        limits:
+          cpu: {{ dig "resources" "limits" "cpu" "500m" ($.Values | merge (dict)) }}
+          memory: {{ dig "resources" "limits" "memory" "512Mi" ($.Values | merge (dict)) }}
+      env:
+        - name: ENV
+          value: {{ $.Values.env }}
+        - name: VERSION
+          value: {{ $.Values.image.tag }}
+        - name: DD_ENV
+          value: {{ $.Values.env }}
+        - name: DD_SERVICE
+          value: {{ $.Release.Name }}
+        - name: DD_VERSION
+          value: {{ $.Values.image.tag }}
+        - name: DD_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        {{- if $.Values.commonEnv }}
+        {{- toYaml $.Values.commonEnv | nindent 8 }}
+        {{- end }}
+        {{- if $testRun.env }}
+        {{- toYaml $testRun.env | nindent 8 }}
+        {{- end }}
+      volumeMounts:
+        - name: workspace
+          mountPath: /tmp/workspace
+          readOnly: false
+      securityContext:
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - all
+  volumes:
+    - name: workspace
+      emptyDir: { }
+  securityContext:
+    runAsUser: 1000
+  restartPolicy: Never
+---
+{{- end }}
+{{- end -}}
