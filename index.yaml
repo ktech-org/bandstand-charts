@@ -89,6 +89,18 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-cron-job-1.0.0/bandstand-cron-job-1.0.0.tgz
     version: 1.0.0
+  bandstand-test-runner:
+  - apiVersion: v2
+    created: "2022-03-02T15:57:10.419822474Z"
+    description: Library for running standalone test containers
+    digest: 269f431a1c80781a06ecbea44c7b22c76787b91c31e19b067f59e970be8f8d99
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-test-runner
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-0.1.0/bandstand-test-runner-0.1.0.tgz
+    version: 0.1.0
   bandstand-web-service:
   - apiVersion: v2
     created: "2022-02-23T14:36:31.933485551Z"
@@ -410,4 +422,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-28T15:59:35.328115666Z"
+generated: "2022-03-02T15:57:10.420130874Z"
