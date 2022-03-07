@@ -8,6 +8,9 @@ metadata:
   annotations:
     bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
     nginx.ingress.kubernetes.io/service-upstream: "true"
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   ingressClassName: nginx-{{ .Values.ingress.visibility }}
   tls:
