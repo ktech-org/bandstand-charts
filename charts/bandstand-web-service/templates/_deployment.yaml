@@ -74,6 +74,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: {{ .Release.Name }}
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://collector.linkerd-jaeger:4317
+            - name: OTEL_PROPAGATORS
+              value: b3multi
             {{- if .Values.additionalEnvVars }}
               {{- toYaml .Values.additionalEnvVars | nindent 12 }}
             {{- end }}
