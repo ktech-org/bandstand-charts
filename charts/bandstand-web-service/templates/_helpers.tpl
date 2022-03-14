@@ -1,8 +1,8 @@
 {{- define "bandstand-web-service.labels" -}}
 system-code: {{ default .Release.Name .Values.systemCode }}
-{{- if .Values.systemGroup -}}
+{{- if .Values.systemGroup }}
 system-group: {{  .Values.systemGroup }}
-{{- end -}}
+{{- end }}
 git-repo: {{ default .Release.Name .Values.gitRepo }}
 provisioner: "Helm"
 application: {{ .Release.Name }}
