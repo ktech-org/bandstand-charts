@@ -45,11 +45,11 @@ spec:
                 limits:
                   cpu: {{ (.Values.resources).limits.cpu | default "500m" }}
                   memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
-              env: {{- include "bandstand-cron-job.common-envvars" . | nindent 14 }}
+              env: {{- include "bandstand-cron-job.common-envvars" . | nindent 16 }}
                 {{- if .Values.additionalEnvVars }}
                 {{- toYaml .Values.additionalEnvVars | nindent 14 }}
                 {{- end }}
-              securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 14 }}
+              securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
           volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
 {{- end -}}
