@@ -16,40 +16,40 @@ spec:
           serviceAccountName: {{ .Release.Name }}
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
           containers:
-          - name: {{ .Release.Name }}
-            image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}:{{ .Values.image.tag }}
-            imagePullPolicy: Always
-            {{- $jobContainer := .Values.jobContainer | default dict }}
-            {{- if $jobContainer.command }}
-            command: {{ $jobContainer.command }}
-            {{- end }}
-            {{- if $jobContainer.arguments }}
-            args:
-            {{- range $jobContainer.arguments }}
-            - {{ . }}
-            {{- end }}
-            {{- end }}
-            volumeMounts:
-              - name: tmp-dir
-                mountPath: /tmp
-                readOnly: false
-              {{- if .Values.properties }}
-              - name: config
-                mountPath: "/etc/{{ .Release.Name }}/config"
-                readOnly: true
+            - name: {{ .Release.Name }}
+              image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}:{{ .Values.image.tag }}
+              imagePullPolicy: Always
+              {{- $jobContainer := .Values.jobContainer | default dict }}
+              {{- if $jobContainer.command }}
+              command: {{ $jobContainer.command }}
               {{- end }}
-            resources:
-              requests:
-                cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
-                memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
-              limits:
-                cpu: {{ (.Values.resources).limits.cpu | default "500m" }}
-                memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
-            env: {{- include "bandstand-cron-job.common-envvars" . | nindent 14 }}
-              {{- if .Values.additionalEnvVars }}
-              {{- toYaml .Values.additionalEnvVars | nindent 14 }}
+              {{- if $jobContainer.arguments }}
+              args:
+              {{- range $jobContainer.arguments }}
+              - {{ . }}
               {{- end }}
-            securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 14 }}
+              {{- end }}
+              volumeMounts:
+                - name: tmp-dir
+                  mountPath: /tmp
+                  readOnly: false
+                {{- if .Values.properties }}
+                - name: config
+                  mountPath: "/etc/{{ .Release.Name }}/config"
+                  readOnly: true
+                {{- end }}
+              resources:
+                requests:
+                  cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
+                  memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
+                limits:
+                  cpu: {{ (.Values.resources).limits.cpu | default "500m" }}
+                  memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
+              env: {{- include "bandstand-cron-job.common-envvars" . | nindent 16 }}
+                {{- if .Values.additionalEnvVars }}
+                {{- toYaml .Values.additionalEnvVars | nindent 16 }}
+                {{- end }}
+              securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
           volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
 {{- end -}}
