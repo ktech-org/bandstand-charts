@@ -47,7 +47,7 @@ spec:
                 memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
             env: {{- include "bandstand-cron-job.common-envvars" . | nindent 14 }}
               {{- if .Values.additionalEnvVars }}
-              {{- toYaml .Values.additionalEnvVars | nindent 12 }}
+              {{- toYaml .Values.additionalEnvVars | nindent 14 }}
               {{- end }}
             securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 14 }}
           volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
