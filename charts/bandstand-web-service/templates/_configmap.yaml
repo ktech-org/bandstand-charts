@@ -4,6 +4,14 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
+{{- if or .Values.properties .Values.envproperties }}
 data:
-  app.properties: {{ .Values.properties | toYaml | indent 2 }}
+  app.properties: |
+    {{- if .Values.properties }}
+      {{-  .Values.properties | toYaml | replace "|"  "" | indent 2  }}
+    {{- end }}
+    {{- if .Values.envproperties }}
+      {{-  .Values.envproperties | toYaml | replace "|"  "" | indent 2 }}
+    {{- end }}
+{{- end }}
 {{- end -}}
