@@ -1,6 +1,6 @@
 apiVersion: v2
 name: bandstand-web-service
-version: 1.3.2
+version: 1.4.0
 description: Library chart of templates for an http service
 type: library
 maintainers:
