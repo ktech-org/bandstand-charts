@@ -15,7 +15,7 @@ spec:
         spec:
           serviceAccountName: {{ .Release.Name }}
           backoffLimit: {{ .Values.backoffLimit | default 6 }}
-          concurrencyPolicy: {{ .Values.concurrencyPolicy | default Allow }}
+          concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
           containers:
             - name: {{ .Release.Name }}
