@@ -14,7 +14,9 @@ spec:
             "linkerd.io/inject": disabled
         spec:
           serviceAccountName: {{ .Release.Name }}
-          backoffLimit: {{ .Values.backoffLimit | default 6 }}
+          {{- if hasKey .Values "backoffLimit" }}
+          backoffLimit: {{ .Values.backoffLimit }}
+          {{- end }}
           concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
           containers:
