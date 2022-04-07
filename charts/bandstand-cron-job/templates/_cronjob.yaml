@@ -15,7 +15,7 @@ spec:
         spec:
           serviceAccountName: {{ .Release.Name }}
           {{- if hasKey .Values "backoffLimit" }}
-          backoffLimit: {{ .Values.backoffLimit | indent 10 }}
+          backoffLimit: {{ .Values.backoffLimit }}
           {{- end }}
           concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
