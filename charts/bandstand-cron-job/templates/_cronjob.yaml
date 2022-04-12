@@ -6,7 +6,11 @@ metadata:
   labels: {{- include "bandstand-cron-job.labels" . | nindent 4 }}
 spec:
   schedule: '{{ .Values.schedule }}'
+  concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
   jobTemplate:
+    {{- if hasKey .Values "backoffLimit" }}
+    backoffLimit: {{ .Values.backoffLimit }}
+    {{- end }}
     spec:
       template:
         metadata:
@@ -14,10 +18,6 @@ spec:
             "linkerd.io/inject": disabled
         spec:
           serviceAccountName: {{ .Release.Name }}
-          {{- if hasKey .Values "backoffLimit" }}
-          backoffLimit: {{ .Values.backoffLimit }}
-          {{- end }}
-          concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
           containers:
             - name: {{ .Release.Name }}
