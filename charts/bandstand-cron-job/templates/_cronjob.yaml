@@ -12,6 +12,9 @@ spec:
     backoffLimit: {{ .Values.backoffLimit }}
     {{- end }}
     spec:
+      {{- if hasKey .Values "backoffLimit" }}
+      backoffLimit: {{ .Values.backoffLimit }}
+      {{- end }}
       template:
         metadata:
           annotations:
