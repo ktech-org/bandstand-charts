@@ -8,9 +8,6 @@ spec:
   schedule: '{{ .Values.schedule }}'
   concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
   jobTemplate:
-    {{- if hasKey .Values "backoffLimit" }}
-    backoffLimit: {{ .Values.backoffLimit }}
-    {{- end }}
     spec:
       {{- if hasKey .Values "backoffLimit" }}
       backoffLimit: {{ .Values.backoffLimit }}
