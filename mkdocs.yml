@@ -1,0 +1,10 @@
+site_name: bandstand-charts
+repo_url: https://github.com/ktech-org/bandstand-charts
+
+site_description: "Docs for bandstand-charts"
+
+nav:
+  - Home: index.md
+
+plugins:
+  - techdocs-core
