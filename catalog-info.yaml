@@ -5,7 +5,7 @@ metadata:
     description: Library of common helm charts for use with bandstand
     annotations:
         github.com/project-slug: ktech-org/bandstand-charts
-        backstage.io/techdocs-ref: url:https://github.com/ktech-org/bandstand-charts/tree/main
+        backstage.io/techdocs-ref: dir:.
 spec:
     lifecycle: invest
     owner: ktech-developer-platform
