@@ -5,7 +5,7 @@ orbs:
 main_branch_only: &main_branch_only
   branches:
     only:
-      - /^master$/
+      - /^main$/
 
 workflows:
   version: 2
