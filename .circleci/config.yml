@@ -1,0 +1,26 @@
+version: 2.1
+orbs:
+  ktech-tech-docs: ktech/circleci-orb-tech-docs@2
+
+# Pipeline parameters
+parameters:
+  system-code:
+    type: string
+    default: handbook
+
+master_branch_only: &master_branch_only
+  branches:
+    only:
+      - /^master$/
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - ktech-tech-docs/publish-docs-test:
+          context: aws
+          docs_system_code: << pipeline.parameters.system-code >>
+      - ktech-tech-docs/publish-docs-master:
+          context: aws
+          docs_system_code: << pipeline.parameters.system-code >>
+          filters: *master_branch_only
