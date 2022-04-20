@@ -6,6 +6,7 @@ metadata:
   labels: {{- include "bandstand-cron-job.labels" . | nindent 4 }}
 spec:
   schedule: '{{ .Values.schedule }}'
+  suspend: {{ .Values.suspend | default false }}
   concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
   jobTemplate:
     spec:
