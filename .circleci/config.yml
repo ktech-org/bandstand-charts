@@ -1,0 +1,26 @@
+version: 2.1
+orbs:
+  tech-docs: ktech/tech-docs@1
+
+main_branch_only: &main_branch_only
+  branches:
+    only:
+      - /^main$/
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - tech-docs/publish-docs:
+          name: publish-docs-backstage-test
+          env: test
+          context:
+            - aws-base
+            - bandstand-test
+      - tech-docs/publish-docs:
+          name: publish-docs-backstage-test
+          env: test
+          filters: *main_branch_only
+          context:
+            - aws-base
+            - bandstand-prod
