@@ -15,7 +15,8 @@ Check the available versions [here](https://ktech-org.github.io/bandstand-charts
 ## Using Library Charts
 
 Add as a dependency in your `Chart.yaml`:
-```
+
+```hcl
 dependencies:
   - name: bandstand-web-service
     version: {version}
@@ -23,8 +24,17 @@ dependencies:
 ```
 
 And update dependencies:
-```
+
+```hcl
 helm dependency update .
 ```
 
-This will add the dependency to the chart's `charts` subdirectory. 
+This will add the dependency to the chart's `charts` subdirectory.
+
+## Chart Readmes
+
+[Bandstand cron-job](./charts/bandstand-cron-job/README.md)
+
+[Bandstand-test-runner](./charts/bandstand-test-runner/README.md)
+
+[Bandstand-web-service](./charts/bandstand-web-service/README.md)
