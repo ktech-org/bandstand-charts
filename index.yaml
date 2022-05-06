@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   bandstand-cron-job:
   - apiVersion: v2
+    created: "2022-05-06T13:55:35.05853951Z"
+    description: Library chart of templates for a simple cron job
+    digest: aaad98098484a35ccd9d7de66290b1c0ab180b830f7d9ded9b0033be97a83316
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-cron-job
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-cron-job-1.5.0/bandstand-cron-job-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     created: "2022-04-20T09:38:07.611637234Z"
     description: Library chart of templates for a simple cron job
     digest: abda763add034334bedf4cf8e4afda55585a5719924e2adb9c4e9225d02b11f1
@@ -653,4 +664,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2022-04-20T09:38:07.612049753Z"
+generated: "2022-05-06T13:55:35.05881392Z"
