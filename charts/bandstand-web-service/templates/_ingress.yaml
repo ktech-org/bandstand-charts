@@ -1,9 +1,13 @@
 {{- define "bandstand-web-service.ingress" -}}
 {{- if .Values.ingress.enabled }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
   annotations:
     bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
@@ -15,12 +19,12 @@ spec:
   ingressClassName: nginx-{{ .Values.ingress.visibility }}
   tls:
     - hosts:
-      - "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
+      - "{{ $relName }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
       {{- range $.Values.additionalDomains }}
       - {{ . | quote }}
       {{- end }}
   rules:
-    - host: "{{ .Release.Name }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
+    - host: "{{ $relName }}.{{ .Values.env }}.{{ .Values.ingress.domain }}"
       http: &http_rules
         paths:
           - path: "/"

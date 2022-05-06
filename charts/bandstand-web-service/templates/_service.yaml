@@ -1,8 +1,12 @@
 {{- define "bandstand-web-service.service" -}}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ $relName }}
 spec:
   selector: {{- include "bandstand-web-service.selectorLabels" . | nindent 4 }}
   ports:

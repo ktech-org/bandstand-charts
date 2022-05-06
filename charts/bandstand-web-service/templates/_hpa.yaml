@@ -1,8 +1,12 @@
 {{- define "bandstand-web-service.hpa" -}}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 spec:
   minReplicas: {{ ((.Values.hpa).minReplicas) | default 1 }}
@@ -10,6 +14,6 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Release.Name }}
+    name: {{ $relName }}
   targetCPUUtilizationPercentage: {{ ((.Values.hpa).averageCpuUtilization) | default 50 }}
 {{- end -}}
