@@ -1,8 +1,12 @@
 {{- define "bandstand-web-service.configmap" -}}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 {{- if or .Values.properties .Values.envproperties }}
 data:

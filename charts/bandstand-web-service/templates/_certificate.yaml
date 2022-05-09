@@ -1,10 +1,13 @@
 {{- define "bandstand-web-service.certificates" -}}
-{{- $relname := .Release.Name -}}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
 {{- range $.Values.additionalDomains -}}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ $relname }}
+  name: {{ $relName }}
 spec:
   commonName: {{ . }}
   dnsNames:

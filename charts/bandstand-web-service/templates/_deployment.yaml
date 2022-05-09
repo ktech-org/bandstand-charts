@@ -1,8 +1,12 @@
 {{- define "bandstand-web-service.deployment" -}}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 spec:
   selector:
@@ -13,10 +17,10 @@ spec:
         rollme: {{ randAlphaNum 5 | quote }}
       labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ .Release.Name }}
+      serviceAccountName: {{ $relName }}
       containers:
-        - name: {{ .Release.Name }}
-          image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ .Release.Name }}:{{ .Values.image.tag }}
+        - name: {{ $relName }}
+          image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ $relName }}:{{ .Values.image.tag }}
           imagePullPolicy: Always
           {{- $serverContainer := .Values.serverContainer | default dict }}
           {{- if $serverContainer.command }}
@@ -36,7 +40,7 @@ spec:
               mountPath: /tmp
               readOnly: false
             - name: config
-              mountPath: "/etc/{{ .Release.Name }}/config"
+              mountPath: "/etc/{{ $relName }}/config"
               readOnly: true
           resources:
             requests:
@@ -67,7 +71,7 @@ spec:
             - name: DD_ENV
               value: {{ .Values.env }}
             - name: DD_SERVICE
-              value: {{ .Release.Name }}
+              value: {{ $relName }}
             - name: DD_VERSION
               value: {{ .Values.image.tag }}
             - name: DD_AGENT_HOST
@@ -75,7 +79,7 @@ spec:
                 fieldRef:
                   fieldPath: status.hostIP
             - name: OTEL_SERVICE_NAME
-              value: {{ .Release.Name }}
+              value: {{ $relName }}
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://collector.linkerd-jaeger:4317
             - name: OTEL_PROPAGATORS
@@ -93,7 +97,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ .Release.Name }}
+            name: {{ $relName }}
             items:
               - key: "app.properties"
                 path: "app.properties"
