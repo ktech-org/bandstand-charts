@@ -31,9 +31,12 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}
+                name: {{ default .Release.Name .Values.ingress.defaultBackend }}
                 port:
                   number: 80
+          {{- if .Values.ingress.additionalPaths }}
+            {{- toYaml .Values.ingress.additionalPaths | nindent 10 }}
+          {{- end }}
     {{- range $.Values.additionalDomains}}
     - host: {{ . | quote }}
       http: *http_rules
