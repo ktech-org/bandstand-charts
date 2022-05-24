@@ -10,3 +10,5 @@ spec:
     lifecycle: invest
     owner: ktech-developer-platform
     type: library/module
+    system: bandstand
+    
