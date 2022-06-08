@@ -18,8 +18,8 @@ workflows:
             - aws-base
             - bandstand-test
       - tech-docs/publish-docs:
-          name: publish-docs-backstage-test
-          env: test
+          name: publish-docs-backstage-prod
+          env: prod
           filters: *main_branch_only
           context:
             - aws-base
