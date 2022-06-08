@@ -8,14 +8,14 @@ kind: ConfigMap
 metadata:
   name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
-{{- if or .Values.properties .Values.envproperties }}
+{{- if or .Values.properties .Values.envProperties }}
 data:
   app.properties: |
     {{- if .Values.properties }}
-      {{-  .Values.properties | toYaml | replace "|"  "" | indent 2  }}
+      {{-  .Values.properties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
     {{- end }}
-    {{- if .Values.envproperties }}
-      {{-  .Values.envproperties | toYaml | replace "|"  "" | indent 2 }}
+    {{- if .Values.envProperties }}
+      {{-  .Values.envProperties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
     {{- end }}
 {{- end }}
 {{- end -}}
