@@ -8,10 +8,10 @@ metadata:
 data:
   app.properties: |
     {{- if .Values.properties }}
-      {{-  .Values.properties | toYaml | replace "|"  "" | indent 2  }}
+      {{-  .Values.properties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
     {{- end }}
     {{- if .Values.envProperties }}
-      {{-  .Values.envProperties | toYaml | replace "|"  "" | indent 2 }}
+      {{-  .Values.envProperties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
     {{- end }}
 {{- end }}
 {{- end -}}
