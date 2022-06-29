@@ -28,7 +28,7 @@ fsGroup: 1000
 {{- define "bandstand-cron-job.common-volumes" -}}
 - name: tmp-dir
   emptyDir: {}
-{{- if .Values.properties }}
+{{- if or .Values.properties .Values.envProperties }}
 - name: config
   configMap:
     name: {{ .Release.Name }}
