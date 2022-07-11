@@ -15,7 +15,7 @@ metadata:
     owner: {{ .Values.owner }}
   annotations:
     "helm.sh/hook": test
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-delete-policy": before-hook-creation
     "polaris.fairwinds.com/readinessProbeMissing-exempt": "true"
     "polaris.fairwinds.com/livenessProbeMissing-exempt": "true"
     "linkerd.io/inject": disabled
