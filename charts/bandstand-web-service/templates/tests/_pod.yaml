@@ -45,8 +45,12 @@ spec:
         - name: ENV
           value: {{ .Values.env }}
       volumeMounts:
-        - name: workspace
-          mountPath: /tmp/workspace
+        - name: tmp
+          mountPath: /tmp
+          readOnly: false
+        - name: tmp
+          mountPath: /tmp/workspace # explicitly add workspace dir for backwards compatibility
+          subPath: workspace
           readOnly: false
       securityContext:
         runAsNonRoot: true
@@ -56,7 +60,7 @@ spec:
           drop:
             - all
   volumes:
-    - name: workspace
+    - name: tmp
       emptyDir: { }
   securityContext:
     runAsUser: 1000
