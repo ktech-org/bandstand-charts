@@ -1,0 +1,7 @@
+apiVersion: v2
+name: bandstand-secrets
+version: 1.5.2
+description: Library chart of templates for a deploying secrets alone
+type: library
+maintainers:
+  - name: ktech-developer-platform

@@ -1,0 +1,6 @@
+{{- define "bandstand-secrets.all" }}
+
+---
+{{ include "bandstand-secrets.serviceaccount" . }}
+
+{{- end }}
