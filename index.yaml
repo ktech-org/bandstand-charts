@@ -245,6 +245,17 @@ entries:
     version: 1.0.0
   bandstand-test-runner:
   - apiVersion: v2
+    created: "2022-07-19T12:03:39.693859868Z"
+    description: Library for running standalone test containers
+    digest: 4339e11a062753b589faf62e836cec26d61a07eaa3ffaba58f5fda1ae60e94bb
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-test-runner
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-1.1.4/bandstand-test-runner-1.1.4.tgz
+    version: 1.1.4
+  - apiVersion: v2
     created: "2022-07-11T11:49:49.0463939Z"
     description: Library for running standalone test containers
     digest: 9d6e3b45b98e00d6844f89b49d6e0c9cca43aafee8120a4ba586713254d61f76
@@ -311,6 +322,17 @@ entries:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-0.1.0/bandstand-test-runner-0.1.0.tgz
     version: 0.1.0
   bandstand-web-service:
+  - apiVersion: v2
+    created: "2022-07-19T12:03:39.824283488Z"
+    description: Library chart of templates for an http service
+    digest: 902b7b32c999a24624cce8d2242678a87398b71a5747bf36301a0e506b8ef4d9
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-web-service
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-web-service-1.6.2/bandstand-web-service-1.6.2.tgz
+    version: 1.6.2
   - apiVersion: v2
     created: "2022-07-11T11:49:49.180148979Z"
     description: Library chart of templates for an http service
@@ -741,4 +763,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-11T11:49:49.180650831Z"
+generated: "2022-07-19T12:03:39.824613909Z"
