@@ -88,7 +88,6 @@ spec:
               {{- toYaml .Values.additionalEnvVars | nindent 12 }}
             {{- end }}
           securityContext:
-            fsGroup: 1000
             runAsNonRoot: true
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -105,5 +104,6 @@ spec:
         - name: tmp-dir
           emptyDir: {}
       securityContext:
+        fsGroup: 1000
         runAsUser: 1000
 {{- end -}}
