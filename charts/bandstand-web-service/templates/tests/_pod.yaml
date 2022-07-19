@@ -53,7 +53,6 @@ spec:
           subPath: workspace
           readOnly: false
       securityContext:
-        fsGroup: 1000
         runAsNonRoot: true
         allowPrivilegeEscalation: false
         readOnlyRootFilesystem: true
@@ -64,6 +63,7 @@ spec:
     - name: tmp
       emptyDir: { }
   securityContext:
+    fsGroup: 1000
     runAsUser: 1000
   restartPolicy: Never
 {{- end }}
