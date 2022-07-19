@@ -53,6 +53,7 @@ spec:
           subPath: workspace
           readOnly: false
       securityContext:
+        fsGroup: 1000
         runAsNonRoot: true
         allowPrivilegeEscalation: false
         readOnlyRootFilesystem: true
