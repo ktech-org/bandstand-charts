@@ -39,9 +39,11 @@ spec:
             - name: tmp-dir
               mountPath: /tmp
               readOnly: false
+            {{- if or .Values.properties .Values.envProperties }}
             - name: config
               mountPath: "/etc/{{ $relName }}/config"
               readOnly: true
+            {{- end }}
           resources:
             requests:
               cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
@@ -95,12 +97,14 @@ spec:
               drop:
                 - all
       volumes:
+        {{- if or .Values.properties .Values.envProperties }}
         - name: config
           configMap:
             name: {{ $relName }}
             items:
               - key: "app.properties"
                 path: "app.properties"
+        {{- end }}
         - name: tmp-dir
           emptyDir: {}
       securityContext:
