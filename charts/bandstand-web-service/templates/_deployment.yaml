@@ -93,7 +93,7 @@ spec:
             - name: OTEL_METRICS_EXPORTER
               value: otlp
             - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
-              value: io.opentelemetry.sdk.extension.resources.HostResourceProvider
+              value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
             {{- if .Values.additionalEnvVars }}
               {{- toYaml .Values.additionalEnvVars | nindent 12 }}
             {{- end }}
