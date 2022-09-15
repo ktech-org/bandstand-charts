@@ -21,10 +21,6 @@ spec:
       containers:
         - name: {{ $relName }}
           image: {{ .Values.dockerRegistry | default "067805054192.dkr.ecr.eu-west-1.amazonaws.com" }}/{{ $relName }}:{{ .Values.image.tag }}
-          {{- if .Values.imagePullSecrets }}
-          imagePullSecrets:
-            - name: {{ .Values.imagePullSecrets }}
-          {{- end }}
           imagePullPolicy: Always
           {{- $serverContainer := .Values.serverContainer | default dict }}
           {{- if $serverContainer.command }}
@@ -108,6 +104,10 @@ spec:
             capabilities:
               drop:
                 - all
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets }}
+      {{- end }}
       volumes:
         {{- if or .Values.properties .Values.envProperties }}
         - name: config
