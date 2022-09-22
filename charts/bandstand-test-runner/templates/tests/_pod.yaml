@@ -20,7 +20,7 @@ spec:
   serviceAccountName: {{ $.Release.Name }}
   containers:
     - name: {{ $.Release.Name }}
-      image: 067805054192.dkr.ecr.eu-west-1.amazonaws.com/{{ $.Release.Name }}:{{ $.Values.image.tag }}
+      image: {{ $.Values.dockerRegistry | default "067805054192.dkr.ecr.eu-west-1.amazonaws.com" }}/{{ $.Release.Name }}:{{ $.Values.image.tag }}
       imagePullPolicy: Always
       {{- $testRun := . | default dict }}
       {{- if $testRun.command }}
@@ -78,6 +78,10 @@ spec:
         capabilities:
           drop:
             - all
+  {{- if $.Values.imagePullSecret }}
+  imagePullSecrets:
+    - name: {{ $.Values.imagePullSecret }}
+  {{- end }}
   volumes:
     - name: tmp
       emptyDir: { }
