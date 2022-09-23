@@ -52,7 +52,10 @@ spec:
                   memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
               env: {{- include "bandstand-cron-job.common-envvars" . | nindent 16 }}
                 {{- if .Values.additionalEnvVars }}
-                {{- toYaml .Values.additionalEnvVars | nindent 16 }}
+                {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+                {{- end }}
+                {{- if .Values.environmentEnvVars }}
+                {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
               securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
           {{- if .Values.imagePullSecret }}
