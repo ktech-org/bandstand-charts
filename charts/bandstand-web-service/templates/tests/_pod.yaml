@@ -22,7 +22,7 @@ metadata:
 spec:
   containers:
     - name: {{ $relName }}-acceptance-tests
-      image: {{ .Values.dockerRegistry | default "067805054192.dkr.ecr.eu-west-1.amazonaws.com" }}/{{ $relName }}-acceptance-tests:{{ .Values.image.tag }}
+      image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}-acceptance-tests:{{ .Values.image.tag }}
       imagePullPolicy: Always
       {{- $testContainer := .Values.testContainer | default dict }}
       {{- if $testContainer.command }}
@@ -61,7 +61,7 @@ spec:
             - all
   {{- if .Values.imagePullSecret }}
   imagePullSecrets:
-    - name: {{ .Values.imagePullSecret }}
+    - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
   {{- end }}
   volumes:
     - name: tmp

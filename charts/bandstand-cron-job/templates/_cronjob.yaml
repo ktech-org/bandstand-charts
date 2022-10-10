@@ -22,7 +22,7 @@ spec:
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
           containers:
             - name: {{ .Release.Name }}
-              image: {{ .Values.dockerRegistry | default "067805054192.dkr.ecr.eu-west-1.amazonaws.com" }}/{{ .Release.Name }}:{{ .Values.image.tag }}
+              image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ .Release.Name }}:{{ .Values.image.tag }}
               imagePullPolicy: Always
               {{- $jobContainer := .Values.jobContainer | default dict }}
               {{- if $jobContainer.command }}
@@ -60,7 +60,7 @@ spec:
               securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
           {{- if .Values.imagePullSecret }}
           imagePullSecrets:
-            - name: {{ .Values.imagePullSecret }}
+            - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
           {{- end }}
           volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
