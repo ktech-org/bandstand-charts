@@ -20,7 +20,7 @@ spec:
       serviceAccountName: {{ $relName }}
       containers:
         - name: {{ $relName }}
-          image: {{ .Values.dockerRegistry | default "067805054192.dkr.ecr.eu-west-1.amazonaws.com" }}/{{ $relName }}:{{ .Values.image.tag }}
+          image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}:{{ .Values.image.tag }}
           imagePullPolicy: Always
           {{- $serverContainer := .Values.serverContainer | default dict }}
           {{- if $serverContainer.command }}
@@ -106,7 +106,7 @@ spec:
                 - all
       {{- if .Values.imagePullSecret }}
       imagePullSecrets:
-        - name: {{ .Values.imagePullSecret }}
+        - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
       {{- end }}
       volumes:
         {{- if or .Values.properties .Values.envProperties }}
