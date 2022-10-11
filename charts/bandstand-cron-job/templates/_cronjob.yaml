@@ -58,10 +58,8 @@ spec:
                 {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
               securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
-          {{- if .Values.imagePullSecret }}
           imagePullSecrets:
             - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
-          {{- end }}
           volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
 {{- end -}}

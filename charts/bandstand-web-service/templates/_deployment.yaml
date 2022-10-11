@@ -104,10 +104,8 @@ spec:
             capabilities:
               drop:
                 - all
-      {{- if .Values.imagePullSecret }}
       imagePullSecrets:
         - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
-      {{- end }}
       volumes:
         {{- if or .Values.properties .Values.envProperties }}
         - name: config
