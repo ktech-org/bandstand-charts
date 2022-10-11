@@ -59,10 +59,8 @@ spec:
         capabilities:
           drop:
             - all
-  {{- if .Values.imagePullSecret }}
   imagePullSecrets:
     - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
-  {{- end }}
   volumes:
     - name: tmp
       emptyDir: { }
