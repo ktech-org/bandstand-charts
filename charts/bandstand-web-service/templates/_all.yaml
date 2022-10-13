@@ -4,6 +4,8 @@
 ---
 {{ include "bandstand-web-service.configmap" . }}
 ---
+{{ include "bandstand-web-service.pvc" . }}
+---
 {{ include "bandstand-web-service.deployment" . }}
 ---
 {{ include "bandstand-web-service.hpa" . }}
