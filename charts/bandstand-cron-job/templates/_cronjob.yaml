@@ -10,6 +10,7 @@ spec:
   concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished | default 604800 }}
       {{- if hasKey .Values "backoffLimit" }}
       backoffLimit: {{ .Values.backoffLimit }}
       {{- end }}
