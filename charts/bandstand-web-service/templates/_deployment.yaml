@@ -44,7 +44,7 @@ spec:
               mountPath: "/etc/{{ $relName }}/config"
               readOnly: true
             {{- end }}
-            {{- if .Values.volume.enabled }}
+            {{- if (.Values.volume).enabled }}
             - name: {{ $relName }}
               mountPath: "/var/{{ $relName }}"
             {{- end }}
@@ -124,7 +124,7 @@ spec:
         {{- end }}
         - name: tmp-dir
           emptyDir: {}
-        {{- if .Values.volume.enabled }}
+        {{- if (.Values.volume).enabled }}
         - name: {{ $relName }}
           persistentVolumeClaim:
             claimName: {{ $relName }}
