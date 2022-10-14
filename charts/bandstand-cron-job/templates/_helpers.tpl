@@ -35,7 +35,12 @@ fsGroup: 1000
     items:
       - key: "app.properties"
         path: "app.properties"
-{{- end -}}
+{{- end }}
+{{- if (.Values.volume).enabled }}
+- name: {{ $relName }}
+  persistentVolumeClaim:
+    claimName: {{ $relName }}
+{{- end }}
 {{- end -}}
 
 {{- define "bandstand-cron-job.common-envvars" -}}
