@@ -46,7 +46,7 @@ spec:
             {{- end }}
             {{- if .Values.volume.enabled }}
             - name: {{ $relName }}
-              mountPath: "/var/{{ $ relName }}"
+              mountPath: "/var/{{ $relName }}"
             {{- end }}
           resources:
             requests:
