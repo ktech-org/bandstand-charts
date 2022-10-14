@@ -378,6 +378,17 @@ entries:
     version: 0.1.0
   bandstand-web-service:
   - apiVersion: v2
+    created: "2022-10-14T12:31:57.617791713Z"
+    description: Library chart of templates for an http service
+    digest: 7197cbc0d415dd0f2bf4719d8efd015d886f4488e5a41af12fb16103410e5422
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-web-service
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-web-service-1.9.1/bandstand-web-service-1.9.1.tgz
+    version: 1.9.1
+  - apiVersion: v2
     created: "2022-10-14T12:20:52.682712625Z"
     description: Library chart of templates for an http service
     digest: c1509814381d939d7d1ad48043931ffac6dba15edf8993da1c1f4b1b9f36de31
@@ -972,4 +983,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-14T12:20:52.683297746Z"
+generated: "2022-10-14T12:31:57.618784305Z"
