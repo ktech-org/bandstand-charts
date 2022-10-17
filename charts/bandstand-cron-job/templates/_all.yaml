@@ -2,6 +2,8 @@
 
 {{ include "bandstand-cron-job.configmap" . }}
 ---
+{{ include "bandstand-cron-job.pvc" . }}
+---
 {{ include "bandstand-cron-job.cronjob" . }}
 ---
 {{ include "bandstand-cron-job.serviceaccount" . }}

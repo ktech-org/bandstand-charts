@@ -44,6 +44,10 @@ spec:
               mountPath: "/etc/{{ $relName }}/config"
               readOnly: true
             {{- end }}
+            {{- if (.Values.volume).enabled }}
+            - name: {{ $relName }}
+              mountPath: "/var/{{ $relName }}"
+            {{- end }}
           resources:
             requests:
               cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
@@ -120,6 +124,11 @@ spec:
         {{- end }}
         - name: tmp-dir
           emptyDir: {}
+        {{- if (.Values.volume).enabled }}
+        - name: {{ $relName }}
+          persistentVolumeClaim:
+            claimName: {{ $relName }}
+        {{- end }}
       securityContext:
         fsGroup: 1000
         runAsUser: 1000
