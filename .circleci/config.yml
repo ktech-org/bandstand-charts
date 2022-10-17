@@ -32,7 +32,7 @@ workflows:
                 - test-charts/cron-job-defaults
                 - test-charts/web-service-defaults
                 - test-charts/test-runner-defaults
-          name: ./<<matrix.chart>>
+          name: <<matrix.chart>>
           business: ktech
           environment: test
           namespace: lab
