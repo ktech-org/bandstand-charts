@@ -43,6 +43,10 @@ spec:
                   mountPath: "/etc/{{ .Release.Name }}/config"
                   readOnly: true
                 {{- end }}
+                {{- if (.Values.volume).enabled }}
+                - name: {{ $relName }}
+                  mountPath: "/var/{{ $relName }}"
+                {{- end }}
               resources:
                 requests:
                   cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
