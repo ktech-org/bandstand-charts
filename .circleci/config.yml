@@ -39,4 +39,4 @@ workflows:
           dry-run: true
           context:
             - aws-base
-            - bandstand-<<matrix.environment>>
+            - bandstand-ktech-test
