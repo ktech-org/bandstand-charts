@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   tech-docs: ktech/tech-docs@1
+  bandstand: ktech/bandstand@2
 
 main_branch_only: &main_branch_only
   branches:
@@ -24,3 +25,17 @@ workflows:
           context:
             - aws-base
             - bandstand-prod
+      - bandstand/install-chart:
+          matrix:
+            chart:
+              - tests/cron-job-defaults
+              - tests/web-service-defaults
+              - tests/test-runner-defaults
+          name: test-chart-<<matrix.chart>>
+          namespace: lab
+          values: ./<<matrix.chart>>/values.yaml
+          values-to-override: "image.tag=sha-${CIRCLE_SHA1}"
+          dry-run: true
+          context:
+            - aws-base
+            - bandstand-<<matrix.environment>>
