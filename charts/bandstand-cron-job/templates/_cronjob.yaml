@@ -45,8 +45,8 @@ spec:
                   readOnly: true
                 {{- end }}
                 {{- if (.Values.volume).enabled }}
-                - name: {{ $relName }}
-                  mountPath: "/var/{{ $relName }}"
+                - name: {{ .Release.Name }}
+                  mountPath: "/var/{{ .Release.Name }}"
                 {{- end }}
               resources:
                 requests:
