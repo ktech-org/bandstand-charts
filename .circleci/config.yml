@@ -27,10 +27,11 @@ workflows:
             - bandstand-prod
       - bandstand/install-chart:
           matrix:
-            chart:
-              - tests/cron-job-defaults
-              - tests/web-service-defaults
-              - tests/test-runner-defaults
+            parameters:
+              chart:
+                - tests/cron-job-defaults
+                - tests/web-service-defaults
+                - tests/test-runner-defaults
           name: test-chart-<<matrix.chart>>
           namespace: lab
           values: ./<<matrix.chart>>/values.yaml
