@@ -37,9 +37,9 @@ fsGroup: 1000
         path: "app.properties"
 {{- end }}
 {{- if (.Values.volume).enabled }}
-- name: {{ $relName }}
+- name: {{ .Release.Name }}
   persistentVolumeClaim:
-    claimName: {{ $relName }}
+    claimName: {{ .Release.Name }}
 {{- end }}
 {{- end -}}
 
