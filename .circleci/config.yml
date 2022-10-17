@@ -29,10 +29,10 @@ workflows:
           matrix:
             parameters:
               chart:
-                - tests/cron-job-defaults
-                - tests/web-service-defaults
-                - tests/test-runner-defaults
-          name: test-chart-<<matrix.chart>>
+                - test-charts/cron-job-defaults
+                - test-charts/web-service-defaults
+                - test-charts/test-runner-defaults
+          name: <<matrix.chart>>
           business: ktech
           environment: test
           namespace: lab
