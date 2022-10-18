@@ -32,7 +32,7 @@ spec:
               {{- if $jobContainer.arguments }}
               args:
               {{- range $jobContainer.arguments }}
-              - {{ . }}
+                - {{ . }}
               {{- end }}
               {{- end }}
               volumeMounts:
