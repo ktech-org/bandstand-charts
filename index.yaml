@@ -311,6 +311,17 @@ entries:
     version: 1.0.0
   bandstand-test-runner:
   - apiVersion: v2
+    created: "2022-10-26T13:16:26.126251259Z"
+    description: Library for running standalone test containers
+    digest: 5d46f25f7f9611d009f2a8ad5e3ae18aace9387bea5f2a758108950b3ac85c31
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-test-runner
+    type: library
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-1.2.2/bandstand-test-runner-1.2.2.tgz
+    version: 1.2.2
+  - apiVersion: v2
     created: "2022-10-10T14:37:51.749750338Z"
     description: Library for running standalone test containers
     digest: fafd29490e61e332d22ca0459d648e1bcbfaf9491cca2d73aaa314ac8c5cb9ae
@@ -1038,4 +1049,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-18T15:10:11.185520215Z"
+generated: "2022-10-26T13:16:26.127437271Z"
