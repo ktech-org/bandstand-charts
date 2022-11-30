@@ -1,0 +1,9 @@
+dependencies:
+- name: bandstand-cron-job
+  repository: file://../../charts/bandstand-cron-job/
+  version: 2.0.0
+- name: bandstand-cron-job
+  repository: file://../../charts/bandstand-cron-job/
+  version: 2.0.0
+digest: sha256:600a4a2b41ffcf076e56f2149d9fb2c33809f387d7ea6dee084f3bf0f5ba4850
+generated: "2022-11-11T18:23:12.236331Z"

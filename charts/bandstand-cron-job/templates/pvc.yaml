@@ -1,0 +1,17 @@
+{{- if (.Values.volume).enabled }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-cron-job.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ (.Values.volume).storage | default "1Gi" }}
+{{- end -}}

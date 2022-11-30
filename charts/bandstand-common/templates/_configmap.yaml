@@ -1,0 +1,17 @@
+{{- define "bandstand.common.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  labels: {{- include "bandstand-cron-job.labels" . | nindent 4 }}
+{{- if or .Values.properties .Values.envProperties }}
+data:
+  app.properties: |
+    {{- if .Values.properties }}
+      {{-  .Values.properties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
+    {{- end }}
+    {{- if .Values.envProperties }}
+      {{-  .Values.envProperties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
+    {{- end }}
+{{- end }}
+{{- end -}}

@@ -1,17 +1,17 @@
-{{- define "bandstand-cron-job.labels" -}}
-system-code: {{ .Values.systemCode | default .Values.global.systemCode | default .Release.Name }}
+{{- define "bandstand.common.labels" -}}
+system-code: {{ default .Release.Name .Values.systemCode }}
 {{- if .Values.systemGroup }}
-system-group: {{ .Values.systemGroup | default .Values.global.systemGroup }}
+system-group: {{  .Values.systemGroup }}
 {{- end }}
-git-repo: {{ .Values.gitRepo | default .Values.global.gitRepo | default .Release.Name }}
+git-repo: {{ default .Release.Name .Values.gitRepo }}
 provisioner: "Helm"
 application: {{ .Release.Name }}
 version: {{ .Values.image.tag }}
 environment: {{ .Values.env }}
-owner: {{ .Values.owner | default .Values.global.owner }}
+owner: {{ .Values.owner }}
 {{- end -}}
 
-{{- define "bandstand-cron-job.containerSecurityContext" -}}
+{{- define "bandstand.common.containerSecurityContext" -}}
 runAsNonRoot: true
 allowPrivilegeEscalation: false
 readOnlyRootFilesystem: true
@@ -20,12 +20,12 @@ capabilities:
     - all
 {{- end -}}
 
-{{- define "bandstand-cron-job.podSecurityContext" -}}
+{{- define "bandstand.common.podSecurityContext" -}}
 runAsUser: 1000
 fsGroup: 1000
 {{- end -}}
 
-{{- define "bandstand-cron-job.common-volumes" -}}
+{{- define "bandstand.common.common-volumes" -}}
 - name: tmp-dir
   emptyDir: {}
 {{- if or .Values.properties .Values.envProperties }}
@@ -43,7 +43,7 @@ fsGroup: 1000
 {{- end }}
 {{- end -}}
 
-{{- define "bandstand-cron-job.common-envvars" -}}
+{{- define "bandstand.common.common-envvars" -}}
 - name: ENV
   value: {{ .Values.env }}
 - name: VERSION

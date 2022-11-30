@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}
+  labels: {{- include "bandstand-cron-job.labels" . | nindent 4 }}
+spec:
+  schedule: '{{ .Values.schedule }}'
+  suspend: {{ .Values.suspend | default false }}
+  concurrencyPolicy: {{ .Values.concurrencyPolicy | default "Allow" }}
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished | default 604800 }}
+      {{- if hasKey .Values "backoffLimit" }}
+      backoffLimit: {{ .Values.backoffLimit }}
+      {{- end }}
+      template:
+        metadata:
+          annotations:
+            "linkerd.io/inject": disabled
+        spec:
+          serviceAccountName: {{ .Release.Name }}
+          restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
+          containers:
+            - name: {{ .Release.Name }}
+              image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ .Release.Name }}:{{ .Values.image.tag }}
+              imagePullPolicy: Always
+              {{- $jobContainer := .Values.jobContainer | default dict }}
+              {{- if $jobContainer.command }}
+              command: {{ $jobContainer.command }}
+              {{- end }}
+              {{- if $jobContainer.arguments }}
+              args:
+              {{- range $jobContainer.arguments }}
+                - {{ . }}
+              {{- end }}
+              {{- end }}
+              volumeMounts:
+                - name: tmp-dir
+                  mountPath: /tmp
+                  readOnly: false
+                {{- if .Values.properties }}
+                - name: config
+                  mountPath: "/etc/{{ .Release.Name }}/config"
+                  readOnly: true
+                {{- end }}
+                {{- if (.Values.volume).enabled }}
+                - name: {{ .Release.Name }}
+                  mountPath: "/var/{{ .Release.Name }}"
+                {{- end }}
+              resources:
+                requests:
+                  cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
+                  memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
+                limits:
+                  cpu: {{ (.Values.resources).limits.cpu | default "500m" }}
+                  memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
+              env: {{- include "bandstand-cron-job.common-envvars" . | nindent 16 }}
+                {{- if .Values.additionalEnvVars }}
+                {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+                {{- end }}
+                {{- if .Values.environmentEnvVars }}
+                {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+                {{- end }}
+              securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
+          imagePullSecrets:
+            - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
+          volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
+          securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}

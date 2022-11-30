@@ -1,0 +1,11 @@
+owner: ktech-developer-platform
+env: test
+business: ktech
+
+job1:
+  image:
+    repository: job1
+
+job2:
+  image:
+    repository: job2

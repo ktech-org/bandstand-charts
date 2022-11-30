@@ -17,7 +17,7 @@ owner: {{ .Values.owner }}
 
 {{- define "bandstand-web-service.selectorLabels" -}}
 {{- if .Values.nameSuffix }}
-application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
+application: {{ .Release.Name }}-{{ .Values.nameSuffix }}
 {{- else }}
 application: {{ .Release.Name }}
 {{- end }}

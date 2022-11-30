@@ -1,4 +1,4 @@
-{{- define "bandstand-cron-job.cronjob" -}}
+{{- define "bandstand.common.cronjob" -}}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -23,7 +23,7 @@ spec:
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
           containers:
             - name: {{ .Release.Name }}
-              image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ .Release.Name }}:{{ .Values.image.tag }}
+              image: {{ .Values.image.registry | default "ktechartifacts-docker.jfrog.io" }}/{{ .Values.image.repository | default .Release.Name }}:{{ .Values.image.tag }}
               imagePullPolicy: Always
               {{- $jobContainer := .Values.jobContainer | default dict }}
               {{- if $jobContainer.command }}

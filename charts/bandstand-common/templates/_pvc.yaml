@@ -1,4 +1,4 @@
-{{- define "bandstand-cron-job.pvc" -}}
+{{- define "bandstand.common.pvc" -}}
 {{- if (.Values.volume).enabled }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}

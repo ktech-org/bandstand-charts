@@ -1,0 +1,18 @@
+apiVersion: v2
+name: cron-job-defaults
+version: 1.0.0
+description: testing bandstand-cron-job chart
+type: application
+sources:
+  - https://github.com/ktech-org/bandstand-charts
+dependencies:
+  - name: bandstand-cron-job
+    alias: job1
+    version: ">= 2.0.0"
+    repository: "file://../../charts/bandstand-cron-job/"
+  - name: bandstand-cron-job
+    alias: job2
+    version: ">= 2.0.0"
+    repository: "file://../../charts/bandstand-cron-job/"
+maintainers:
+  - name: ktech-developer-platform

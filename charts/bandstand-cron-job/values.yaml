@@ -1,0 +1,41 @@
+additionalEnvVars: { }
+environmentEnvVars: { }
+
+aws.account: xxx
+dockerRegistry: ktechartifacts-docker.jfrog.io
+
+env: dev
+
+# image.tag:
+imagePullSecret: rt-docker-config
+
+jobContainer:
+  arguments: [ ]
+  command: [ ]
+
+  # owner:
+  # systemCode:                 .Release.Name
+  # systemGroup
+  # gitRepo:                    .Release.Name
+
+properties: { }
+envProperties: { }
+
+resources:
+  limits:
+    memory: 512Mi
+    cpu: 4
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+# CronJob
+backoffLimit: 6
+concurrencyPolicy: Allow
+suspend: false
+ttlSecondsAfterFinished: 604800 #(1 week)
+
+# PVC
+volume:
+  enabled: false
+  # storage: 1Gi

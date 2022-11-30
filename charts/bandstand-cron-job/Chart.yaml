@@ -1,7 +1,7 @@
 apiVersion: v2
 name: bandstand-cron-job
-version: 1.8.4
+version: 2.0.0
 description: Library chart of templates for a simple cron job
-type: library
+type: application
 maintainers:
   - name: ktech-developer-platform

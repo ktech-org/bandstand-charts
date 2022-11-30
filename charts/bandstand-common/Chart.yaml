@@ -1,0 +1,7 @@
+apiVersion: v2
+name: bandstand-common
+version: 1.0.0
+description: Library chart of common templates
+type: library
+maintainers:
+  - name: ktech-developer-platform
