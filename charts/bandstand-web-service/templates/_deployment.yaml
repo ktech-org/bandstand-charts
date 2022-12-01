@@ -39,9 +39,16 @@ spec:
             - name: tmp-dir
               mountPath: /tmp
               readOnly: false
-            {{- if or .Values.properties .Values.envProperties }}
+            {{- range .Values.config }}
             - name: config
-              mountPath: "/etc/{{ $relName }}/config"
+              mountPath: {{ .path }}/{{ .filename }}
+              subPath: {{ .filename }}
+              readOnly: true
+            {{- end }}
+            {{- range .Values.envConfig }}
+            - name: env-config
+              mountPath: {{ .path }}/{{ .filename }}
+              subPath: {{ .filename }}
               readOnly: true
             {{- end }}
             {{- if (.Values.volume).enabled }}
@@ -98,7 +105,7 @@ spec:
               value: otlp
             - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
               value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
-            {{- if .Values.additionalEnvVars | }}
+            {{- if .Values.additionalEnvVars }}
               {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
             {{- if .Values.environmentEnvVars }}
@@ -114,13 +121,25 @@ spec:
       imagePullSecrets:
         - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
       volumes:
-        {{- if or .Values.properties .Values.envProperties }}
+        {{- if .Values.config }}
         - name: config
           configMap:
             name: {{ $relName }}
             items:
-              - key: "app.properties"
-                path: "app.properties"
+              {{- range .Values.config }}
+              - key: {{ .filename }}
+                path: {{ .filename }}
+              {{- end }}
+        {{- end }}
+        {{- if .Values.envConfig }}
+        - name: env-config
+          configMap:
+            name: {{ $relName }}-env
+            items:
+              {{- range .Values.envConfig }}
+              - key: {{ .filename }}
+                path: {{ .filename }}
+              {{- end }}
         {{- end }}
         - name: tmp-dir
           emptyDir: {}
