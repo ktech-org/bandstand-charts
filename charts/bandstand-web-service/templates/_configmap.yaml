@@ -8,14 +8,24 @@ kind: ConfigMap
 metadata:
   name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
-{{- if or .Values.properties .Values.envProperties }}
+{{- if .Values.config }}
 data:
-  app.properties: |
-    {{- if .Values.properties }}
-      {{-  .Values.properties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
-    {{- end }}
-    {{- if .Values.envProperties }}
-      {{-  .Values.envProperties | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 2 }}
-    {{- end }}
+  {{- range .Values.config -}}
+    {{- .filename | nindent 2 }}: |
+      {{- .data | nindent 4 -}}
+  {{- end -}}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $relName }}-env
+  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
+{{- if .Values.envConfig }}
+data:
+  {{- range .Values.envConfig -}}
+    {{- .filename | nindent 2 }}: |
+      {{- .data | nindent 4 -}}
+  {{- end -}}
 {{- end }}
 {{- end -}}
