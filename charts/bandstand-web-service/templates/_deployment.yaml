@@ -57,11 +57,10 @@ spec:
             {{- end }}
           resources:
             requests:
-              cpu: {{ (.Values.resources).requests.cpu | default "250m" }}
+              cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
               memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
             limits:
-              cpu: {{ (.Values.resources).limits.cpu | default "500m" }}
-              memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
+              memory: {{ (.Values.resources).limits.memory | default "256Mi" }}
           livenessProbe:
             httpGet:
               path: {{ (.Values.livenessProbe).path | default "/" }}

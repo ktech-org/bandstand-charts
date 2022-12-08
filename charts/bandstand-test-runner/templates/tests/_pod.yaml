@@ -37,11 +37,10 @@ spec:
       {{- end }}
       resources:
         requests:
-          cpu: {{ dig "resources" "requests" "cpu" "250m" ($.Values | merge (dict)) }}
+          cpu: {{ dig "resources" "requests" "cpu" "100m" ($.Values | merge (dict)) }}
           memory: {{ dig "resources" "requests" "memory" "256Mi" ($.Values | merge (dict)) }}
         limits:
-          cpu: {{ dig "resources" "limits" "cpu" "500m" ($.Values | merge (dict)) }}
-          memory: {{ dig "resources" "limits" "memory" "512Mi" ($.Values | merge (dict)) }}
+          memory: {{ dig "resources" "requests" "memory" "256Mi" ($.Values | merge (dict)) }}
       env:
         - name: ENV
           value: {{ $.Values.env }}
