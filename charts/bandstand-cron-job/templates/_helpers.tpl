@@ -31,7 +31,7 @@ fsGroup: 1000
 {{- if .Values.config }}
 - name: config
   configMap:
-    name: {{ $relName }}
+    name: {{ .Release.Name }}
     items:
       {{- range .Values.config }}
       - key: {{ .filename }}
@@ -41,24 +41,12 @@ fsGroup: 1000
 {{- if .Values.envConfig }}
 - name: env-config
   configMap:
-    name: {{ $relName }}-env
+    name: {{ .Release.Name }}-env
     items:
       {{- range .Values.envConfig }}
       - key: {{ .filename }}
         path: {{ .filename }}
       {{- end }}
-{{- range .Values.config }}
-- name: config
-  mountPath: {{ .path }}/{{ .filename }}
-  subPath: {{ .filename }}
-  readOnly: true
-{{- end }}
-{{- range .Values.envConfig }}
-- name: env-config
-  mountPath: {{ .path }}/{{ .filename }}
-  subPath: {{ .filename }}
-  readOnly: true
-{{- end }}
 {{- if (.Values.volume).enabled }}
 - name: {{ .Release.Name }}
   persistentVolumeClaim:
