@@ -30,7 +30,9 @@ workflows:
             parameters:
               chart:
                 - test-charts/cron-job-defaults
+                - test-charts/cron-job-with-config-files
                 - test-charts/web-service-defaults
+                - test-charts/web-service-with-config-files
                 - test-charts/test-runner-defaults
           name: <<matrix.chart>>
           business: ktech
