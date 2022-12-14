@@ -47,6 +47,7 @@ fsGroup: 1000
       - key: {{ .filename }}
         path: {{ .filename }}
       {{- end }}
+{{- end }}
 {{- if (.Values.volume).enabled }}
 - name: {{ .Release.Name }}
   persistentVolumeClaim:
