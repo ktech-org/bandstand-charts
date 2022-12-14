@@ -28,13 +28,17 @@ fsGroup: 1000
 {{- define "bandstand-cron-job.common-volumes" -}}
 - name: tmp-dir
   emptyDir: {}
-{{- if or .Values.properties .Values.envProperties }}
+{{- range .Values.config }}
 - name: config
-  configMap:
-    name: {{ .Release.Name }}
-    items:
-      - key: "app.properties"
-        path: "app.properties"
+  mountPath: {{ .path }}/{{ .filename }}
+  subPath: {{ .filename }}
+  readOnly: true
+{{- end }}
+{{- range .Values.envConfig }}
+- name: env-config
+  mountPath: {{ .path }}/{{ .filename }}
+  subPath: {{ .filename }}
+  readOnly: true
 {{- end }}
 {{- if (.Values.volume).enabled }}
 - name: {{ .Release.Name }}
