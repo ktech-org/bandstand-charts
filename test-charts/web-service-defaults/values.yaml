@@ -4,4 +4,3 @@ business: ktech
 
 ingress:
   enabled: false
-
