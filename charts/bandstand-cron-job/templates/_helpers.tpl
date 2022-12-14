@@ -28,6 +28,25 @@ fsGroup: 1000
 {{- define "bandstand-cron-job.common-volumes" -}}
 - name: tmp-dir
   emptyDir: {}
+{{- if .Values.config }}
+- name: config
+  configMap:
+    name: {{ $relName }}
+    items:
+      {{- range .Values.config }}
+      - key: {{ .filename }}
+        path: {{ .filename }}
+      {{- end }}
+{{- end }}
+{{- if .Values.envConfig }}
+- name: env-config
+  configMap:
+    name: {{ $relName }}-env
+    items:
+      {{- range .Values.envConfig }}
+      - key: {{ .filename }}
+        path: {{ .filename }}
+      {{- end }}
 {{- range .Values.config }}
 - name: config
   mountPath: {{ .path }}/{{ .filename }}

@@ -39,9 +39,16 @@ spec:
                 - name: tmp-dir
                   mountPath: /tmp
                   readOnly: false
-                {{- if .Values.properties }}
+                {{- range .Values.config }}
                 - name: config
-                  mountPath: "/etc/{{ .Release.Name }}/config"
+                  mountPath: {{ .path }}/{{ .filename }}
+                  subPath: {{ .filename }}
+                  readOnly: true
+                {{- end }}
+                {{- range .Values.envConfig }}
+                - name: env-config
+                  mountPath: {{ .path }}/{{ .filename }}
+                  subPath: {{ .filename }}
                   readOnly: true
                 {{- end }}
                 {{- if (.Values.volume).enabled }}
