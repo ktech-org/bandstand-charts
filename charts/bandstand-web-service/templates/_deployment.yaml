@@ -149,5 +149,9 @@ spec:
         {{- end }}
       securityContext:
         fsGroup: 1000
+        {{- if .Values.runAsUser }}
+        runAsUser: {{ .Values.runAsUser | default 1000 }}
+        {{- else }}
         runAsUser: 1000
+        {{- end }}
 {{- end -}}
