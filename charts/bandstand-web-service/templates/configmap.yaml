@@ -1,4 +1,3 @@
-{{- define "bandstand-web-service.configmap" -}}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
@@ -28,4 +27,3 @@ data:
       {{- .data | nindent 4 -}}
   {{- end -}}
 {{- end }}
-{{- end -}}

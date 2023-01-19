@@ -1,5 +1,7 @@
 # Bandstand web service
 
+Note that this chart requires global variable `global.aws.account` to be provided in order to configure IRSA.
+
 ## Values
 
 | Key                       | Type   | Default                          | Description                                                                                                                                                                                                                                                                                    |
@@ -7,7 +9,6 @@
 | additionalDomains         | list   | `[]`                             | A list of additional domains for the service                                                                                                                                                                                                                                                   |
 | additionalEnvVars         | object | `{}`                             | An object containing additional environment variables                                                                                                                                                                                                                                          |
 | environmentEnvVars        | object | `{}`                             | An object containing environment specific additional environment variables                                                                                                                                                                                                                     |
-| aws.account               | string |                                  | The account number of the deployment either the test, preprod or prod account                                                                                                                                                                                                                  |
 | containerPort             | int    | `8080`                           | The port to open on the container for the service                                                                                                                                                                                                                                              |
 | dockerRegistry            | string | `ktechartifacts-docker.jfrog.io` | Docker registry to pull images from                                                                                                                                                                                                                                                            |
 | env                       | string |                                  | The environment, either test, preprod or prod                                                                                                                                                                                                                                                  |

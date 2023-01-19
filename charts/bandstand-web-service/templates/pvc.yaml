@@ -1,13 +1,17 @@
-{{- define "bandstand-web-service.serviceaccount" -}}
+{{- if (.Values.volume).enabled }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
 {{- end }}
 apiVersion: v1
-kind: ServiceAccount
+kind: PersistentVolumeClaim
 metadata:
   name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.aws.account | toYaml }}:role/{{ $relName }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ (.Values.volume).storage | default "1Gi" }}
 {{- end -}}

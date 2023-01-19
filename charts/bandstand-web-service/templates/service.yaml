@@ -1,4 +1,3 @@
-{{- define "bandstand-web-service.service" -}}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
@@ -12,4 +11,3 @@ spec:
   ports:
     - port: 80
       targetPort: 8080
-{{- end }}
