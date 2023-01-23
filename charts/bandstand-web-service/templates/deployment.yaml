@@ -19,7 +19,7 @@ spec:
       serviceAccountName: {{ $relName }}
       containers:
         - name: {{ $relName }}
-          image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}:{{ .Values.image.tag }}
+          image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}:{{ .Values.global.image.tag }}
           imagePullPolicy: Always
           {{- $serverContainer := .Values.serverContainer | default dict }}
           {{- if $serverContainer.command }}
@@ -78,13 +78,13 @@ spec:
             - name: ENV
               value: {{ .Values.env }}
             - name: VERSION
-              value: {{ .Values.image.tag }}
+              value: {{ .Values.global.image.tag }}
             - name: DD_ENV
               value: {{ .Values.env }}
             - name: DD_SERVICE
               value: {{ $relName }}
             - name: DD_VERSION
-              value: {{ .Values.image.tag }}
+              value: {{ .Values.global.image.tag }}
             - name: DD_AGENT_HOST
               valueFrom:
                 fieldRef:

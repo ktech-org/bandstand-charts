@@ -1,6 +1,11 @@
 # Bandstand web service
 
-Note that this chart requires global variable `global.aws.account` to be provided in order to configure IRSA.
+## Global values
+
+| Key                | Type   | Default | Description                                           |
+|--------------------|--------|---------|-------------------------------------------------------|
+| global.aws.account | string |         | The AWS account the helm chart is installed into      |
+| global.image.tag   | string |         | The tag for container image to be used in the service |
 
 ## Values
 
@@ -16,7 +21,6 @@ Note that this chart requires global variable `global.aws.account` to be provide
 | hpa.averageCpuUtilization | int    | `50`                             | Horizontal pod autoscaler, the threshold average CPU ultilization to trigger, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)                                                                                                                           |
 | hpa.maxReplicas           | int    | `3`                              | Horizontal pod autoscaler, maximum number of pods, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)                                                                                                                                                      |
 | hpa.minReplicas           | int    | `1`                              | Horizontal pod autoscaler, minimum number of pods, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)                                                                                                                                                      |
-| image.tag                 | string |                                  | The tag for container image to be used in the service                                                                                                                                                                                                                                          |
 | imagePullSecret           | string | `rt-docker-config`               | Docker registry secret for pulling image                                                                                                                                                                                                                                                       |
 | ingress.annotations       | object | `{}`                             | Additional annotations to apply to the ingress object                                                                                                                                                                                                                                          |
 | ingress.domain            | string |                                  | Primary ingress domain for service, normally ktech.com                                                                                                                                                                                                                                         |
