@@ -10,7 +10,7 @@ application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
 {{- else }}
 application: {{ .Release.Name }}
 {{- end }}
-version: {{ .Values.image.tag }}
+version: {{ .Values.global.image.tag }}
 environment: {{ .Values.env }}
 owner: {{ .Values.owner }}
 {{- end }}

@@ -9,7 +9,7 @@ metadata:
   labels:
     application: {{ $relName }}-acceptance-tests
     application-under-test: {{ $relName }}
-    version: {{ .Values.image.tag }}
+    version: {{ .Values.global.image.tag }}
     environment: {{ .Values.env }}
     owner: {{ .Values.owner }}
   annotations:
@@ -21,7 +21,7 @@ metadata:
 spec:
   containers:
     - name: {{ $relName }}-acceptance-tests
-      image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}-acceptance-tests:{{ .Values.image.tag }}
+      image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}-acceptance-tests:{{ .Values.global.image.tag }}
       imagePullPolicy: Always
       {{- $testContainer := .Values.testContainer | default dict }}
       {{- if $testContainer.command }}
