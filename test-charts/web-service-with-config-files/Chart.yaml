@@ -7,7 +7,7 @@ sources:
   - https://github.com/ktech-org/bandstand-charts
 dependencies:
   - name: bandstand-web-service
-    version: ">= 1.9.2"
+    version: ">= 3.0.0"
     repository: "file://../../charts/bandstand-web-service/"
 maintainers:
   - name: ktech-developer-platform

@@ -1,6 +1,6 @@
 # Intro
 
-This repository contains all the charts used by the bandstand templates.
+This repository contains all the charts used by the Bandstand templates.
 
 # Updating charts
 

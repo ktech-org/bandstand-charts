@@ -1,4 +1,3 @@
-{{- define "bandstand-web-service.ingress" -}}
 {{- if .Values.ingress.enabled }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
@@ -41,5 +40,4 @@ spec:
     - host: {{ . | quote }}
       http: *http_rules
     {{- end }}
-{{- end }}
 {{- end }}
