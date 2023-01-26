@@ -31,6 +31,8 @@ workflows:
               chart:
                 - test-charts/web-service-defaults
                 - test-charts/web-service-with-config-files
+                - test-charts/headless-service-defaults
+                - test-charts/headless-service-with-probes
           name: <<matrix.chart>>
           business: ktech
           environment: test

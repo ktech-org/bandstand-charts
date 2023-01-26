@@ -9,3 +9,9 @@ livenessProbe:
       - ./livenessProbe.sh
   initialDelaySeconds: 5
   periodSeconds: 30
+
+startupProbe:
+  exec:
+    command:
+      - ./startupProbe.sh
+  periodSeconds: 10
