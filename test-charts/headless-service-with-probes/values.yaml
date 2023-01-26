@@ -3,15 +3,15 @@ bandstand-headless-service:
   env: test
   business: ktech
 
-livenessProbe:
-  exec:
-    command:
-      - ./livenessProbe.sh
-  initialDelaySeconds: 5
-  periodSeconds: 30
+  livenessProbe:
+    exec:
+      command:
+        - ./livenessProbe.sh
+    initialDelaySeconds: 5
+    periodSeconds: 30
 
-startupProbe:
-  exec:
-    command:
-      - ./startupProbe.sh
-  periodSeconds: 10
+  startupProbe:
+    exec:
+      command:
+        - ./startupProbe.sh
+    periodSeconds: 10
