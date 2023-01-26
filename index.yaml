@@ -342,6 +342,18 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-cron-job-1.0.0/bandstand-cron-job-1.0.0.tgz
     version: 1.0.0
+  bandstand-headless-service:
+  - apiVersion: v2
+    created: "2023-01-26T17:50:27.113637617Z"
+    description: Chart for a standalone (non-web) service
+    digest: c623bb6f71343af9da33e27621064ae90f7002fdde3b2cda8c025373d1e12935
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-headless-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-headless-service-1.0.0/bandstand-headless-service-1.0.0.tgz
+    version: 1.0.0
   bandstand-test-runner:
   - apiVersion: v2
     created: "2022-12-08T15:50:28.27309575Z"
@@ -1159,4 +1171,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-23T17:58:05.12821539Z"
+generated: "2023-01-26T17:50:27.117258329Z"
