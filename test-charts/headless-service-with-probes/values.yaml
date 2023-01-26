@@ -1,4 +1,4 @@
-bandstand-web-service:
+bandstand-headless-service:
   owner: ktech-developer-platform
   env: test
   business: ktech
