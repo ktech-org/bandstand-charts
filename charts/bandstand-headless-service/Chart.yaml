@@ -1,0 +1,7 @@
+apiVersion: v2
+name: bandstand-headless-service
+version: 1.0.0
+description: Chart for a standalone (non-web) service
+type: application
+maintainers:
+  - name: ktech-developer-platform

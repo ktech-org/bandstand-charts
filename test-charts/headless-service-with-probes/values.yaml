@@ -1,0 +1,11 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+livenessProbe:
+  exec:
+    command:
+      - ./livenessProbe.sh
+  initialDelaySeconds: 5
+  periodSeconds: 30

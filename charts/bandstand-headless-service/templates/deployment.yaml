@@ -1,0 +1,144 @@
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-headless-service.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{- include "bandstand-headless-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels: {{- include "bandstand-headless-service.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ $relName }}
+      containers:
+        - name: {{ $relName }}
+          image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}:{{ .Values.global.image.tag }}
+          imagePullPolicy: Always
+          {{- $serverContainer := .Values.serverContainer | default dict }}
+          {{- if $serverContainer.command }}
+          command: {{ $serverContainer.command }}
+          {{- end }}
+          {{- if $serverContainer.arguments }}
+          args:
+          {{- range $serverContainer.arguments }}
+          - {{ . }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: tmp-dir
+              mountPath: /tmp
+              readOnly: false
+            {{- range .Values.config }}
+            - name: config
+              mountPath: {{ .path }}/{{ .filename }}
+              subPath: {{ .filename }}
+              readOnly: true
+            {{- end }}
+            {{- range .Values.envConfig }}
+            - name: env-config
+              mountPath: {{ .path }}/{{ .filename }}
+              subPath: {{ .filename }}
+              readOnly: true
+            {{- end }}
+            {{- if (.Values.volume).enabled }}
+            - name: {{ $relName }}
+              mountPath: "/var/{{ $relName }}"
+            {{- end }}
+          resources:
+            requests:
+              cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
+              memory: {{ (.Values.resources).requests.memory | default "512Mi" }}
+            limits:
+              memory: {{ (.Values.resources).limits.memory | default "512Mi" }}
+          {{- if .Values.startupProbe }}
+          startupProbe: {{ toYaml .Values.startupProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.livenessProbe }}
+          livenessProbe: {{ toYaml .Values.livenessProbe | nindent 12 }}
+          {{- end }}
+          env:
+            - name: ENV
+              value: {{ .Values.env }}
+            - name: VERSION
+              value: {{ .Values.global.image.tag }}
+            - name: DD_ENV
+              value: {{ .Values.env }}
+            - name: DD_SERVICE
+              value: {{ $relName }}
+            - name: DD_VERSION
+              value: {{ .Values.global.image.tag }}
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: OTEL_SERVICE_NAME
+              value: {{ $relName }}
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://collector.linkerd-jaeger:4317
+            - name: OTEL_PROPAGATORS
+              value: b3multi
+            - name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+              value: http://$(DD_AGENT_HOST):4317
+            - name: OTEL_EXPORTER_OTLP_METRICS_PROTOCOL
+              value: grpc
+            - name: OTEL_METRICS_EXPORTER
+              value: otlp
+            - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
+              value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
+            {{- if .Values.additionalEnvVars }}
+              {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+            {{- end }}
+            {{- if .Values.environmentEnvVars }}
+              {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+            {{- end }}
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - all
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
+      volumes:
+        {{- if .Values.config }}
+        - name: config
+          configMap:
+            name: {{ $relName }}
+            items:
+              {{- range .Values.config }}
+              - key: {{ .filename }}
+                path: {{ .filename }}
+              {{- end }}
+        {{- end }}
+        {{- if .Values.envConfig }}
+        - name: env-config
+          configMap:
+            name: {{ $relName }}-env
+            items:
+              {{- range .Values.envConfig }}
+              - key: {{ .filename }}
+                path: {{ .filename }}
+              {{- end }}
+        {{- end }}
+        - name: tmp-dir
+          emptyDir: {}
+        {{- if (.Values.volume).enabled }}
+        - name: {{ $relName }}
+          persistentVolumeClaim:
+            claimName: {{ $relName }}
+        {{- end }}
+      securityContext:
+        fsGroup: 1000
+        {{- if .Values.runAsUser }}
+        runAsUser: {{ .Values.runAsUser | default 1000 }}
+        {{- else }}
+        runAsUser: 1000
+        {{- end }}
