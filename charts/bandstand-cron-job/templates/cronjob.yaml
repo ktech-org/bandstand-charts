@@ -1,4 +1,3 @@
-{{- define "bandstand-cron-job.cronjob" -}}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -23,7 +22,7 @@ spec:
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
           containers:
             - name: {{ .Release.Name }}
-              image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ .Release.Name }}:{{ .Values.image.tag }}
+              image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ .Release.Name }}:{{ .Values.global.image.tag }}
               imagePullPolicy: Always
               {{- $jobContainer := .Values.jobContainer | default dict }}
               {{- if $jobContainer.command }}
@@ -73,4 +72,3 @@ spec:
             - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
           volumes: {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
-{{- end -}}

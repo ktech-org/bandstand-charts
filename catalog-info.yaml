@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
     name: bandstand-charts
-    description: Library of common helm charts for use with bandstand
+    description: Library of common helm charts for use with Bandstand
     annotations:
         github.com/project-slug: ktech-org/bandstand-charts
         backstage.io/techdocs-ref: dir:.

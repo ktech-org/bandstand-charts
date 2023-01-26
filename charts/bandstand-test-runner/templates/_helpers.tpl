@@ -6,7 +6,7 @@ system-group: {{  .Values.systemGroup }}
 git-repo: {{ default .Release.Name .Values.gitRepo }}
 provisioner: "Helm"
 application: {{ .Release.Name }}
-version: {{ .Values.image.tag }}
+version: {{ .Values.global.image.tag }}
 environment: {{ .Values.env }}
 owner: {{ .Values.owner }}
 {{- end -}}

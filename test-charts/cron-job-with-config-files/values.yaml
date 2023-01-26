@@ -1,23 +1,24 @@
-owner: ktech-developer-platform
-env: test
-business: ktech
-  
-config:
-  - path: "/etc/gc-test-java-web/config"
-    filename: app.properties1
-    data: |
-      foo=bar1
-  - path: "/etc/gc-test-java-web/config"
-    filename: app.properties2
-    data: |
-      foo=bar2
+bandstand-cron-job:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
 
-envConfig:
-  - path: "/etc/gc-test-java-web/config"
-    filename: app.properties3
-    data: |
-      foo=bar3
-  - path: "/etc/gc-test-java-web/config"
-    filename: app.properties4
-    data: |
-      foo=bar4
+  config:
+    - path: "/etc/gc-test-java-web/config"
+      filename: app.properties1
+      data: |
+        foo=bar1
+    - path: "/etc/gc-test-java-web/config"
+      filename: app.properties2
+      data: |
+        foo=bar2
+
+  envConfig:
+    - path: "/etc/gc-test-java-web/config"
+      filename: app.properties3
+      data: |
+        foo=bar3
+    - path: "/etc/gc-test-java-web/config"
+      filename: app.properties4
+      data: |
+        foo=bar4
