@@ -33,8 +33,10 @@ This will add the dependency to the chart's `charts` subdirectory.
 
 ## Chart Readmes
 
-[Bandstand cron-job](https://github.com/ktech-org/bandstand-charts/tree/main/charts/bandstand-cron-job/README.md)
+[Bandstand cron-job](./charts/bandstand-cron-job/README.md)
 
-[Bandstand-test-runner](https://github.com/ktech-org/bandstand-charts/tree/main/charts/bandstand-test-runner/README.md)
+[Bandstand-test-runner](./charts/bandstand-test-runner/README.md)
 
-[Bandstand-web-service](https://github.com/ktech-org/bandstand-charts/tree/main/charts/bandstand-web-service/README.md)
+[Bandstand-web-service](./charts/bandstand-web-service/README.md)
+
+[Bandstand-headless-service](./charts/bandstand-headless-service/README.md)
