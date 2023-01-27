@@ -6,7 +6,7 @@ system-group: {{  .Values.systemGroup }}
 git-repo: {{ default .Release.Name .Values.gitRepo }}
 provisioner: "Helm"
 application: {{ .Release.Name }}
-version: {{ .Values.image.tag }}
+version: {{ .Values.global.image.tag }}
 environment: {{ .Values.env }}
 owner: {{ .Values.owner }}
 {{- end -}}
@@ -59,13 +59,13 @@ fsGroup: 1000
 - name: ENV
   value: {{ .Values.env }}
 - name: VERSION
-  value: {{ .Values.image.tag }}
+  value: {{ .Values.global.image.tag }}
 - name: DD_ENV
   value: {{ .Values.env }}
 - name: DD_SERVICE
   value: {{ .Release.Name }}
 - name: DD_VERSION
-  value: {{ .Values.image.tag }}
+  value: {{ .Values.global.image.tag }}
 - name: DD_AGENT_HOST
   valueFrom:
     fieldRef:

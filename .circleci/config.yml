@@ -33,20 +33,6 @@ workflows:
                 - test-charts/web-service-with-config-files
                 - test-charts/headless-service-defaults
                 - test-charts/headless-service-with-probes
-          name: <<matrix.chart>>
-          business: ktech
-          environment: test
-          namespace: lab
-          values: ./<<matrix.chart>>/values.yaml
-          values-to-override: "global.image.tag=sha-${CIRCLE_SHA1}"
-          dry-run: true
-          context:
-            - aws-base
-            - bandstand-ktech-test
-      - bandstand/install-chart:
-          matrix:
-            parameters:
-              chart:
                 - test-charts/cron-job-defaults
                 - test-charts/cron-job-with-config-files
                 - test-charts/test-runner-defaults
@@ -55,7 +41,7 @@ workflows:
           environment: test
           namespace: lab
           values: ./<<matrix.chart>>/values.yaml
-          values-to-override: "image.tag=sha-${CIRCLE_SHA1}"
+          values-to-override: "global.image.tag=sha-${CIRCLE_SHA1}"
           dry-run: true
           context:
             - aws-base

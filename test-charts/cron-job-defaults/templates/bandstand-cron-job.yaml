@@ -1,1 +1,0 @@
-{{ include "bandstand-cron-job.all" . }}

@@ -7,7 +7,7 @@ sources:
   - https://github.com/ktech-org/bandstand-charts
 dependencies:
   - name: bandstand-test-runner
-    version: ">= 1.2.1"
+    version: ">= 2.0.0"
     repository: "file://../../charts/bandstand-test-runner/"
 maintainers:
   - name: ktech-developer-platform

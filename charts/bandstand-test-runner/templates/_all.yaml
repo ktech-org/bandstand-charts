@@ -1,8 +1,0 @@
-{{- define "bandstand-test-runner.all" }}
-
-{{ include "bandstand-test-runner.serviceaccount" . }}
----
-{{ include "bandstand-test-runner.test-pods" . }}
-
-{{- end }}
-
