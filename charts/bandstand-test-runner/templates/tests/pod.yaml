@@ -6,7 +6,7 @@ metadata:
   labels:
     application: {{ $.Release.Name }}
     version: {{ $.Values.global.image.tag }}
-    environment: {{ $.Values.env }}
+    environment: {{ $.Values.global.env }}
     owner: {{ $.Values.owner }}
   annotations:
     "helm.sh/hook": test
@@ -42,11 +42,11 @@ spec:
           memory: {{ dig "resources" "requests" "memory" "256Mi" ($.Values | merge (dict)) }}
       env:
         - name: ENV
-          value: {{ $.Values.env }}
+          value: {{ $.Values.global.env }}
         - name: VERSION
           value: {{ $.Values.global.image.tag }}
         - name: DD_ENV
-          value: {{ $.Values.env }}
+          value: {{ $.Values.global.env }}
         - name: DD_SERVICE
           value: {{ $.Release.Name }}
         - name: DD_VERSION

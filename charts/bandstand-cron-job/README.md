@@ -5,6 +5,7 @@
 | Key                | Type   | Default | Description                                           |
 |--------------------|--------|---------|-------------------------------------------------------|
 | global.aws.account | string |         | The AWS account the helm chart is installed into      |
+| global.env         | string |         | The environment, either test, preprod or prod         |
 | global.image.tag   | string |         | The tag for container image to be used in the service |
 
 ## Values
@@ -14,7 +15,6 @@
 | additionalEnvVars         | object | `{}`                             | An object containing additional environment variables                                                                                                                                                                                                                                          |
 | environmentEnvVars        | object | `{}`                             | An object containing environment specific additional environment variables. Use this in *-values.yaml files to not overwrite the additionalEnvVars object                                                                                                                                      |
 | dockerRegistry            | string | `ktechartifacts-docker.jfrog.io` | Docker registry to pull images from                                                                                                                                                                                                                                                            |
-| env                       | string |                                  | The environment, either test, preprod or prod                                                                                                                                                                                                                                                  |
 | gitRepo                   | string | `.Release.Name`                  | The name of the repository for the service                                                                                                                                                                                                                                                     |
 | imagePullSecret           | string | `rt-docker-config`               | Docker registry secret for pulling image                                                                                                                                                                                                                                                       |
 | jobContainer.arguments    | list   |                                  | Override the default container arguments for the job Pod                                                                                                                                                                                                                                       |

@@ -5,6 +5,7 @@
 | Key                | Type   | Default | Description                                           |
 |--------------------|--------|---------|-------------------------------------------------------|
 | global.aws.account | string |         | The AWS account the helm chart is installed into      |
+| global.env         | string |         | The environment, either test, preprod or prod         |
 | global.image.tag   | string |         | The tag for container image to be used in the service |
 
 ## Values
@@ -13,7 +14,6 @@
 |---------------------------|--------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | commonEnv                 | list   | `[]`                             | List of [environment variables](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#environment-variables) to be applied to all test containers                                                                                                                     |
 | dockerRegistry            | string | `ktechartifacts-docker.jfrog.io` | Docker registry to pull images from                                                                                                                                                                                                                                                            |
-| env                       | string |                                  | The environment, either test, preprod or prod                                                                                                                                                                                                                                                  |
 | gitRepo                   | string | `.Release.Name`                  | The name of the repository for the service                                                                                                                                                                                                                                                     |
 | imagePullSecret           | string | `rt-docker-config`               | Docker registry secret for pulling image                                                                                                                                                                                                                                                       |
 | owner                     | string |                                  | The GitHub team that owns the service                                                                                                                                                                                                                                                          |

@@ -11,7 +11,7 @@ application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
 application: {{ .Release.Name }}
 {{- end }}
 version: {{ .Values.global.image.tag }}
-environment: {{ .Values.env }}
+environment: {{ .Values.global.env }}
 owner: {{ .Values.owner }}
 {{- end }}
 
