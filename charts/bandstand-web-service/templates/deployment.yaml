@@ -76,11 +76,11 @@ spec:
             timeoutSeconds: 5
           env:
             - name: ENV
-              value: {{ .Values.env }}
+              value: {{ .Values.global.env }}
             - name: VERSION
               value: {{ .Values.global.image.tag }}
             - name: DD_ENV
-              value: {{ .Values.env }}
+              value: {{ .Values.global.env }}
             - name: DD_SERVICE
               value: {{ $relName }}
             - name: DD_VERSION

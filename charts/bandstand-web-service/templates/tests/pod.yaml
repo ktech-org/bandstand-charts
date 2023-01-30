@@ -10,7 +10,7 @@ metadata:
     application: {{ $relName }}-acceptance-tests
     application-under-test: {{ $relName }}
     version: {{ .Values.global.image.tag }}
-    environment: {{ .Values.env }}
+    environment: {{ .Values.global.env }}
     owner: {{ .Values.owner }}
   annotations:
     "helm.sh/hook": test
@@ -41,7 +41,7 @@ spec:
           memory: 512Mi
       env:
         - name: ENV
-          value: {{ .Values.env }}
+          value: {{ .Values.global.env }}
       volumeMounts:
         - name: tmp
           mountPath: /tmp
