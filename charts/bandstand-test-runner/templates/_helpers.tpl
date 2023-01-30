@@ -7,6 +7,6 @@ git-repo: {{ default .Release.Name .Values.gitRepo }}
 provisioner: "Helm"
 application: {{ .Release.Name }}
 version: {{ .Values.global.image.tag }}
-environment: {{ .Values.env }}
+environment: {{ .Values.global.env }}
 owner: {{ .Values.owner }}
 {{- end -}}

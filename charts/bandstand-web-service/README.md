@@ -5,6 +5,7 @@
 | Key                | Type   | Default | Description                                           |
 |--------------------|--------|---------|-------------------------------------------------------|
 | global.aws.account | string |         | The AWS account the helm chart is installed into      |
+| global.env         | string |         | The environment, either test, preprod or prod         |
 | global.image.tag   | string |         | The tag for container image to be used in the service |
 
 ## Values
@@ -16,7 +17,6 @@
 | environmentEnvVars        | object | `{}`                             | An object containing environment specific additional environment variables                                                                                                                                                                                                                     |
 | containerPort             | int    | `8080`                           | The port to open on the container for the service                                                                                                                                                                                                                                              |
 | dockerRegistry            | string | `ktechartifacts-docker.jfrog.io` | Docker registry to pull images from                                                                                                                                                                                                                                                            |
-| env                       | string |                                  | The environment, either test, preprod or prod                                                                                                                                                                                                                                                  |
 | gitRepo                   | string | `.Release.Name`                  | The name of the repository for the service                                                                                                                                                                                                                                                     |
 | hpa.averageCpuUtilization | int    | `50`                             | Horizontal pod autoscaler, the threshold average CPU ultilization to trigger, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)                                                                                                                           |
 | hpa.maxReplicas           | int    | `3`                              | Horizontal pod autoscaler, maximum number of pods, see [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)                                                                                                                                                      |

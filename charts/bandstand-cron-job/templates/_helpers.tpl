@@ -7,7 +7,7 @@ git-repo: {{ default .Release.Name .Values.gitRepo }}
 provisioner: "Helm"
 application: {{ .Release.Name }}
 version: {{ .Values.global.image.tag }}
-environment: {{ .Values.env }}
+environment: {{ .Values.global.env }}
 owner: {{ .Values.owner }}
 {{- end -}}
 
@@ -57,11 +57,11 @@ fsGroup: 1000
 
 {{- define "bandstand-cron-job.common-envvars" -}}
 - name: ENV
-  value: {{ .Values.env }}
+  value: {{ .Values.global.env }}
 - name: VERSION
   value: {{ .Values.global.image.tag }}
 - name: DD_ENV
-  value: {{ .Values.env }}
+  value: {{ .Values.global.env }}
 - name: DD_SERVICE
   value: {{ .Release.Name }}
 - name: DD_VERSION
