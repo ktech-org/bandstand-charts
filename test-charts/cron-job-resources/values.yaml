@@ -1,0 +1,10 @@
+bandstand-cron-job:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+      ephemeralStorage: 1Gi
