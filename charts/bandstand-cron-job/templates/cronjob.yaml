@@ -58,10 +58,10 @@ spec:
                 requests:
                   cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
                   memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
-                  ephemeral-storage: {{ (.Values.resources).requests.ephemeral-storage | default "64Mi" }}
+                  ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
                 limits:
                   memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
-                  ephemeral-storage: {{ (.Values.resources).requests.ephemeral-storage | default "64Mi" }}
+                  ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
               env: {{- include "bandstand-cron-job.common-envvars" . | nindent 16 }}
                 {{- if .Values.additionalEnvVars }}
                 {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
