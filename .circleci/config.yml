@@ -37,6 +37,7 @@ workflows:
                 - test-charts/headless-service-with-probes
                 - test-charts/cron-job-defaults
                 - test-charts/cron-job-resources
+                - test-charts/cron-job-single-resource-request
                 - test-charts/cron-job-with-config-files
                 - test-charts/test-runner-defaults
                 - test-charts/test-runner-resources
