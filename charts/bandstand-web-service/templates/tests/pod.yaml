@@ -42,6 +42,12 @@ spec:
       env:
         - name: ENV
           value: {{ .Values.global.env }}
+        {{- if (.Values.test).additionalEnvVars }}
+          {{- .Values.test.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
+        {{- end }}
+        {{- if (.Values.test).environmentEnvVars }}
+          {{- .Values.test.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
+        {{- end }}
       volumeMounts:
         - name: tmp
           mountPath: /tmp
