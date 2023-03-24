@@ -555,6 +555,17 @@ entries:
     version: 0.1.0
   bandstand-web-service:
   - apiVersion: v2
+    created: "2023-03-24T13:12:57.575266727Z"
+    description: Application chart for a web service
+    digest: bd34b93520e69b641302383b2ae60fc401717d8da3b63d35e6503e761ed97af0
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-web-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-web-service-3.1.1/bandstand-web-service-3.1.1.tgz
+    version: 3.1.1
+  - apiVersion: v2
     created: "2023-03-23T14:32:10.463797573Z"
     description: Application chart for a web service
     digest: f876f7bdc5ab42b8acea43e09293ceff0324606f8f9267ca7e17732269908a30
@@ -1281,4 +1292,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-23T14:32:10.464483873Z"
+generated: "2023-03-24T13:12:57.577211439Z"
