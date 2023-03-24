@@ -38,7 +38,7 @@ spec:
           cpu: 100m
           memory: {{ (.Values.test.resources).requests.memory | default "512Mi" }}
         limits:
-          memory: {{ (.Values.test.resources).requests.memory | default "512Mi" }}
+          memory: {{ ((.Values.test).resources).requests.memory | default "512Mi" }}
       env:
         - name: ENV
           value: {{ .Values.global.env }}
