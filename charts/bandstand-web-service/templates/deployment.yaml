@@ -60,9 +60,9 @@ spec:
               memory: {{ (.Values.resources).requests.memory | default "512Mi" }}
               ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
             limits:
-              {{ - if .Values.enforceCpuLimits }}
+              {{- if .Values.enforceCpuLimits }}
               cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
-              {{ - end }}
+              {{- end }}
               memory: {{ (.Values.resources).requests.memory | default "512Mi" }}
               ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
           livenessProbe:
