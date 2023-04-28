@@ -31,6 +31,7 @@ workflows:
               chart:
                 - test-charts/web-service-defaults
                 - test-charts/web-service-resources
+                - test-charts/web-service-resource-limits
                 - test-charts/web-service-with-config-files
                 - test-charts/headless-service-defaults
                 - test-charts/headless-service-resources
