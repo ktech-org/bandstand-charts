@@ -4,13 +4,13 @@ This is a public repo since it uses Github Pages to host a helm repository.
 
 ## Chart References
 
-[Bandstand cron-job](bandstand-cron-job.md)
+[Cron Job](bandstand-cron-job.md)
 
-[Bandstand-test-runner](bandstand-test-runner.md)
+[Test Runner](bandstand-test-runner.md)
 
-[Bandstand-web-service](bandstand-web-service.md)
+[Web Service](bandstand-web-service.md)
 
-[Bandstand-headless-service](bandstand-headless-service.md)
+[Headless Service](bandstand-headless-service.md)
 
 ## Values precedence
 
