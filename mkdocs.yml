@@ -1,10 +1,15 @@
 site_name: bandstand-charts
 repo_url: https://github.com/ktech-org/bandstand-charts
 
-site_description: "Docs for bandstand-charts"
+site_description: "Docs for Bandstand Charts"
 
 nav:
-  - Home: index.md
+  - Home: README.md
+  - Usage:
+    - Web Service: bandstand-web-service.md
+    - Headless Service: bandstand-headless-service.md
+    - Cron Job: bandstand-cron-job.md
+    - Test Runner: bandstand-test-runner.md
 
 plugins:
   - techdocs-core
