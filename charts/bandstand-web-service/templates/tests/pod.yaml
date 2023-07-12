@@ -21,7 +21,7 @@ metadata:
 spec:
   {{- if (.Values.test).createServiceAccount }}
   serviceAccountName: {{ $relName }}-acceptance-tests
-  {{- endif }}
+  {{- end }}
   containers:
     - name: {{ $relName }}-acceptance-tests
       image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $relName }}-acceptance-tests:{{ .Values.global.image.tag }}
