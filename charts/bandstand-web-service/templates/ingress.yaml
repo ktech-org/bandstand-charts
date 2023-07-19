@@ -11,6 +11,8 @@ metadata:
   annotations:
     bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
     nginx.ingress.kubernetes.io/service-upstream: "true"
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
     nginx.ingress.kubernetes.io/large-client-header-buffers: "4 16k"
     {{- with .Values.ingress.annotations }}
       {{- toYaml . | nindent 4 }}
