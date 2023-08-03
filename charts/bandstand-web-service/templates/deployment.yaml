@@ -114,6 +114,10 @@ spec:
             {{- if .Values.environmentEnvVars }}
               {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
+          envFrom:
+            {{- if .Values.sharedEnvConfig }}
+            {{- .Values.sharedEnvConfig | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+            {{- end }}
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false

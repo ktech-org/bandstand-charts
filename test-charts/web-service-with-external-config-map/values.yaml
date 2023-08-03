@@ -1,0 +1,11 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  sharedEnvConfig:
+    - configMapRef:
+        name: shared-config-map
