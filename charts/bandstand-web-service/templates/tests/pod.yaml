@@ -52,8 +52,8 @@ spec:
           {{- .Values.test.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
         {{- end }}
       envFrom:
-        {{- if .Values.sharedEnvConfig }}
-        {{- .Values.sharedEnvConfig | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+        {{- if (.Values.test).environmentEnvRefs }}
+        {{- (.Values.test).environmentEnvRefs | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
         {{- end }}
 
       volumeMounts:
