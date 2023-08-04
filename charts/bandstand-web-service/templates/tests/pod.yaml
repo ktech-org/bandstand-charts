@@ -51,10 +51,10 @@ spec:
         {{- if (.Values.test).environmentEnvVars }}
           {{- .Values.test.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
         {{- end }}
+      {{- if (.Values.test).environmentEnvRefs }}
       envFrom:
-        {{- if (.Values.test).environmentEnvRefs }}
         {{- (.Values.test).environmentEnvRefs | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
-        {{- end }}
+      {{- end }}
 
       volumeMounts:
         - name: tmp
