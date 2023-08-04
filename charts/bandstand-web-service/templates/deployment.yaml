@@ -115,8 +115,8 @@ spec:
               {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
           envFrom:
-            {{- if .Values.sharedEnvConfig }}
-            {{- .Values.sharedEnvConfig | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+            {{- if .Values.environmentEnvRefs }}
+            {{- .Values.environmentEnvRefs | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
           securityContext:
             runAsNonRoot: true

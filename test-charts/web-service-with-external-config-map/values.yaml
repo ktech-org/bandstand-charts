@@ -6,6 +6,6 @@ bandstand-web-service:
   ingress:
     enabled: false
 
-  sharedEnvConfig:
+  environmentEnvRefs:
     - configMapRef:
         name: shared-config-map
