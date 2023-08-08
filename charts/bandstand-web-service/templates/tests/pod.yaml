@@ -51,11 +51,10 @@ spec:
         {{- if (.Values.test).environmentEnvVars }}
           {{- .Values.test.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
         {{- end }}
-      {{- if (.Values.test).environmentEnvRefs }}
+      {{- if (.Values.test).envFrom }}
       envFrom:
-        {{- (.Values.test).environmentEnvRefs | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+        {{- (.Values.test).envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
       {{- end }}
-
       volumeMounts:
         - name: tmp
           mountPath: /tmp

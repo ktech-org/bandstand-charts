@@ -72,6 +72,10 @@ spec:
                 {{- if .Values.environmentEnvVars }}
                 {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
+              {{- if .Values.envFrom }}
+              envFrom:
+                {{- .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+              {{- end }}
               securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
           imagePullSecrets:
             - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}

@@ -1,10 +1,7 @@
-bandstand-web-service:
+bandstand-cron-job:
   owner: ktech-developer-platform
   env: test
   business: ktech
-
-  ingress:
-    enabled: false
 
   envFrom:
     - configMapRef:
