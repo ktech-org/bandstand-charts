@@ -38,10 +38,10 @@ spec:
         requests:
           cpu: {{ dig "resources" "requests" "cpu" "100m" ($.Values | merge (dict)) }}
           memory: {{ dig "resources" "requests" "memory" "256Mi" ($.Values | merge (dict)) }}
-          ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
+          ephemeral-storage: {{ ($.Values.resources).requests.ephemeralStorage | default "64Mi" }}
         limits:
           memory: {{ dig "resources" "requests" "memory" "256Mi" ($.Values | merge (dict)) }}
-          ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
+          ephemeral-storage: {{ ($.Values.resources).requests.ephemeralStorage | default "64Mi" }}
       env:
         - name: ENV
           value: {{ $.Values.global.env }}
