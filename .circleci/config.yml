@@ -48,6 +48,7 @@ workflows:
                 - test-charts/cron-job-with-external-config-map
                 - test-charts/test-runner-defaults
                 - test-charts/test-runner-resources
+                - test-charts/test-runner-image-override
                 - test-charts/test-runner-with-external-config-map
           name: <<matrix.chart>>
           business: ktech
