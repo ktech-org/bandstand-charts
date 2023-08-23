@@ -8,3 +8,6 @@ bandstand-test-runner:
       cpu: 250m
       memory: 512Mi
       ephemeralStorage: 1Gi
+
+  testRuns:
+    - name: test-suite-1
