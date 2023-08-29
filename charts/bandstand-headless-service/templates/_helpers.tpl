@@ -16,7 +16,6 @@ tags.datadoghq.com/version: {{ .Values.global.image.tag }}
 environment: {{ .Values.global.env }}
 tags.datadoghq.com/env: {{ .Values.global.env }}
 owner: {{ .Values.owner }}
-type: "headless-service"
 {{- end }}
 
 {{- define "bandstand-headless-service.selectorLabels" -}}
@@ -25,5 +24,4 @@ application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
 {{- else }}
 application: {{ .Release.Name }}
 {{- end }}
-type: "headless-service"
 {{- end }}

@@ -6,7 +6,7 @@ system-group: {{  .Values.systemGroup }}
 {{- end }}
 git-repo: {{ default .Release.Name .Values.gitRepo }}
 provisioner: "Helm"
-application: {{ .Release.Name }}
+application: {{ .Release.Name }}-test-suite
 version: {{ .Values.global.image.tag }}
 tags.datadoghq.com/version: {{ .Values.global.image.tag }}
 environment: {{ .Values.global.env }}
