@@ -521,6 +521,17 @@ entries:
     version: 1.0.0
   bandstand-test-runner:
   - apiVersion: v2
+    created: "2023-08-29T13:33:11.602682431Z"
+    description: Application for running standalone test pod
+    digest: 0da095aed5e4c4e82de18817582377925a701a099b7524188eb680b354ecf38e
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-test-runner
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-2.4.3/bandstand-test-runner-2.4.3.tgz
+    version: 2.4.3
+  - apiVersion: v2
     created: "2023-08-29T13:00:59.265124331Z"
     description: Application for running standalone test pod
     digest: 6a6f4f46c8e437abcb622de64963f6688328f1692cdbe06f59b8d4df5c9e7d68
@@ -1567,4 +1578,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-29T13:00:59.265503837Z"
+generated: "2023-08-29T13:33:11.603095124Z"
