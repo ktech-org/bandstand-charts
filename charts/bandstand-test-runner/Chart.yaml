@@ -1,6 +1,6 @@
 apiVersion: v2
 name: bandstand-test-runner
-version: 2.4.1
+version: 2.4.2
 description: Application for running standalone test pod
 type: application
 maintainers:

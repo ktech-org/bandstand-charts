@@ -3,11 +3,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: {{ $.Release.Name }}-test-run-{{ .name }}
-  labels:
-    application: {{ $.Release.Name }}
-    version: {{ $.Values.global.image.tag }}
-    environment: {{ $.Values.global.env }}
-    owner: {{ $.Values.owner }}
+  labels: {{- include "bandstand-test-runner.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
     "helm.sh/hook-delete-policy": before-hook-creation
