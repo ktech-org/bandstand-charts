@@ -2,6 +2,7 @@ bandstand-test-runner:
   owner: ktech-developer-platform
   env: test
   business: ktech
+  imageName: my-custom-image
 
   testRuns:
     - name: test-suite-1
