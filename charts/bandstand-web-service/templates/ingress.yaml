@@ -34,7 +34,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ default .Release.Name .Values.ingress.defaultBackend }}
+                name: {{ default $relName .Values.ingress.defaultBackend }}
                 port:
                   number: 80
           {{- if .Values.ingress.additionalPaths }}
