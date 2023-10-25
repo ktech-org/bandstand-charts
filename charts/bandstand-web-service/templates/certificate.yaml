@@ -24,4 +24,4 @@ spec:
   privateKey:
     algorithm: "RSA"
     size: 2048
-{{- end -}}
+{{ end -}}
