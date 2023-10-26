@@ -30,6 +30,7 @@ workflows:
             parameters:
               chart:
                 - test-charts/web-service-defaults
+                - test-charts/web-service-additional-domains
                 - test-charts/web-service-image-override
                 - test-charts/web-service-resources
                 - test-charts/web-service-resource-limits
