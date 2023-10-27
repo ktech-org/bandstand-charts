@@ -2,15 +2,15 @@
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
 {{- end }}
-{{- range $.Values.additionalDomains -}}
+{{- range $i, $domain = .Values.additionalDomains -}}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ $relName }}
+  name: {{ $relName }}-{{ $i }}
 spec:
-  commonName: {{ . }}
+  commonName: {{ $domain }}
   dnsNames:
-    - "*.{{ . }}"
+    - "*.{{ $domain }}"
   duration: 24h
   issuerRef:
     group: awspca.cert-manager.io
