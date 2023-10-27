@@ -2,7 +2,7 @@
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
 {{- end }}
-{{- range $i, $domain = .Values.additionalDomains -}}
+{{- range $i, $domain := .Values.additionalDomains -}}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
