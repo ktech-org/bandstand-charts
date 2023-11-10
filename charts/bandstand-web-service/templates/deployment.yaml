@@ -108,6 +108,8 @@ spec:
               value: otlp
             - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
               value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: host=$(DD_AGENT_HOST),service={{ $relName }},env={{ .Values.global.env }}
             {{- if .Values.additionalEnvVars }}
               {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
