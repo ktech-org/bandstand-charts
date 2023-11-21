@@ -63,6 +63,8 @@ fsGroup: 1000
   value: {{ .Values.global.env }}
 - name: VERSION
   value: {{ .Values.global.image.tag }}
+- name: BUSINESS
+  value: {{ default none .Values.global.business }}
 - name: DD_ENV
   value: {{ .Values.global.env }}
 - name: DD_SERVICE
