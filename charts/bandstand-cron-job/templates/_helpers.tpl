@@ -24,8 +24,8 @@ capabilities:
 {{- end -}}
 
 {{- define "bandstand-cron-job.podSecurityContext" -}}
-runAsUser: 1000
-fsGroup: 1000
+runAsUser: {{ .Values.runAsUser | default 1000  }}
+fsGroup: {{ .Values.fsGroup | default 1000  }}
 {{- end -}}
 
 {{- define "bandstand-cron-job.common-volumes" -}}
