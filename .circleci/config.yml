@@ -33,6 +33,7 @@ workflows:
                 - test-charts/web-service-image-override
                 - test-charts/web-service-resources
                 - test-charts/web-service-resource-limits
+                - test-charts/web-service-secrets
                 - test-charts/web-service-with-config-files
                 - test-charts/web-service-with-test-service-acct
                 - test-charts/web-service-with-external-config-map
