@@ -10,6 +10,9 @@ bandstand-web-service:
     - name: my-first-secret
       secret: my-secret-name
       prefix: my-prefix
+      optional: true
+    - name: my-second-secret
+      secret: my-other-secret-name
 
   test:
     resources:
