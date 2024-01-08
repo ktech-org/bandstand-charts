@@ -15,6 +15,10 @@ bandstand-web-service:
       secret: my-other-secret-name
 
   test:
-    resources:
-      requests:
-        memory: 512Mi
+    secrets:
+      - name: my-first-test-secret
+        secret: my-secret-name
+        prefix: my-prefix
+        optional: true
+      - name: my-second-test-secret
+        secret: my-other-secret-name

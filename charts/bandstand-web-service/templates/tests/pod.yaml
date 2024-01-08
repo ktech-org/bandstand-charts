@@ -51,9 +51,21 @@ spec:
         {{- if (.Values.test).environmentEnvVars }}
           {{- .Values.test.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
         {{- end }}
-      {{- if (.Values.test).envFrom }}
+      {{- if or ((.Values.test).envFrom) ((.Values.test).secrets) }}
       envFrom:
-        {{- (.Values.test).envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+      {{- if (.Values.test).envFrom }}
+      {{- (.Values.test).envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+      {{- end }}
+      {{- range (.Values.test).secrets }}
+      {{- $secretHash := sha256sum .secret | substr 0 6 }}
+      {{- $secretName := list $.Release.Name $.Values.nameSuffix .name "acceptance-test" $secretHash | join "-" }}
+      - secretRef:
+          name: {{ $secretName }}
+          optional: {{ .optional | default false }}
+        {{- if .prefix }}
+        prefix: {{ .prefix }}
+        {{- end }}
+      {{- end }}
       {{- end }}
       volumeMounts:
         - name: tmp

@@ -72,10 +72,22 @@ spec:
                 {{- if .Values.environmentEnvVars }}
                 {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
-              {{- if .Values.envFrom }}
-              envFrom:
+                {{- if or (.Values.envFrom) (.Values.secrets) }}
+                envFrom:
+                {{- if .Values.envFrom }}
                 {{- .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
-              {{- end }}
+                {{- end }}
+                {{- range .Values.secrets }}
+                {{- $secretHash := sha256sum .secret | substr 0 6 }}
+                {{- $secretName := list $.Release.Name $.Values.nameSuffix .name $secretHash | join "-" }}
+                - secretRef:
+                    name: {{ $secretName }}
+                    optional: {{ .optional | default false }}
+                  {{- if .prefix }}
+                  prefix: {{ .prefix }}
+                  {{- end }}
+                {{- end }}
+                {{- end }}
               securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
           imagePullSecrets:
             - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
