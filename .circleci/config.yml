@@ -33,6 +33,7 @@ workflows:
                 - test-charts/web-service-image-override
                 - test-charts/web-service-resources
                 - test-charts/web-service-resource-limits
+                - test-charts/web-service-secrets
                 - test-charts/web-service-with-config-files
                 - test-charts/web-service-with-test-service-acct
                 - test-charts/web-service-with-external-config-map
@@ -40,12 +41,14 @@ workflows:
                 - test-charts/headless-service-image-override
                 - test-charts/headless-service-resources
                 - test-charts/headless-service-resource-limits
+                - test-charts/headless-service-secrets
                 - test-charts/headless-service-with-probes
                 - test-charts/headless-service-with-external-config-map
                 - test-charts/cron-job-defaults
                 - test-charts/cron-job-image-override
                 - test-charts/cron-job-resources
                 - test-charts/cron-job-resource-limits
+                - test-charts/cron-job-secrets
                 - test-charts/cron-job-single-resource-request
                 - test-charts/cron-job-with-config-files
                 - test-charts/cron-job-with-external-config-map
