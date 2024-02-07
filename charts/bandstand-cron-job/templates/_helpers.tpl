@@ -30,7 +30,21 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
 
 {{- define "bandstand-cron-job.common-volumes" -}}
 - name: tmp-dir
+{{- if .Values.volume.ephemeral }}
+  ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          type: temp-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "gp2"
+        resources:
+          requests:
+            storage: {{ .Values.volume.ephemeral }}
+{{- else }}
   emptyDir: {}
+{{- end }}
 {{- if .Values.config }}
 - name: config
   configMap:
