@@ -52,6 +52,7 @@ workflows:
                 - test-charts/cron-job-single-resource-request
                 - test-charts/cron-job-with-config-files
                 - test-charts/cron-job-with-external-config-map
+                - test-charts/cron-job-with-ephemeral-volume
                 - test-charts/test-runner-defaults
                 - test-charts/test-runner-resources
                 - test-charts/test-runner-image-override
