@@ -30,7 +30,7 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
 
 {{- define "bandstand-cron-job.common-volumes" -}}
 - name: tmp-dir
-{{- if .Values.volume.ephemeral }}
+{{- if (.Values.volume).ephemeral }}
   ephemeral:
     volumeClaimTemplate:
       metadata:

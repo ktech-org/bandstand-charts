@@ -163,7 +163,7 @@ spec:
               {{- end }}
         {{- end }}
         - name: tmp-dir
-        {{- if .Values.volume.ephemeral }}
+        {{- if (.Values.volume).ephemeral }}
           ephemeral:
             volumeClaimTemplate:
               metadata:
