@@ -1,4 +1,4 @@
-{{- if (.Values.volume).enabled }}
+{{- if (.Values.volume).persistent }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
@@ -13,5 +13,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ (.Values.volume).storage | default "1Gi" }}
+      storage: {{ (.Values.volume).persistent }}
 {{- end -}}

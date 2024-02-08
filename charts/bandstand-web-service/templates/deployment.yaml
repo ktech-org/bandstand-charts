@@ -50,7 +50,7 @@ spec:
               subPath: {{ .filename }}
               readOnly: true
             {{- end }}
-            {{- if (.Values.volume).enabled }}
+            {{- if (.Values.volume).persistent }}
             - name: {{ $relName }}
               mountPath: "/var/{{ $relName }}"
             {{- end }}
@@ -163,8 +163,22 @@ spec:
               {{- end }}
         {{- end }}
         - name: tmp-dir
+        {{- if (.Values.volume).ephemeral }}
+          ephemeral:
+            volumeClaimTemplate:
+              metadata:
+                labels:
+                  type: temp-volume
+              spec:
+                accessModes: [ "ReadWriteOnce" ]
+                storageClassName: "gp2"
+                resources:
+                  requests:
+                    storage: {{ .Values.volume.ephemeral }}
+        {{- else }}
           emptyDir: {}
-        {{- if (.Values.volume).enabled }}
+        {{- end }}
+        {{- if (.Values.volume).persistent }}
         - name: {{ $relName }}
           persistentVolumeClaim:
             claimName: {{ $relName }}

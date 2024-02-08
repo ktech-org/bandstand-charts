@@ -37,6 +37,8 @@ workflows:
                 - test-charts/web-service-with-config-files
                 - test-charts/web-service-with-test-service-acct
                 - test-charts/web-service-with-external-config-map
+                - test-charts/web-service-with-ephemeral-volume
+                - test-charts/web-service-with-persistent-volume
                 - test-charts/headless-service-defaults
                 - test-charts/headless-service-image-override
                 - test-charts/headless-service-resources
@@ -44,6 +46,8 @@ workflows:
                 - test-charts/headless-service-secrets
                 - test-charts/headless-service-with-probes
                 - test-charts/headless-service-with-external-config-map
+                - test-charts/headless-service-with-ephemeral-volume
+                - test-charts/headless-service-with-persistent-volume
                 - test-charts/cron-job-defaults
                 - test-charts/cron-job-image-override
                 - test-charts/cron-job-resources
@@ -52,6 +56,8 @@ workflows:
                 - test-charts/cron-job-single-resource-request
                 - test-charts/cron-job-with-config-files
                 - test-charts/cron-job-with-external-config-map
+                - test-charts/cron-job-with-ephemeral-volume
+                - test-charts/cron-job-with-persistent-volume
                 - test-charts/test-runner-defaults
                 - test-charts/test-runner-resources
                 - test-charts/test-runner-image-override
