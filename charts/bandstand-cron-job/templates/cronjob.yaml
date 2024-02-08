@@ -50,7 +50,7 @@ spec:
                   subPath: {{ .filename }}
                   readOnly: true
                 {{- end }}
-                {{- if (.Values.volume).enabled }}
+                {{- if (.Values.volume).persistent }}
                 - name: {{ .Release.Name }}
                   mountPath: "/var/{{ .Release.Name }}"
                 {{- end }}

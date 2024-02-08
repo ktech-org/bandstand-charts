@@ -65,7 +65,7 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
         path: {{ .filename }}
       {{- end }}
 {{- end }}
-{{- if (.Values.volume).enabled }}
+{{- if (.Values.volume).persistent }}
 - name: {{ .Release.Name }}
   persistentVolumeClaim:
     claimName: {{ .Release.Name }}

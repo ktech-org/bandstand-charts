@@ -47,7 +47,7 @@ spec:
               subPath: {{ .filename }}
               readOnly: true
             {{- end }}
-            {{- if (.Values.volume).enabled }}
+            {{- if (.Values.volume).persistent }}
             - name: {{ $relName }}
               mountPath: "/var/{{ $relName }}"
             {{- end }}
@@ -165,7 +165,7 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-        {{- if (.Values.volume).enabled }}
+        {{- if (.Values.volume).persistent }}
         - name: {{ $relName }}
           persistentVolumeClaim:
             claimName: {{ $relName }}
