@@ -1,6 +1,6 @@
 apiVersion: v2
 name: bandstand-headless-service
-version: 3.0.0
+version: 3.0.1
 description: Chart for a standalone (non-web) service
 type: application
 maintainers:
