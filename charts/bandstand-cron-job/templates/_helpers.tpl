@@ -20,7 +20,9 @@ allowPrivilegeEscalation: false
 readOnlyRootFilesystem: true
 capabilities:
   drop:
-    - all
+    - ALL
+seccompProfile:
+  type: RuntimeDefault
 {{- end -}}
 
 {{- define "bandstand-cron-job.podSecurityContext" -}}
