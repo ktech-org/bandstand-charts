@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   bandstand-cron-job:
   - apiVersion: v2
+    created: "2024-02-27T13:26:29.612384112Z"
+    description: Application chart for a simple cron job
+    digest: a5a5aa8605d9dcf5ccc1af80734fed5125f8551a15e0a89c3b2320c4545254aa
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-cron-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-cron-job-4.0.2/bandstand-cron-job-4.0.2.tgz
+    version: 4.0.2
+  - apiVersion: v2
     created: "2024-02-16T13:47:05.087565677Z"
     description: Application chart for a simple cron job
     digest: ee4fab1c17fed3eb8a688fda0b4fbec09b5851c51c3a336b326eabec37c47294
@@ -498,6 +509,17 @@ entries:
     version: 1.0.0
   bandstand-headless-service:
   - apiVersion: v2
+    created: "2024-02-27T13:26:29.769354877Z"
+    description: Chart for a standalone (non-web) service
+    digest: 7dfde89b16da20d826a224ad39199804bddd03d0309c7976674064329acecc7b
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-headless-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-headless-service-3.0.2/bandstand-headless-service-3.0.2.tgz
+    version: 3.0.2
+  - apiVersion: v2
     created: "2024-02-16T13:47:05.28152668Z"
     description: Chart for a standalone (non-web) service
     digest: 8f31efc9cf9795ee92c70c200053bd95f32f96d77baac92f06ce4898720a3c66
@@ -851,6 +873,17 @@ entries:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-0.1.0/bandstand-test-runner-0.1.0.tgz
     version: 0.1.0
   bandstand-web-service:
+  - apiVersion: v2
+    created: "2024-02-27T13:26:29.94460541Z"
+    description: Application chart for a web service
+    digest: 8ae51ca2755bd050f47b242e21ec5d7acd59452c31768b5bde2df1c0d7fb324f
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-web-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-web-service-4.0.2/bandstand-web-service-4.0.2.tgz
+    version: 4.0.2
   - apiVersion: v2
     created: "2024-02-16T13:47:05.443200781Z"
     description: Application chart for a web service
@@ -1787,4 +1820,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2024-02-16T13:47:05.443807422Z"
+generated: "2024-02-27T13:26:29.945258314Z"
