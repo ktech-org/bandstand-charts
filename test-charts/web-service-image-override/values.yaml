@@ -1,8 +1,0 @@
-bandstand-web-service:
-  owner: ktech-developer-platform
-  env: test
-  business: ktech
-  imageName: my-custom-image
-
-  ingress:
-    enabled: false

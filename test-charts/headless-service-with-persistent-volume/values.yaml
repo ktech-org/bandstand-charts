@@ -1,6 +1,0 @@
-bandstand-headless-service:
-  owner: ktech-developer-platform
-  env: test
-  business: ktech
-  volume:
-    persistent: 1G

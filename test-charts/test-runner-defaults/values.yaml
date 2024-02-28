@@ -1,7 +1,0 @@
-bandstand-test-runner:
-  owner: ktech-developer-platform
-  env: test
-  business: ktech
-
-  testRuns:
-    - name: test-suite-1

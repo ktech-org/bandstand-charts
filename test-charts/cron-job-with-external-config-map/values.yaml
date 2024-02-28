@@ -1,8 +1,0 @@
-bandstand-cron-job:
-  owner: ktech-developer-platform
-  env: test
-  business: ktech
-
-  envFrom:
-    - configMapRef:
-        name: shared-config-map
