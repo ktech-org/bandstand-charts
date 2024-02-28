@@ -1,6 +1,0 @@
-dependencies:
-- name: bandstand-test-runner
-  repository: file://../../../charts/bandstand-test-runner/
-  version: 2.4.2
-digest: sha256:52fa52662985734b35203d4804c7ae259a64f831152fb45a78db6ba9a28e0fca
-generated: "2023-09-25T13:48:04.115663+01:00"
