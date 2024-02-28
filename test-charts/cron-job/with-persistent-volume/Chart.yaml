@@ -1,0 +1,13 @@
+apiVersion: v2
+name: cron-job-with-external-config-map
+version: 1.0.0
+description: testing bandstand-cron-job chart
+type: application
+sources:
+  - https://github.com/ktech-org/bandstand-charts
+dependencies:
+  - name: bandstand-cron-job
+    version: ">= 3.0.0"
+    repository: "file://../../../charts/bandstand-cron-job/"
+maintainers:
+  - name: ktech-developer-platform
