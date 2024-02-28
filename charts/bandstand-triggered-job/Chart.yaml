@@ -1,0 +1,7 @@
+apiVersion: v2
+name: bandstand-triggered-job
+version: 1.0.0
+description: Application chart for a job triggered from SQS
+type: application
+maintainers:
+  - name: ktech-developer-platform

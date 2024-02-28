@@ -1,0 +1,13 @@
+apiVersion: v2
+name: headless-service-with-external-config-map
+version: 1.0.0
+description: testing bandstand-headless-service chart
+type: application
+sources:
+  - https://github.com/ktech-org/bandstand-charts
+dependencies:
+  - name: bandstand-headless-service
+    version: ">= 1.0.0"
+    repository: "file://../../../charts/bandstand-headless-service/"
+maintainers:
+  - name: ktech-developer-platform

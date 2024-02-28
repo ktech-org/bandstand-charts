@@ -6,6 +6,8 @@ This is a public repo since it uses Github Pages to host a helm repository.
 
 [Cron Job](bandstand-cron-job.md)
 
+[Triggered Job](bandstand-triggered-job.md)
+
 [Test Runner](bandstand-test-runner.md)
 
 [Web Service](bandstand-web-service.md)

@@ -1,0 +1,11 @@
+bandstand-triggered-job:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  enforceCpuLimits: true
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+      ephemeralStorage: 1Gi
