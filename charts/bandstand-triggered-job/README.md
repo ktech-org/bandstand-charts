@@ -1,7 +1,7 @@
 # Bandstand Triggered Job
 
-This chart configures a Job that is triggered by messages on an SQS queue. The specific Queue is defined by the 
-QUEUE_URL environment variable.
+This chart configures a Job that is triggered by messages on an SQS queue defined by `queueName`. The queue details are
+then passed to the Job via the QUEUE_URL environment variable.
 
 ## Global values
 
@@ -40,7 +40,7 @@ QUEUE_URL environment variable.
 | systemCode                          | string | `.Release.Name`                  | The systemCode for the service                                                                                                                                                                                                                                                                       |
 | systemGroup                         | string |                                  | The systemGroup for the service                                                                                                                                                                                                                                                                      |
 | backoffLimit                        | number | `6`                              | [Back off limit](https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy) To prevent restart on failure set to 0                                                                                                                                                   |
+| queueName                           | string |                                  | The name of the SQS queue to listen to                                                                                                                                                                                                                                                               |
+| activeDeadlineSeconds               | number | `600`                            | Time limit in seconds for a job execution to complete before it gets terminated                                                                                                                                                                                                                      |
 | volume.persistent                   | string |                                  | Adds a persistent volume of the amount set, e.g. 1G                                                                                                                                                                                                                                                  |
 | volume.ephemeral                    | string |                                  | Size of ephemeral storage, e.g. 10G mounted at /tmp standard emptyfile tmp directory added if not set.                                                                                                                                                                                               |
-
-| ttlSecondsAfterFinished             | number | 604800 (1 week)                  | How long to keep a Job around for after it has completed                                                                                                                                                                                                                                            |
