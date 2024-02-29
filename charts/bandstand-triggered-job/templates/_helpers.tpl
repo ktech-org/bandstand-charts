@@ -75,4 +75,6 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   valueFrom:
     fieldRef:
       fieldPath: status.hostIP
+- name: QUEUE_URL
+  value: https://sqs.eu-west-1.amazonaws.com/{{ .Values.global.aws.account | toYaml }}/{{ .Values.queueName }}
 {{- end -}}

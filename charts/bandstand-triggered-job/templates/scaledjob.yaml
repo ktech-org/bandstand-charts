@@ -7,7 +7,7 @@ spec:
   jobTargetRef:
     parallelism: 1                            # [max number of desired pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
     completions: 1                            # [desired number of successfully finished pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
-    activeDeadlineSeconds: 600                #  Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
+    activeDeadlineSeconds: {{ .Values.activeDeadlineSeconds | default 600 }}  #  Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer
     {{- if hasKey .Values "backoffLimit" }}
     backoffLimit: {{ .Values.backoffLimit }}
     {{- end }}
