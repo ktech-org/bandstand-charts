@@ -21,6 +21,8 @@ readOnlyRootFilesystem: true
 capabilities:
   drop:
     - all
+seccompProfile:
+  type: RuntimeDefault
 {{- end -}}
 
 {{- define "bandstand-triggered-job.podSecurityContext" -}}
