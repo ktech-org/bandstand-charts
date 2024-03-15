@@ -81,7 +81,7 @@ spec:
         readOnlyRootFilesystem: true
         capabilities:
           drop:
-            - all
+            - ALL
   imagePullSecrets:
     - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
   volumes:

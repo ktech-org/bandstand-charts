@@ -20,7 +20,7 @@ allowPrivilegeEscalation: false
 readOnlyRootFilesystem: true
 capabilities:
   drop:
-    - all
+    - ALL
 seccompProfile:
   type: RuntimeDefault
 {{- end -}}
