@@ -1,0 +1,32 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  hpa:
+    enabled: false
+
+  advancedScaling:
+    enabled: true
+    idleReplicas: 0
+    minReplicas: 2
+    maxReplicas: 10
+
+    scalers:
+      - type: cpu
+        threshold: 50
+      - type: memory
+        threshold: 50
+      - type: cron
+        desiredReplicas: '1'
+        start: 5,15,25,35,45,55 * * * *
+        end: 0,10,20,30,40,50 * * * *
+        timezone: UTC
+      - type: kafka
+        bootstrapServersfromEnv: BOOTSTRAP_SERVER
+        consumerGroup: keda-consumer
+        topic: event.confluent.reference.dummy
+        lagThreshold: '5'

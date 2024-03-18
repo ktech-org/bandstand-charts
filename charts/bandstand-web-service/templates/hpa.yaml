@@ -1,3 +1,4 @@
+{{- if neq ((.Values.hpa).enabled) false }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
@@ -15,3 +16,4 @@ spec:
     kind: Deployment
     name: {{ $relName }}
   targetCPUUtilizationPercentage: {{ ((.Values.hpa).averageCpuUtilization) | default 50 }}
+{{- end }}

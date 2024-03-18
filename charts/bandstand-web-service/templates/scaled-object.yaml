@@ -1,0 +1,42 @@
+{{- if ((.Values.advancedScaling).enabled) }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ $relName }}
+spec:
+  cooldownPeriod: 30
+  maxReplicaCount: 3
+  minReplicaCount: 0
+  scaleTargetRef:
+    name: {{ $relName }}
+  triggers:
+    - metadata:
+        desiredReplicas: '1'
+        # For testing purposes this turns the service off/on every 5 mins
+        start: 5,15,25,35,45,55 * * * *
+        end: 0,10,20,30,40,50 * * * *
+        timezone: UTC
+      type: cron
+    - metadata:
+        value: '50'
+      metricType: Utilization
+      type: cpu
+    - metadata:
+        value: '50'
+      metricType: Utilization
+      type: memory
+    - type: kafka
+      metadata:
+        bootstrapServers: pkc-z9doz.eu-west-1.aws.confluent.cloud:9092
+        consumerGroup: keda-consumer2
+        topic: event.confluent.reference.dummy
+        lagThreshold: '5'
+        tls: enable
+        sasl: plaintext
+      authenticationRef:
+        name: {{ $relName }}
+{{- end }}
