@@ -1,4 +1,4 @@
-{{- if neq ((.Values.hpa).enabled) false }}
+{{- if ne ((.Values.hpa).enabled) false }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
