@@ -8,35 +8,43 @@ kind: ScaledObject
 metadata:
   name: {{ $relName }}
 spec:
-  cooldownPeriod: 30
-  maxReplicaCount: 3
-  minReplicaCount: 0
+  cooldownPeriod: {{ ((.Values.advancedScaling).cooldown) | default 30 }}
+  maxReplicaCount: {{ ((.Values.advancedScaling).maxReplicas) | default 1 }}
+  minReplicaCount: {{ ((.Values.advancedScaling).minReplicas) | default 3 }}
+  idleReplicaCount: {{ ((.Values.advancedScaling).idleReplicas) | default 0 }}
   scaleTargetRef:
     name: {{ $relName }}
   triggers:
+  {{- range (.Values.advancedScaling).scalers }}
+    {{- if eq .type "cron" }}
     - type: cron
       metadata:
-        desiredReplicas: '1'
-        # For testing purposes this turns the service off/on every 5 mins
-        start: 5,15,25,35,45,55 * * * *
-        end: 0,10,20,30,40,50 * * * *
+        desiredReplicas: {{ .desiredReplicas | default 1 }}
+        start: {{ .start }}
+        end: {{ .end }}
         timezone: UTC
+    {{- end }}
+    {{- if eq .type "cpu" }}
     - type: cpu
       metadata:
-        value: '50'
+        value: {{ .threshold | default 50 }}
       metricType: Utilization
+    {{- end }}
+    {{- if eq .type "cpu" }}
     - type: memory
       metadata:
-        value: '50'
+        value: {{ .threshold | default 50 }}
       metricType: Utilization
+    {{- end }}
+    {{- if eq .type "kafka" }}
     - type: kafka
       metadata:
-        bootstrapServers: pkc-z9doz.eu-west-1.aws.confluent.cloud:9092
-        consumerGroup: keda-consumer2
-        topic: event.confluent.reference.dummy
-        lagThreshold: '5'
+        bootstrapServersFromEnv: {{ .bootstrapServersFromEnv }}
+        consumerGroup: {{ .consumerGroup }}
+        topic: {{ .topic }}
         tls: enable
         sasl: plaintext
       authenticationRef:
         name: {{ $relName }}
+  {{- end }}
 {{- end }}
