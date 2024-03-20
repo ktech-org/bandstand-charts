@@ -73,7 +73,7 @@ spec:
             {{- if or (.Values.envFrom) (.Values.secrets) }}
             envFrom:
             {{- if .Values.envFrom }}
-            {{- .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+            {{- .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 14 }}
             {{- end }}
             {{- range .Values.secrets }}
             {{- $secretHash := sha256sum .secret | substr 0 6 }}
