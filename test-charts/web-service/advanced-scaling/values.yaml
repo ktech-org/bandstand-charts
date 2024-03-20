@@ -1,0 +1,26 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  hpa:
+    enabled: false
+
+  advancedScaling:
+    enabled: true
+    idleReplicas: 0
+    minReplicas: 2
+    maxReplicas: 10
+
+    scalers:
+      - type: cpu
+        threshold: 50
+      - type: memory
+        threshold: 50
+      - type: cron
+        desiredReplicas: 1
+        start: 0 7 * * MON-FRI
+        end: 0 19 * * MON-FRI

@@ -1,0 +1,40 @@
+{{- if ((.Values.advancedScaling).enabled) }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ $relName }}
+spec:
+  cooldownPeriod: {{ ((.Values.advancedScaling).cooldown) | default 30 }}
+  maxReplicaCount: {{ ((.Values.advancedScaling).maxReplicas) | default 1 }}
+  minReplicaCount: {{ ((.Values.advancedScaling).minReplicas) | default 3 }}
+  idleReplicaCount: {{ ((.Values.advancedScaling).idleReplicas) | default 0 }}
+  scaleTargetRef:
+    name: {{ $relName }}
+  triggers:
+  {{- range (.Values.advancedScaling).scalers }}
+    {{- if eq .type "cron" }}
+    - type: cron
+      metadata:
+        desiredReplicas: {{ quote (.desiredReplicas | default 1) }}
+        start: {{ .start }}
+        end: {{ .end }}
+        timezone: UTC
+    {{- end }}
+    {{- if eq .type "cpu" }}
+    - type: cpu
+      metadata:
+        value: {{ quote (.threshold | default 50) }}
+      metricType: Utilization
+    {{- end }}
+    {{- if eq .type "cpu" }}
+    - type: memory
+      metadata:
+        value: {{ quote (.threshold | default 75) }}
+      metricType: Utilization
+    {{- end }}
+  {{- end }}
+{{- end }}
