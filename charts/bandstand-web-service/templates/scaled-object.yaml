@@ -36,4 +36,5 @@ spec:
         value: {{ quote (.threshold | default 75) }}
       metricType: Utilization
     {{- end }}
+  {{- end }}
 {{- end }}
