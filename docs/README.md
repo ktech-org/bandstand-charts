@@ -56,3 +56,21 @@ helm dependency update .
 ```
 
 This will add the dependency to the chart's `charts` subdirectory.
+
+## Migrating to Advanced Scaling
+
+The `bandstand-web-service` and `bandstand-headless-service` charts both support advanced scaling options using
+[KEDA](https://keda.sh/). This enables scale to zero, scheduled scaling and scaling on external triggers such as kafka
+messages. To see examples of scalers that can be used see the [test chart](https://github.com/ktech-org/bandstand-charts/blob/main/test-charts/web-service/advanced-scaling/values.yaml)
+
+To migrate to advanced scaling you must first disable the HPA by setting `hpa.enabled`
+to `false` in your `values.yaml` file. The chart should be deployed to clusters. Then as separate deployment you can
+enable advanced scaling using KEDA by setting `advancedScaling.enabled` to `true` in your `values.yaml` file and adding
+the appropriate scalers.
+
+If HPA is disabled and advanced scaling is enabled in the same deployment, the deployment will fail. If this is the case
+contact the dev platform team for assistance as we will need to manually delete the old HPA resources from the clusters
+to allow the deployment to proceed.
+
+If you are interested in enabling other [KEDA scalers](https://keda.sh/docs/2.13/scalers/), please contact the dev 
+platform team or raise a PR.

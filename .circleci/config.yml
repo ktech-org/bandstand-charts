@@ -41,6 +41,7 @@ workflows:
                 - test-charts/web-service/with-ephemeral-volume
                 - test-charts/web-service/with-persistent-volume
                 - test-charts/headless-service/defaults
+                - test-charts/headless-service/advanced-scaling
                 - test-charts/headless-service/image-override
                 - test-charts/headless-service/resources
                 - test-charts/headless-service/resource-limits
