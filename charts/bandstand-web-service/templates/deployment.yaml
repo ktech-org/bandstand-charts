@@ -14,7 +14,7 @@ spec:
     metadata:
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
-        {{- if hasKey .Values.resources.requests.linkerd.memory }}
+        {{- if hasKey .Values "resources.requests.linkerd.memory" }}
         config.linkerd.io/proxy-memory-limit: {{ .Values.resources.requests.linkerd.memory }}
         config.linkerd.io/proxy-memory-request: {{ .Values.resources.requests.linkerd.memory }}
         {{- end }}
