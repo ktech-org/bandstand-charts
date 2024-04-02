@@ -19,5 +19,3 @@ bandstand-web-service:
     resources:
       requests:
         memory: 512Mi
-        linkerd:
-          memory: 156Mi
