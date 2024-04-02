@@ -12,8 +12,12 @@ bandstand-web-service:
       cpu: 250m
       memory: 512Mi
       ephemeralStorage: 1Gi
+      linkerd:
+          memory: 256Mi
 
   test:
     resources:
       requests:
         memory: 512Mi
+        linkerd:
+          memory: 156Mi

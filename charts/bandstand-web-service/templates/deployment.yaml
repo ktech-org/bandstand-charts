@@ -14,9 +14,9 @@ spec:
     metadata:
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
-        {{- if .Values.requests.linkerd.memory }}
-        config.linkerd.io/proxy-memory-limit: {{ .Values.requests.linkerd.memory }}
-        config.linkerd.io/proxy-memory-request: {{ .Values.requests.linkerd.memory }}
+        {{- if .Values.resources.requests.linkerd.memory }}
+        config.linkerd.io/proxy-memory-limit: {{ .Values.resources.requests.linkerd.memory }}
+        config.linkerd.io/proxy-memory-request: {{ .Values.resources.requests.linkerd.memory }}
         {{- end }}
       labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
     spec:
