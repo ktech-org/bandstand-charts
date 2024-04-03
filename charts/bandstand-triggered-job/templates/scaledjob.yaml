@@ -101,6 +101,7 @@ spec:
         queueURLFromEnv: QUEUE_URL
         queueLength: {{ .Values.messagesPerJob | default "1" | quote }}
         awsRegion: eu-west-1
+        scaleOnInFlight: false
       authenticationRef:
         name: keda-aws-credentials
         kind: ClusterTriggerAuthentication
