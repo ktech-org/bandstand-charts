@@ -1,0 +1,185 @@
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: {{ $relName }}
+  labels: {{ - include "bandstand-confluent-connect.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server-connect:7.6.0
+    init: confluentinc/confluent-init-container:2.8.0
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+          - name: csid-secrets-provider-aws
+            owner: confluentinc
+            version: 1.0.13
+          - name: kafka-connect-jdbc
+            owner: confluentinc
+            version: 10.2.5
+  podTemplate:
+    serviceAccountName: {{ $relName }}
+    resources:
+      requests:
+        cpu: {{ (.Values.resources).requests.cpu | default "200m" }}
+        memory: {{ (.Values.resources).requests.memory | default "512Mi" }}
+        ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
+      limits:
+        {{ - if .Values.enforceCpuLimits }}
+        cpu: {{ (.Values.resources).requests.cpu | default "300m" }}
+        {{ - end }}
+        memory: {{ (.Values.resources).requests.memory | default "1024Mi" }}
+        ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
+    livenessProbe:
+      httpGet:
+        path: {{ (.Values.livenessProbe).path | default "/" }}
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 600
+      failureThreshold: 5
+      timeoutSeconds: 300
+    readinessProbe:
+      httpGet:
+        path: {{ (.Values.readinessProbe).path | default "/" }}
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      timeoutSeconds: 5
+    env:
+      - name: ENV
+        value: {{ .Values.global.env }}
+      - name: VERSION
+        value: {{ .Values.global.image.tag }}
+      - name: DD_ENV
+        value: {{ .Values.global.env }}
+      - name: DD_SERVICE
+        value: {{ $relName }}
+      - name: DD_VERSION
+        value: {{ .Values.global.image.tag }}
+      - name: DD_AGENT_HOST
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
+      - name: OTEL_SERVICE_NAME
+        value: {{ $relName }}
+      - name: OTEL_EXPORTER_OTLP_ENDPOINT
+        value: http://collector.linkerd-jaeger:4317
+      - name: OTEL_PROPAGATORS
+        value: b3multi
+      - name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+        value: http://$(DD_AGENT_HOST):4317
+      - name: OTEL_EXPORTER_OTLP_METRICS_PROTOCOL
+        value: grpc
+      - name: OTEL_METRICS_EXPORTER
+        value: otlp
+      - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
+        value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
+      - name: OTEL_RESOURCE_ATTRIBUTES
+        value: host=$(DD_AGENT_HOST),service={{ $relName }},env={{ .Values.global.env }}
+      {{ - if .Values.additionalEnvVars }}
+      {{ - .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+      {{ - end }}
+      {{ - if .Values.environmentEnvVars }}
+      {{ - .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+      {{ - end }}
+    {{ - if or (.Values.envFrom) (.Values.secrets) }}
+    envFrom:
+    {{ - if .Values.envFrom }}
+    {{ - .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+    {{ - end }}
+    {{ - range .Values.secrets }}
+    {{ - $secretHash := sha256sum .secret | substr 0 6 }}
+    {{ - $secretName := list $.Release.Name $.Values.nameSuffix .name $secretHash | join "-" }}
+    - secretRef:
+        name: {{ $secretName }}
+        optional: {{ .optional | default false }}
+      {{ - if .prefix }}
+      prefix: {{ .prefix }}
+      {{ - end }}
+    {{ - end }}
+    {{ - end }}
+    securityContext:
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      fsGroup: 1000
+      runAsUser: 1000
+      capabilities:
+        drop:
+          - ALL
+      seccompProfile:
+        type: RuntimeDefault
+  dependencies:
+    kafka:
+      bootstrapEndpoint: "{{ .Values.config.bootstrapEndpoint }}"
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: {{ $relName }}-kafka
+      tls:
+        enabled: true
+        ignoreTrustStoreConfig: true
+    schemaRegistry:
+      url: "{{ .Values.config.schemaUrl }}"
+      authentication:
+        type: basic
+        basic:
+          secretRef: {{ $relName }}-schema
+  imagePullSecrets:
+      - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
+  volumes:
+    {{ - if .Values.config }}
+    - name: config
+      configMap:
+        name: {{ $relName }}
+        items:
+          {{ - range .Values.config }}
+          - key: {{ .filename }}
+            path: {{ .filename }}
+          {{ - end }}
+    {{ - end }}
+    {{ - if .Values.envConfig }}
+    - name: env-config
+      configMap:
+        name: {{ $relName }}-env
+        items:
+            {{- range .Values.envConfig }}
+              - key: {{ .filename }}
+              path: {{ .filename }}
+          {{ - end }}
+    {{ - end }}
+    - name: tmp-dir
+    {{ - if (.Values.volume).ephemeral }}
+    ephemeral:
+      volumeClaimTemplate:
+        metadata:
+          labels:
+            type: temp-volume
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: "gp2"
+          resources:
+            requests:
+              storage: {{ .Values.volume.ephemeral }}
+    {{ - else }}
+    emptyDir: { }
+    {{ - end }}
+    {{ - if (.Values.volume).persistent }}
+    - name: {{ $relName }}
+      persistentVolumeClaim:
+        claimName: {{ $relName }}
+    {{ - end }}
+  securityContext:
+    fsGroup: 1000
+    {{ - if .Values.runAsUser }}
+    runAsUser: {{ .Values.runAsUser | default 1000 }}
+    {{ - else }}
+    runAsUser: 1000
+    {{ - end }}

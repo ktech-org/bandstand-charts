@@ -1,0 +1,48 @@
+{{- if .Values.ingress.enabled }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-confluent-connect" . | nindent 4 }}
+  annotations:
+    bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      large_client_header_buffers 4 16k;
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: nginx-{{ .Values.ingress.visibility }}
+  tls:
+    - hosts:
+      - "{{ $relName }}.{{ .Values.global.env }}.{{ .Values.ingress.domain }}"
+      {{- range $.Values.additionalDomains }}
+      - {{ . | quote }}
+      {{- end }}
+  rules:
+    - host: "{{ $relName }}.{{ .Values.global.env }}.{{ .Values.ingress.domain }}"
+      http: &http_rules
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ default $relName .Values.ingress.defaultBackend }}
+                port:
+                  number: {{ .Values.ingress.port | default 8083 }}
+          {{- if .Values.ingress.additionalPaths }}
+            {{- toYaml .Values.ingress.additionalPaths | nindent 10 }}
+          {{- end }}
+    {{- range $.Values.additionalDomains}}
+    - host: {{ . | quote }}
+      http: *http_rules
+    {{- end }}
+{{- end }}
+

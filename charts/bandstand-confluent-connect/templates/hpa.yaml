@@ -1,0 +1,31 @@
+{{- if ne ((.Values.hpa).enabled) false }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-confluent-connect.labels" . | nindent 4 }}
+spec:
+  minReplicas: {{ ((.Values.hpa).minReplicas) | default 1 }}
+  maxReplicas: {{ ((.Values.hpa).maxReplicas) | default 3 }}
+  scaleTargetRef:
+    apiVersion: platform.confluent.io/v1beta1
+    kind: Connect
+    name: {{ $relName }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ ((.Values.hpa).averageUtilization) | default 80 }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Value
+          averageValue: {{ ((.Values.hpa).averageValue) | default 1024Mi }}
+{{- end }}
