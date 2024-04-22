@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   tech-docs: ktech/tech-docs@1
-  bandstand: ktech/bandstand@2
+  bandstand: ktech/bandstand@3
 
 main_branch_only: &main_branch_only
   branches:
