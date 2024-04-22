@@ -81,6 +81,7 @@ workflows:
           values: ./<<matrix.chart>>/values.yaml
           values-to-override: "global.image.tag=sha-${CIRCLE_SHA1}"
           dry-run: true
+          image-tag: dummy-tag
           context:
             - aws-base
             - bandstand-ktech-test
