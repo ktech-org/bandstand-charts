@@ -9,8 +9,8 @@ metadata:
   name: {{ $relName }}
   labels: {{- include "bandstand-confluent-connect.labels" . | nindent 4 }}
 spec:
-  minReplicas: {{ ((.Values.hpa).minReplicas) | default 1 }}
-  maxReplicas: {{ ((.Values.hpa).maxReplicas) | default 3 }}
+  minReplicas: {{ .Values.hpa.minReplicas }}
+  maxReplicas: {{ .Values.hpa.maxReplicas }}
   scaleTargetRef:
     apiVersion: platform.confluent.io/v1beta1
     kind: Connect
@@ -21,11 +21,11 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: {{ ((.Values.hpa).averageUtilization) | default 80 }}
+          averageUtilization: {{ .Values.hpa.targetCPUUtilization }}
     - type: Resource
       resource:
         name: memory
         target:
-          type: Value
-          averageValue: {{ ((.Values.hpa).averageValue) | default 1024Mi }}
+          type: Utilization
+          averageUtilization: {{ .Values.hpa.targetMemoryUtilization }}
 {{- end }}

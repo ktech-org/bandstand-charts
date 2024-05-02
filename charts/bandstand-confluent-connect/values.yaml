@@ -1,0 +1,28 @@
+
+ingress:
+  enabled: false
+  port: 8083
+  visibility: private
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilization: 80
+  targetMemoryUtilization: 80
+
+enforceCpuLimits: false
+resources:
+  requests:
+    cpu: 200m
+    memory: 1024Mi
+    ephemeral-storage: 64Mi
+
+commonConnectorConfig:
+  config.providers: "secretsManager"
+  config.providers.secretsManager.class: "io.confluent.csid.config.provider.aws.SecretsManagerConfigProvider"
+  config.providers.secretsManager.param.aws.region: "eu-west-1"
+  value.converter: "io.confluent.connect.avro.AvroConverter"
+  value.converter.schema.registry.url: "${secretsManager:/confluent/{{$.Values.global.business}}-{{$.Values.global.env}}/schema-registry:schema-registry-rest-endpoint}"
+  value.converter.basic.auth.credentials.source: "USER_INFO"
+  value.converter.schema.registry.basic.auth.user.info: "${secretsManager:/confluent/{{$.Values.global.business}}-{{$.Values.global.env}}/schema-registry:schema-registry-api-key}:${secretsManager:/confluent/{{$.Values.global.business}}-{{$.Values.global.env}}/schema-registry:schema-registry-api-secret}"
+  key.converter: "org.apache.kafka.connect.storage.StringConverter"

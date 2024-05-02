@@ -1,9 +1,9 @@
 apiVersion: v2
-name: ${{values.component}}
+name: bandstand-confluent-connect
 version: 1.0.0
-description: Chart for deploying ${{values.component}}
+description: Chart for deploying confluent connect clusters and connectors
 type: application
 sources:
-  - https://github.com/ktech-org/${{values.component}}
+  - https://github.com/ktech-org/bandstand-charts
 maintainers:
-  - name: ${{values.owner}}
+  - name: ktech-developer-platform

@@ -1,7 +1,0 @@
-apiVersion: v2
-name: bandstand-confluent-connector
-version: 1.0.0
-description: Application chart for a Confluent Connector
-type: application
-maintainers:
-  - name: ktech-developer-platform

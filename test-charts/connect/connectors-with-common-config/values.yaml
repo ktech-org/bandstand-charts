@@ -1,0 +1,14 @@
+bandstand-confluent-connect:
+  owner: ktech-developer-platform
+
+  commonConnectorConfig:
+    connection.url: dburl
+    connection.user: dbuser
+    connection.password: dbpassword
+
+  connectors:
+    - name: source
+      class: "io.confluent.connect.jdbc.JdbcSourceConnector"
+      taskMax: 3
+    - name: sink
+      class: "io.confluent.connect.jdbc.JdbcSinkConnector"

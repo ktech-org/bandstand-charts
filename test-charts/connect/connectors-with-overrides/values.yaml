@@ -1,0 +1,22 @@
+bandstand-confluent-connect:
+  owner: ktech-developer-platform
+
+  commonConnectorConfig:
+    connection.url: dburl
+    connection.user: dbuser
+    connection.password: dbpassword
+
+  connectors:
+    - name: source
+      class: "io.confluent.connect.jdbc.JdbcSourceConnector"
+      taskMax: 3
+      config:
+        # override chart defaults
+        key.converter: "org.apache.kafka.connect.storage.OverriddenStringConverter"
+    - name: sink
+      class: "io.confluent.connect.jdbc.JdbcSinkConnector"
+      config:
+        # override common config
+        connection.url: sinkdburl
+        connection.user: sinkdbuser
+        connection.password: sinkdbpassword

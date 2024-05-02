@@ -74,6 +74,12 @@ workflows:
                 - test-charts/test-runner/resources
                 - test-charts/test-runner/image-override
                 - test-charts/test-runner/with-external-config-map
+                - test-charts/connect/defaults
+                - test-charts/connect/connectors
+                - test-charts/connect/connectors-with-common-config
+                - test-charts/connect/connectors-with-overrides
+                - test-charts/connect/connectors-with-templating
+                - test-charts/connect/ingress
           name: <<matrix.chart>>
           business: ktech
           environment: test
