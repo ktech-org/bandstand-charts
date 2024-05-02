@@ -14,15 +14,6 @@ application: {{ .Release.Name }}
 version: {{ .Values.global.image.tag }}
 tags.datadoghq.com/version: {{ .Values.global.image.tag }}
 environment: {{ .Values.global.env }}
-namespace: {{ .Values.global.namespace }}
 tags.datadoghq.com/env: {{ .Values.global.env }}
 owner: {{ .Values.owner }}
-{{- end }}
-
-{{- define "bandstand-confluent-connect.selectorLabels" -}}
-{{- if .Values.nameSuffix }}
-application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-{{- else }}
-application: {{ .Release.Name }}
-{{- end }}
 {{- end }}
