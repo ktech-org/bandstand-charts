@@ -15,7 +15,7 @@ resources:
   requests:
     cpu: 200m
     memory: 1024Mi
-    ephemeral-storage: 64Mi
+    ephemeralStorage: 64Mi
 
 commonConnectorConfig:
   config.providers: "secretsManager"
