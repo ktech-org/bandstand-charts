@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}
   labels: {{- include "bandstand-job.labels" . | nindent 4 }}
 spec:
-  ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished | default 604800 }}
+  ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished | default 60 }}
   {{- if hasKey .Values "backoffLimit" }}
   backoffLimit: {{ .Values.backoffLimit }}
   {{- end }}
