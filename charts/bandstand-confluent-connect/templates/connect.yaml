@@ -10,8 +10,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-server-connect:7.6.1
-    init: confluentinc/confluent-init-container:2.8.2
+    application: {{ .Values.applicationImage }}
+    init: {{ .Values.initImage }}
     pullPolicy: Always
   build:
     type: onDemand

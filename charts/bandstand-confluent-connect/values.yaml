@@ -17,6 +17,9 @@ resources:
     memory: 1024Mi
     ephemeralStorage: 64Mi
 
+applicationImage: confluentinc/cp-server-connect:7.6.1
+initImage: confluentinc/confluent-init-container:2.8.2
+
 connectPlugins:
     confluentinc/csid-secrets-provider-aws: 1.0.13
     confluentinc/kafka-connect-jdbc: 10.2.5
