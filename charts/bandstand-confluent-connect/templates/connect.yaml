@@ -39,7 +39,7 @@ spec:
         ephemeral-storage: {{ .Values.resources.requests.ephemeralStorage }}
   dependencies:
     kafka:
-      bootstrapEndpoint: "{{ .Values.bootstrapEndpoint }}"
+      bootstrapEndpoint: {{ .Values.bootstrapEndpoint }}
       authentication:
         type: plain
         jaasConfig:
@@ -48,7 +48,7 @@ spec:
         enabled: true
         ignoreTrustStoreConfig: true
     schemaRegistry:
-      url: "{{ .Values.schemaRegistryUrl }}"
+      url: {{ .Values.schemaRegistryUrl }}
       authentication:
         type: basic
         basic:

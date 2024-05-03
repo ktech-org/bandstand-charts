@@ -1,34 +1,40 @@
-# Bandstand confluent connector
+# bandstand-confluent-connect
 
-#TODO - this needs completely redoing
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-## Global values
+Chart for deploying confluent connect clusters and connectors
 
-| Key                | Type   | Default | Description                                           |
-|--------------------|--------|---------|-------------------------------------------------------|
-| global.aws.account | string |         | The AWS account the helm chart is installed into      |
-| global.env         | string |         | The environment, either test, preprod or prod         |
-| global.image.tag   | string |         | The tag for container image to be used in the service |
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| ktech-developer-platform |  |  |
+    
+## Source Code
+
+* <https://github.com/ktech-org/bandstand-charts>
 
 ## Values
 
-| Key                                 | Type   | Default                          | Description                                                                                                                                                                                                                                                                                          |
-|-------------------------------------|--------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dockerRegistry                      | string | `ktechartifacts-docker.jfrog.io` | Docker registry to pull images from                                                                                                                                                                                                                                                                  |
-| enforceCpuLimits                    | bool   |                                  | By default CPU will burst to use spare capacity on the node. Setting this flag will add a cpu limit with the same value as `resources.requests.cpu`. It is recommended to set this flag in performance testing environments to ensure recorded performance isn't based on unallocated capacity       |
-| gitRepo                             | string | `.Release.Name`                  | The name of the repository for the service                                                                                                                                                                                                                                                           |
-| imageName                           | string | `.Release.Name`                  | Name of the docker image to run                                                                                                                                                                                                                                                                      |
-| imagePullSecret                     | string | `rt-docker-config`               | Docker registry secret for pulling image                                                                                                                                                                                                                                                             |
-| owner                               | string |                                  | The GitHub team that owns the service                                                                                                                                                                                                                                                                |
-| config                              | object | `{}`                             | An object containing base config for the service - use this for creating base config files.                                                                                                                                                                                                          |
-| resources.requests.cpu              | string | `100m`                           | [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for container CPU resources measured in cpu units, one core is 1000m, see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)       |
- | resources.requests.memory           | string | `256Mi`                          | Container memory [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) (both set to the same value)                  |
-| resources.requests.ephemeralStorage | string | `64Mi`                           | Container ephemeral storage [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) (both set to the same value) |
-| systemCode                          | string | `.Release.Name`                  | The systemCode for the service                                                                                                                                                                                                                                                                       |
-| systemGroup                         | string |                                  | The systemGroup for the service                                                                                                                                                                                                                                                                      |
-| backoffLimit                        | number | `6`                              | [Back off limit](https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy) To prevent restart on failure set to 0                                                                                                                                                   |
-| concurrencyPolicy                   | string | `Allow`                          | [Concurrency Policy](https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#concurrency-policy) To prevent restart on failure set to `Forbid`                                                                                                                                          |
-| suspend                             | bool   | false                            | Suspend the cron job                                                                                                                                                                                                                                                                                 |
-| volume.persistent                   | string |                                  | Adds a persistent volume of the amount set, e.g. 1G                                                                                                                                                                                                                                                  |
-| volume.ephemeral                    | string |                                  | Size of ephemeral storage, e.g. 10G mounted at /tmp standard emptyfile tmp directory added if not set.                                                                                                                                                                                               |
-| ttlSecondsAfterFinished             | number | 604800 (1 week)                  | How long to keep a Job around for after it has completed                                                                                                                                                                                                                                             |
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| applicationImage | string | `"confluentinc/cp-server-connect:7.6.1"` | Docker image to use for the main connect application |
+| bootstrapEndpoint | string | `nil` | The URL of the Kafka bootstrap server |
+| commonConnectorConfig | object | Includes settings for the secrets manager config provider, a key convertor (StringConvertor) and value convertor (AvroConvertor) with schema registry authentication. | Connector configuration values applied to all connectors. Can be overridden on a per-connector basis |
+| connectPlugins | object | `{"confluentinc/csid-secrets-provider-aws":"1.0.13","confluentinc/kafka-connect-jdbc":"10.2.5"}` | Connect plugins to install in the connect cluster from confluent hub |
+| connectors | list | `[]` | List of connectors to deploy. Each connector needs a name and class and optionally a config map and taskMax (maximum number of worker tasks, defaults to 1) |
+| enforceCpuLimits | bool | `false` | By default CPU will burst to use spare capacity on the node. Setting this flag will add a cpu limit with the same value as `resources.requests.cpu`. It is recommended to set this flag in performance testing environments to ensure recorded performance isn't based on unallocated capacity |
+| hpa.maxReplicas | int | `3` | Maximum number of connect cluster workers to run |
+| hpa.minReplicas | int | `1` | Minimum number of connect cluster workers to run |
+| hpa.targetCPUUtilization | int | `80` | CPU Utilization that will trigger a scale up |
+| hpa.targetMemoryUtilization | int | `80` | Memory Utilization that will trigger a scale up |
+| ingress.enabled | bool | `false` | Enable or disable the ingress for the connect cluster |
+| ingress.visibility | string | `"private"` | The visibility of the ingress |
+| initImage | string | `"confluentinc/confluent-init-container:2.8.2"` | Docker image to use for the init container |
+| resources.requests.cpu | string | `"200m"` | [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for container CPU resources measured in cpu units, one core is 1000m, see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) |
+| resources.requests.ephemeralStorage | string | `"64Mi"` | Container ephemeral storage [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) (both set to the same value) |
+| resources.requests.memory | string | `"1024Mi"` | Container memory [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) (both set to the same value) |
+| schemaRegistryUrl | string | `nil` | The URL of the schema registry |
+
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.13.1](https://github.com/norwoodj/helm-docs/releases/v1.13.1)
