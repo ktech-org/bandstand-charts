@@ -10,6 +10,7 @@ nav:
     - Headless Service: bandstand-headless-service.md
     - Cron Job: bandstand-cron-job.md
     - Test Runner: bandstand-test-runner.md
+    - Job: bandstand-job.md
 
 plugins:
   - techdocs-core
