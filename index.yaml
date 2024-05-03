@@ -673,6 +673,18 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-headless-service-1.0.0/bandstand-headless-service-1.0.0.tgz
     version: 1.0.0
+  bandstand-job:
+  - apiVersion: v2
+    created: "2024-05-03T16:16:19.040588805Z"
+    description: Application chart for a simple job starting immediately after deployment
+    digest: 11b674707a5e32e1e7e7df7d9ea2029a0820599989f80c9dba8ae55c1dc762e7
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-job-1.0.0/bandstand-job-1.0.0.tgz
+    version: 1.0.0
   bandstand-test-runner:
   - apiVersion: v2
     created: "2024-03-15T10:04:33.247217689Z"
@@ -1964,4 +1976,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-03T11:44:57.432380216Z"
+generated: "2024-05-03T16:16:19.040998919Z"
