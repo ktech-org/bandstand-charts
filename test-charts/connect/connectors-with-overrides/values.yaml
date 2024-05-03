@@ -1,6 +1,10 @@
 bandstand-confluent-connect:
   owner: ktech-developer-platform
 
+  connectPlugins:
+    confluentinc/csid-secrets-provider-aws: 2.0.0 #override existing plugin
+    confluentinc/kafka-connect-s3: 1.0.0 # add a new plugin
+
   commonConnectorConfig:
     connection.url: dburl
     connection.user: dbuser

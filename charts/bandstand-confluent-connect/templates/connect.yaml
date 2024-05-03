@@ -19,13 +19,11 @@ spec:
       plugins:
         locationType: confluentHub
         confluentHub:
-#          TODO: parameterize the plugins
-          - name: csid-secrets-provider-aws
-            owner: confluentinc
-            version: 1.0.13
-          - name: kafka-connect-jdbc
-            owner: confluentinc
-            version: 10.2.5
+        {{- range $k, $v := .Values.connectPlugins }}
+          - name: {{ (split "/" $k)._1 }}
+            owner: {{ (split "/" $k)._0 }}
+            version: {{ $v }}
+        {{- end }}
   podTemplate:
     serviceAccountName: {{ $relName }}
     resources:
