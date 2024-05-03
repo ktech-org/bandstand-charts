@@ -1,0 +1,48 @@
+{{- if .Values.ingress.enabled }}
+  {{- $relName := .Release.Name -}}
+  {{- if .Values.nameSuffix }}
+    {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+  {{- end }}
+  {{- $domain := print .Values.global.business ".com" }}
+  {{- if eq .Values.global.business "kobalt" }}
+    {{- $domain = "kobaltmusic.com" }}
+  {{- end }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-confluent-connect.labels" . | nindent 4 }}
+  annotations:
+    bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      large_client_header_buffers 4 16k;
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: nginx-{{ .Values.ingress.visibility }}
+  tls:
+    - hosts:
+      - "{{ $relName }}.{{ .Values.global.env }}.{{ $domain }}"
+      {{- range $.Values.additionalDomains }}
+      - {{ . | quote }}
+      {{- end }}
+  rules:
+    - host: "{{ $relName }}.{{ .Values.global.env }}.{{ $domain }}"
+      http: &http_rules
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $relName }}
+                port:
+                  number: {{ .Values.ingress.port }}
+    {{- range $.Values.additionalDomains }}
+    - host: {{ . | quote }}
+      http: *http_rules
+    {{- end }}
+{{- end }}

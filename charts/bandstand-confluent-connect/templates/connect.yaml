@@ -1,0 +1,55 @@
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-confluent-connect.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  image:
+    application: {{ .Values.applicationImage }}
+    init: {{ .Values.initImage }}
+    pullPolicy: Always
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+        {{- range $k, $v := .Values.connectPlugins }}
+          - name: {{ (split "/" $k)._1 }}
+            owner: {{ (split "/" $k)._0 }}
+            version: {{ $v }}
+        {{- end }}
+  podTemplate:
+    serviceAccountName: {{ $relName }}
+    resources:
+      requests:
+        cpu: {{ .Values.resources.requests.cpu }}
+        memory: {{ .Values.resources.requests.memory }}
+        ephemeral-storage: {{ .Values.resources.requests.ephemeralStorage }}
+      limits:
+        {{- if .Values.enforceCpuLimits }}
+        cpu: {{ .Values.resources.requests.cpu }}
+        {{- end }}
+        memory: {{ .Values.resources.requests.memory }}
+        ephemeral-storage: {{ .Values.resources.requests.ephemeralStorage }}
+  dependencies:
+    kafka:
+      bootstrapEndpoint: {{ .Values.bootstrapEndpoint }}
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: {{ $relName }}-kafka
+      tls:
+        enabled: true
+        ignoreTrustStoreConfig: true
+    schemaRegistry:
+      url: {{ .Values.schemaRegistryUrl }}
+      authentication:
+        type: basic
+        basic:
+          secretRef: {{ $relName }}-schema

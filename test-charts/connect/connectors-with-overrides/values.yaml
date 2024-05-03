@@ -1,0 +1,28 @@
+bandstand-confluent-connect:
+  owner: ktech-developer-platform
+  bootstrapEndpoint: bootstrap-server:9093
+  schemaRegistryUrl: https://schema-reg.com/
+
+  connectPlugins:
+    confluentinc/csid-secrets-provider-aws: 2.0.0 #override existing plugin
+    confluentinc/kafka-connect-s3: 1.0.0 # add a new plugin
+
+  commonConnectorConfig:
+    connection.url: dburl
+    connection.user: dbuser
+    connection.password: dbpassword
+
+  connectors:
+    - name: source
+      class: "io.confluent.connect.jdbc.JdbcSourceConnector"
+      taskMax: 3
+      config:
+        # override chart defaults
+        key.converter: "org.apache.kafka.connect.storage.OverriddenStringConverter"
+    - name: sink
+      class: "io.confluent.connect.jdbc.JdbcSinkConnector"
+      config:
+        # override common config
+        connection.url: sinkdburl
+        connection.user: sinkdbuser
+        connection.password: sinkdbpassword

@@ -1,0 +1,16 @@
+bandstand-confluent-connect:
+  owner: ktech-developer-platform
+  bootstrapEndpoint: bootstrap-server:9093
+  schemaRegistryUrl: https://schema-reg.com/
+
+  connectionUrl: dburl
+  connectionUser: dbuser
+  connectionPassword: dbpassword
+
+  connectors:
+    - name: sink
+      class: "io.confluent.connect.jdbc.JdbcSinkConnector"
+      config:
+        connection.url: "{{ .Values.connectionUrl }}"
+        connection.user: "{{ .Values.connectionUser }}"
+        connection.password: "{{ .Values.connectionPassword }}"

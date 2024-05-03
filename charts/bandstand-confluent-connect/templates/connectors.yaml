@@ -1,0 +1,19 @@
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+{{- range .Values.connectors }}
+apiVersion: platform.confluent.io/v1beta1
+kind: Connector
+metadata:
+  name: {{ $relName }}-{{ .name }}
+  labels: {{- include "bandstand-confluent-connect.labels" $ | nindent 4 }}
+spec:
+  class: {{ .class | default "io.confluent.connect.jdbc.JdbcSourceConnector" }}
+  taskMax: {{ .taskMax | default 1 }}
+  connectClusterRef:
+    name: {{ $relName }}
+  {{- $config := merge $.Values.commonConnectorConfig (.config | default dict ) }}
+  configs:
+    {{- tpl ($config | toYaml) $ | nindent 4 }}
+{{- end }}

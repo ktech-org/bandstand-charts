@@ -1,0 +1,1 @@
+You're installing this chart in aws account {{ .Values.global.aws.account }}.

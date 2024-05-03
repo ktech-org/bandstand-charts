@@ -1,0 +1,7 @@
+bandstand-confluent-connect:
+  owner: ktech-developer-platform
+  bootstrapEndpoint: bootstrap-server:9093
+  schemaRegistryUrl: https://schema-reg.com/
+
+  ingress:
+    enabled: true

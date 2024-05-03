@@ -1,0 +1,74 @@
+ingress:
+  # -- Enable or disable the ingress for the connect cluster
+  enabled: false
+  # @ignore
+  port: 8083
+  # -- The visibility of the ingress
+  visibility: private
+
+hpa:
+  # -- Minimum number of connect cluster workers to run
+  minReplicas: 1
+  # -- Maximum number of connect cluster workers to run
+  maxReplicas: 3
+  # -- CPU Utilization that will trigger a scale up
+  targetCPUUtilization: 80
+  # -- Memory Utilization that will trigger a scale up
+  targetMemoryUtilization: 80
+
+# -- By default CPU will burst to use spare capacity on the node. Setting this flag will add a cpu limit with the same
+# value as `resources.requests.cpu`. It is recommended to set this flag in performance testing environments to ensure
+# recorded performance isn't based on unallocated capacity
+enforceCpuLimits: false
+resources:
+  requests:
+    # -- [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for container CPU resources measured in cpu units, one core is 1000m, see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
+    cpu: 200m
+    # -- Container memory [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) (both set to the same value)
+    memory: 1024Mi
+    # -- Container ephemeral storage [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) (both set to the same value)
+    ephemeralStorage: 64Mi
+
+# -- Docker image to use for the main connect application
+applicationImage: confluentinc/cp-server-connect:7.6.1
+# -- Docker image to use for the init container
+initImage: confluentinc/confluent-init-container:2.8.2
+
+# -- (string) The URL of the Kafka bootstrap server
+bootstrapEndpoint:
+
+# -- (string) The URL of the schema registry
+schemaRegistryUrl:
+
+# -- Connect plugins to install in the connect cluster from confluent hub
+connectPlugins:
+  confluentinc/csid-secrets-provider-aws: 1.0.13
+  confluentinc/kafka-connect-jdbc: 10.2.5
+
+# -- Connector configuration values applied to all connectors. Can be overridden on a per-connector basis
+# @default -- Includes settings for the secrets manager config provider, a key convertor (StringConvertor) and value convertor (AvroConvertor) with schema registry authentication.
+commonConnectorConfig:
+  config.providers: "secretsManager"
+  config.providers.secretsManager.class: "io.confluent.csid.config.provider.aws.SecretsManagerConfigProvider"
+  config.providers.secretsManager.param.aws.region: "eu-west-1"
+  value.converter: "io.confluent.connect.avro.AvroConverter"
+  value.converter.schema.registry.url: "${secretsManager:/confluent/{{$.Values.global.business}}-{{$.Values.global.env}}/schema-registry:schema-registry-rest-endpoint}"
+  value.converter.basic.auth.credentials.source: "USER_INFO"
+  value.converter.schema.registry.basic.auth.user.info: "${secretsManager:/confluent/{{$.Values.global.business}}-{{$.Values.global.env}}/schema-registry:schema-registry-api-key}:${secretsManager:/confluent/{{$.Values.global.business}}-{{$.Values.global.env}}/schema-registry:schema-registry-api-secret}"
+  key.converter: "org.apache.kafka.connect.storage.StringConverter"
+
+# -- List of connectors to deploy. Each connector needs a name and class and optionally a config map and taskMax (maximum number of worker tasks, defaults to 1)
+connectors: []
+#    - name: source
+#      class: "io.confluent.connect.jdbc.JdbcSourceConnector"
+#      taskMax: 3
+#      config:
+#        connection.url: sourcedburl
+#        connection.user: sourcedbuser
+#        connection.password: sourcedbpassword
+#    - name: sink
+#      class: "io.confluent.connect.jdbc.JdbcSinkConnector"
+#      config:
+#        connection.url: sinkdburl
+#        connection.user: sinkdbuser
+#        connection.password: sinkdbpassword
