@@ -50,6 +50,16 @@ workflows:
                 - test-charts/headless-service/with-external-config-map
                 - test-charts/headless-service/with-ephemeral-volume
                 - test-charts/headless-service/with-persistent-volume
+                - test-charts/job/defaults
+                - test-charts/job/image-override
+                - test-charts/job/resources
+                - test-charts/job/resource-limits
+                - test-charts/job/secrets
+                - test-charts/job/single-resource-request
+                - test-charts/job/with-config-files
+                - test-charts/job/with-external-config-map
+                - test-charts/job/with-ephemeral-volume
+                - test-charts/job/with-persistent-volume
                 - test-charts/cron-job/defaults
                 - test-charts/cron-job/image-override
                 - test-charts/cron-job/resources

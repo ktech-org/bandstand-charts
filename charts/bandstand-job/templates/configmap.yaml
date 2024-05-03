@@ -1,0 +1,26 @@
+{{- $relName := .Release.Name -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-job.labels" . | nindent 4 }}
+  {{- if .Values.config }}
+data:
+  {{- range .Values.config -}}
+    {{- .filename | nindent 2 }}: |
+    {{- .data | nindent 4 -}}
+    {{- end -}}
+  {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $relName }}-env
+  labels: {{- include "bandstand-job.labels" . | nindent 4 }}
+  {{- if .Values.envConfig }}
+data:
+  {{- range .Values.envConfig -}}
+    {{- .filename | nindent 2 }}: |
+    {{- .data | nindent 4 -}}
+    {{- end -}}
+  {{- end }}

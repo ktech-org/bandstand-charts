@@ -14,6 +14,8 @@ This is a public repo since it uses Github Pages to host a helm repository.
 
 [Headless Service](bandstand-headless-service.md)
 
+[Job](bandstand-job.md)
+
 ## Values precedence
 
 Values in `values-env.yaml` will override values in `values.yaml`.
@@ -72,5 +74,5 @@ If HPA is disabled and advanced scaling is enabled in the same deployment, the d
 contact the dev platform team for assistance as we will need to manually delete the old HPA resources from the clusters
 to allow the deployment to proceed.
 
-If you are interested in enabling other [KEDA scalers](https://keda.sh/docs/2.13/scalers/), please contact the dev 
+If you are interested in enabling other [KEDA scalers](https://keda.sh/docs/2.13/scalers/), please contact the dev
 platform team or raise a PR.

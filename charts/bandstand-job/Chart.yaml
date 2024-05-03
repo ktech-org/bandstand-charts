@@ -1,0 +1,7 @@
+apiVersion: v2
+name: bandstand-job
+version: 1.0.0
+description: Application chart for a simple job starting immediately after deployment
+type: application
+maintainers:
+  - name: ktech-developer-platform

@@ -1,0 +1,88 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}
+  labels: {{- include "bandstand-job.labels" . | nindent 4 }}
+spec:
+  ttlSecondsAfterFinished: {{ .Values.ttlSecondsAfterFinished | default 60 }}
+  backoffLimit: {{ .Values.backoffLimit | default 0 }}
+  template:
+    metadata:
+      annotations:
+        "linkerd.io/inject": disabled
+    spec:
+      serviceAccountName: {{ .Release.Name }}
+      restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $.Values.imageName | default .Release.Name }}:{{ .Values.global.image.tag }}
+          imagePullPolicy: Always
+          {{- $jobContainer := .Values.jobContainer | default dict }}
+          {{- if $jobContainer.command }}
+          command: {{ $jobContainer.command }}
+          {{- end }}
+          {{- if $jobContainer.arguments }}
+          args:
+          {{- range $jobContainer.arguments }}
+            - {{ . }}
+          {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: tmp-dir
+              mountPath: /tmp
+              readOnly: false
+            {{- range .Values.config }}
+            - name: config
+              mountPath: {{ .path }}/{{ .filename }}
+              subPath: {{ .filename }}
+              readOnly: true
+            {{- end }}
+            {{- range .Values.envConfig }}
+            - name: env-config
+              mountPath: {{ .path }}/{{ .filename }}
+              subPath: {{ .filename }}
+              readOnly: true
+            {{- end }}
+            {{- if (.Values.volume).persistent }}
+            - name: {{ .Release.Name }}
+              mountPath: "/var/{{ .Release.Name }}"
+            {{- end }}
+          resources:
+            requests:
+              cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
+              memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
+              ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
+            limits:
+              {{- if .Values.enforceCpuLimits }}
+              cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
+              {{- end }}
+              memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
+              ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
+          env: {{- include "bandstand-job.common-envvars" . | nindent 16 }}
+            {{- if .Values.additionalEnvVars }}
+            {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+            {{- end }}
+            {{- if .Values.environmentEnvVars }}
+            {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+            {{- end }}
+          {{- if or (.Values.envFrom) (.Values.secrets) }}
+          envFrom:
+          {{- if .Values.envFrom }}
+          {{- .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+          {{- end }}
+          {{- range .Values.secrets }}
+          {{- $secretHash := sha256sum .secret | substr 0 6 }}
+          {{- $secretName := list $.Release.Name $.Values.nameSuffix .name $secretHash | join "-" }}
+          - secretRef:
+              name: {{ $secretName }}
+              optional: {{ .optional | default false }}
+            {{- if .prefix }}
+            prefix: {{ .prefix }}
+            {{- end }}
+          {{- end }}
+          {{- end }}
+          securityContext: {{- include "bandstand-job.containerSecurityContext" . | nindent 16 }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
+      volumes: {{- include "bandstand-job.common-volumes" . | nindent 12 }}
+      securityContext: {{- include "bandstand-job.podSecurityContext" . | nindent 12 }}

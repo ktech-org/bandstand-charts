@@ -1,0 +1,17 @@
+{{- if (.Values.volume).persistent }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-job.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ (.Values.volume).persistent }}
+{{- end -}}
