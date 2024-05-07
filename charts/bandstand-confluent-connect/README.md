@@ -1,6 +1,6 @@
 # bandstand-confluent-connect
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Chart for deploying confluent connect clusters and connectors
 
@@ -9,7 +9,7 @@ Chart for deploying confluent connect clusters and connectors
 | Name | Email | Url |
 | ---- | ------ | --- |
 | ktech-developer-platform |  |  |
-    
+
 ## Source Code
 
 * <https://github.com/ktech-org/bandstand-charts>
@@ -33,7 +33,7 @@ Chart for deploying confluent connect clusters and connectors
 | initImage | string | `"confluentinc/confluent-init-container:2.8.2"` | Docker image to use for the init container |
 | resources.requests.cpu | string | `"200m"` | [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for container CPU resources measured in cpu units, one core is 1000m, see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu) |
 | resources.requests.ephemeralStorage | string | `"64Mi"` | Container ephemeral storage [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) (both set to the same value) |
-| resources.requests.memory | string | `"1024Mi"` | Container memory [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) (both set to the same value) |
+| resources.requests.memory | string | `"1.25Gi"` | Container memory [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) (both set to the same value) |
 | schemaRegistryUrl | string | `nil` | The URL of the schema registry |
 
 ----------------------------------------------
