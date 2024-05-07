@@ -25,7 +25,7 @@ resources:
     # -- [Requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) for container CPU resources measured in cpu units, one core is 1000m, see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)
     cpu: 200m
     # -- Container memory [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-memory) (both set to the same value)
-    memory: 1024Mi
+    memory: 1.25Gi
     # -- Container ephemeral storage [Requests and Limit](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) see [here](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage) (both set to the same value)
     ephemeralStorage: 64Mi
 
