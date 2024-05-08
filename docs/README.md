@@ -16,6 +16,8 @@ This is a public repo since it uses Github Pages to host a helm repository.
 
 [Job](bandstand-job.md)
 
+[Confluent Connect Cluster](bandstand-confluent-connect.md)
+
 ## Values precedence
 
 Values in `values-env.yaml` will override values in `values.yaml`.
