@@ -43,7 +43,7 @@ spec:
       authentication:
         type: plain
         jaasConfig:
-          secretRef: {{ $relName }}-kafka
+          secretRef: {{ $relName }}
       tls:
         enabled: true
         ignoreTrustStoreConfig: true
@@ -52,4 +52,4 @@ spec:
       authentication:
         type: basic
         basic:
-          secretRef: {{ $relName }}-schema
+          secretRef: {{ $relName }}
