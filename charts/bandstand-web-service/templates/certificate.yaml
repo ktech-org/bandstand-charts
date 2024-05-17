@@ -11,12 +11,12 @@ spec:
   commonName: {{ . }}
   dnsNames:
     - "*.{{ . }}"
-  duration: 24h
+  duration: 720h
   issuerRef:
     group: awspca.cert-manager.io
     kind: AWSPCAClusterIssuer
     name: cluster-issuer
-  renewBefore: 2h
+  renewBefore: 24h
   secretName: additional-domain-cert
   usages:
     - server auth
