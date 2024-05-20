@@ -1,6 +1,6 @@
 # bandstand-confluent-connect
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Chart for deploying confluent connect clusters and connectors
 
@@ -27,7 +27,6 @@ Chart for deploying confluent connect clusters and connectors
 | hpa.maxReplicas | int | `3` | Maximum number of connect cluster workers to run |
 | hpa.minReplicas | int | `1` | Minimum number of connect cluster workers to run |
 | hpa.targetCPUUtilization | int | `80` | CPU Utilization that will trigger a scale up |
-| hpa.targetMemoryUtilization | int | `80` | Memory Utilization that will trigger a scale up |
 | ingress.enabled | bool | `false` | Enable or disable the ingress for the connect cluster |
 | ingress.visibility | string | `"private"` | The visibility of the ingress |
 | initImage | string | `"confluentinc/confluent-init-container:2.8.2"` | Docker image to use for the init container |

@@ -13,8 +13,6 @@ hpa:
   maxReplicas: 3
   # -- CPU Utilization that will trigger a scale up
   targetCPUUtilization: 80
-  # -- Memory Utilization that will trigger a scale up
-  targetMemoryUtilization: 80
 
 # -- By default CPU will burst to use spare capacity on the node. Setting this flag will add a cpu limit with the same
 # value as `resources.requests.cpu`. It is recommended to set this flag in performance testing environments to ensure
