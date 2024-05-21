@@ -1,7 +1,0 @@
-bandstand-job:
-  owner: ktech-developer-platform
-  env: test
-  business: ktech
-
-  volume:
-    persistent: 2Gi
