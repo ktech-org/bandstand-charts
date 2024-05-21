@@ -1,0 +1,13 @@
+apiVersion: v2
+name: job-defaults
+version: 1.0.0
+description: testing bandstand-job chart
+type: application
+sources:
+  - https://github.com/ktech-org/bandstand-charts
+dependencies:
+  - name: bandstand-job
+    version: ">= 1.0.0"
+    repository: "file://../../../charts/bandstand-job/"
+maintainers:
+  - name: ktech-developer-platform
