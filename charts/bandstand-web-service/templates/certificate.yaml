@@ -1,12 +1,10 @@
-{{- $relName := .Release.Name -}}
-{{- if .Values.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
-{{- end }}
 {{- range $.Values.additionalDomains -}}
+{{- $certHash := sha256sum . | substr 0 6 } }
+{{- $certName := list .Release.Name $.Values.nameSuffix $secretHash | join "-" } }
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: {{ $relName }}
+  name: {{ $certName }}
 spec:
   commonName: {{ . }}
   dnsNames:
