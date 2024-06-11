@@ -1,0 +1,11 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: true
+    visibility: private
+  additionalDomains:
+    - domain1.test.ktech.com
+    - domain2.test.ktech.com
