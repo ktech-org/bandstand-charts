@@ -1,6 +1,6 @@
 {{- range $.Values.additionalDomains -}}
-{{- $certHash := sha256sum . | substr 0 6 } }
-{{- $certName := list .Release.Name $.Values.nameSuffix $secretHash | join "-" } }
+{{- $certHash := sha256sum . | substr 0 6 }}
+{{- $certName := list .Release.Name $.Values.nameSuffix $secretHash | join "-" }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
