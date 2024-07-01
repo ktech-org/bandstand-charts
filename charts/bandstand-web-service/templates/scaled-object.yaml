@@ -36,5 +36,12 @@ spec:
         value: {{ quote (.threshold | default 75) }}
       metricType: Utilization
     {{- end }}
+    {{- if eq .type "kafka" }}
+    - type: kafka
+      metadata:
+        bootstrapServersFromEnv: {{ .bootstrapServersEnvVar | default "KAFKA_BROKERS" }}
+        consumerGroup: {{ .consumerGroup }}
+        topic:  {{ .topic }}
+    {{- end }}
   {{- end }}
 {{- end }}
