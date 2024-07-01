@@ -8,7 +8,7 @@ kind: ScaledObject
 metadata:
   name: {{ $relName }}
 spec:
-  cooldownPeriod: {{ ((.Values.advancedScaling).cooldown) | default 30 }}
+  cooldownPeriod: {{ ((.Values.advancedScaling).cooldown) | default 60 }}
   maxReplicaCount: {{ ((.Values.advancedScaling).maxReplicas) | default 1 }}
   minReplicaCount: {{ ((.Values.advancedScaling).minReplicas) | default 3 }}
   idleReplicaCount: {{ ((.Values.advancedScaling).idleReplicas) | default 0 }}
