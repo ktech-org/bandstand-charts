@@ -9,8 +9,8 @@ metadata:
   name: {{ $relName }}
 spec:
   cooldownPeriod: {{ ((.Values.advancedScaling).cooldown) | default 30 }}
-  maxReplicaCount: {{ ((.Values.advancedScaling).maxReplicas) | default 1 }}
-  minReplicaCount: {{ ((.Values.advancedScaling).minReplicas) | default 3 }}
+  maxReplicaCount: {{ ((.Values.advancedScaling).maxReplicas) | default 3 }}
+  minReplicaCount: {{ ((.Values.advancedScaling).minReplicas) | default 1 }}
   idleReplicaCount: {{ ((.Values.advancedScaling).idleReplicas) | default 0 }}
   scaleTargetRef:
     name: {{ $relName }}
