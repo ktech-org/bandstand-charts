@@ -19,7 +19,7 @@ spec:
         config.linkerd.io/proxy-memory-request: {{ .Values.resources.requests.linkerd.memory }}
         {{- end }}
         {{- if (.Values.preStopWait).proxy }}
-        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: {{ (.Values.gracefulShutdown).proxyWait | default 20 | quote }}
+        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: {{ .Values.preStopWait.proxy | quote }}
         {{- end }}
       labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
     spec:
@@ -42,7 +42,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: [ "/bin/sh","-c","sleep {{ .Values.preStopWait).service }}" ]
+                command: [ "/bin/sh","-c","sleep {{ .Values.preStopWait.service }}" ]
           {{- end }}
           ports:
             - name: http
