@@ -1,0 +1,11 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: true
+
+  preStopWait:
+    proxy: 20
+    service: 30
