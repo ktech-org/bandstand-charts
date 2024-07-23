@@ -32,6 +32,7 @@ workflows:
                 - test-charts/web-service/defaults
                 - test-charts/web-service/advanced-scaling
                 - test-charts/web-service/image-override
+                - test-charts/web-service/pre-stop-wait
                 - test-charts/web-service/resources
                 - test-charts/web-service/resource-limits
                 - test-charts/web-service/secrets
