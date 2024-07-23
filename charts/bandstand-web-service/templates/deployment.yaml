@@ -205,3 +205,4 @@ spec:
         {{- else }}
         runAsUser: 1000
         {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds | default 30 }}

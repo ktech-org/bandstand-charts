@@ -9,3 +9,5 @@ bandstand-web-service:
   preStopWait:
     proxy: 20
     service: 30
+
+  terminationGracePeriodSeconds: 60
