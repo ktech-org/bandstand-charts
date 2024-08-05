@@ -68,6 +68,17 @@ entries:
     version: 1.0.0
   bandstand-cron-job:
   - apiVersion: v2
+    created: "2024-08-05T13:30:52.543072279Z"
+    description: Application chart for a simple cron job
+    digest: 0fc3affefa6b079db28e2581da305e148a2ca095d6d967d82729dbf17160365e
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-cron-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-cron-job-4.1.2/bandstand-cron-job-4.1.2.tgz
+    version: 4.1.2
+  - apiVersion: v2
     created: "2024-05-16T15:41:17.36907966Z"
     description: Application chart for a simple cron job
     digest: 9009256318cade564b106e4d983a48753117746cd60f7021f41cb54c1c2e063b
@@ -796,6 +807,17 @@ entries:
     version: 1.0.0
   bandstand-job:
   - apiVersion: v2
+    created: "2024-08-05T13:30:52.699817474Z"
+    description: Application chart for a simple job starting immediately after deployment
+    digest: 77b491725542c8423d77f444f577c04c5d4ce47c4a1ebd41148fe53bc6b022a0
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-job-1.1.2/bandstand-job-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2024-05-16T15:41:17.657148081Z"
     description: Application chart for a simple job starting immediately after deployment
     digest: 3c0e9e44e99029dae8a281b1a8b78ad4419374222914017e6d7d1ec78832c309
@@ -1061,6 +1083,17 @@ entries:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-0.1.0/bandstand-test-runner-0.1.0.tgz
     version: 0.1.0
   bandstand-triggered-job:
+  - apiVersion: v2
+    created: "2024-08-05T13:30:52.822076211Z"
+    description: Application chart for a job triggered from SQS
+    digest: 1942b66f47c36d1040e622c81d941a70d1f0e831aeba036712d69e49e2a8c2bd
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-triggered-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-triggered-job-1.2.2/bandstand-triggered-job-1.2.2.tgz
+    version: 1.2.2
   - apiVersion: v2
     created: "2024-05-16T15:41:17.768536944Z"
     description: Application chart for a job triggered from SQS
@@ -2251,4 +2284,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-23T16:21:52.717678624Z"
+generated: "2024-08-05T13:30:52.822957808Z"
