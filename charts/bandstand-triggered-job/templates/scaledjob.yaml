@@ -4,6 +4,8 @@ metadata:
   name: {{ .Release.Name }}
   labels: {{- include "bandstand-triggered-job.labels" . | nindent 4 }}
 spec:
+  successfulJobsHistoryLimit: 30
+  failedJobsHistoryLimit: 50
   jobTargetRef:
     parallelism: 1                            # [max number of desired pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
     completions: 1                            # [desired number of successfully finished pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
@@ -15,6 +17,7 @@ spec:
       metadata:
         annotations:
           "linkerd.io/inject": disabled
+        labels: {{- include "bandstand-triggered-job.labels" . | nindent 10 }}
       spec:
         serviceAccountName: {{ .Release.Name }}
         restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
