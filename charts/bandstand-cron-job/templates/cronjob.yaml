@@ -17,6 +17,7 @@ spec:
         metadata:
           annotations:
             "linkerd.io/inject": disabled
+          labels: {{- include "bandstand-cron-job.labels" . | nindent 12 }}
         spec:
           serviceAccountName: {{ .Release.Name }}
           restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
