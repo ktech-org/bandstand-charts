@@ -30,7 +30,7 @@ spec:
         value: {{ quote (.threshold | default 50) }}
       metricType: Utilization
     {{- end }}
-    {{- if eq .type "cpu" }}
+    {{- if eq .type "memory" }}
     - type: memory
       metadata:
         value: {{ quote (.threshold | default 75) }}
