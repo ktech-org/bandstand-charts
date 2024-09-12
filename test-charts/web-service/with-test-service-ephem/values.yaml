@@ -9,6 +9,5 @@ bandstand-web-service:
   test:
     resources:
       requests:
-        cpu: 200m
         memory: 1Gi
         ephemeralStorage: 128Mi
