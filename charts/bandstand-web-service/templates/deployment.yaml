@@ -95,6 +95,8 @@ spec:
           env:
             - name: ENV
               value: {{ .Values.global.env }}
+            - name: BUSINESS
+              value: {{ .Values.global.business | default "none"  }}
             - name: VERSION
               value: {{ .Values.global.image.tag }}
             - name: DD_ENV
