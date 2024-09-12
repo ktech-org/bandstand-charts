@@ -39,6 +39,7 @@ workflows:
                 - test-charts/web-service/with-additional-domains
                 - test-charts/web-service/with-config-files
                 - test-charts/web-service/with-test-service-acct
+                - test-charts/web-service/with-test-service-ephem
                 - test-charts/web-service/with-external-config-map
                 - test-charts/web-service/with-ephemeral-volume
                 - test-charts/web-service/with-persistent-volume
