@@ -1,0 +1,13 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  test:
+    resources:
+      requests:
+        memory: 1Gi
+        ephemeralStorage: 128Mi
