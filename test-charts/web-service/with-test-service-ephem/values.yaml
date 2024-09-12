@@ -6,9 +6,9 @@ bandstand-web-service:
   ingress:
     enabled: false
 
-  test:
-    resources:
-      requests:
-        cpu: 200m
-        memory: 1Gi
-        ephemeral-storage: 128Mi
+test:
+  resources:
+    requests:
+      cpu: 200m
+      memory: 1Gi
+      ephemeral-storage: 128Mi
