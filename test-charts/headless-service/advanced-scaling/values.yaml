@@ -25,7 +25,7 @@ bandstand-web-service:
         start: 0 7 * * MON-FRI
         end: 0 19 * * MON-FRI
       - type: kafka
-        topic: my-topic
-        consumerGroup: my-consumer-group
-        bootstrapServersEnvVar: KAFKA_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
+        topic: event.msk.reference.dummy
+        consumerGroup: keda-consumer
+        bootstrapServersEnvVar: MSK_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
         tls: enabled
