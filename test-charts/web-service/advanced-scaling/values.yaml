@@ -28,3 +28,4 @@ bandstand-web-service:
         topic: my-topic
         consumerGroup: my-consumer-group
         bootstrapServersEnvVar: KAFKA_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
+        tls: enabled

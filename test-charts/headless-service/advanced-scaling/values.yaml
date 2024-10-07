@@ -24,3 +24,8 @@ bandstand-web-service:
         desiredReplicas: 1
         start: 0 7 * * MON-FRI
         end: 0 19 * * MON-FRI
+      - type: kafka
+        topic: my-topic
+        consumerGroup: my-consumer-group
+        bootstrapServersEnvVar: KAFKA_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
+        tls: enabled
