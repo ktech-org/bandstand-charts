@@ -42,7 +42,7 @@ spec:
         bootstrapServersFromEnv: {{ .bootstrapServersEnvVar | default "KAFKA_BROKERS" }}
         consumerGroup: {{ .consumerGroup }}
         topic:  {{ .topic }}
-        tls: {{ quote (.tls | default enable) }}
+        tls: {{ quote (.tls | default "enable") }}
     {{- end }}
   {{- end }}
 {{- end }}
