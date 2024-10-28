@@ -3,6 +3,9 @@ bandstand-web-service:
   env: test
   business: ktech
 
+  ingress:
+    enabled: true
+    
   reloader:
     enabled: false
 
