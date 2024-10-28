@@ -5,6 +5,6 @@ bandstand-web-service:
 
   ingress:
     enabled: true
-    
+
   reloader:
-    enabled: false
+    enabled: true

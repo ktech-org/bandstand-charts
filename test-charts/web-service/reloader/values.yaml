@@ -7,5 +7,5 @@ bandstand-web-service:
     enabled: true
 
   reloader:
-    enabled: false
+    enabled: true
 
