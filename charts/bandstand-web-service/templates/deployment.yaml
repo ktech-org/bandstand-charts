@@ -21,6 +21,9 @@ spec:
         {{- if (.Values.preStopWait).proxy }}
         config.alpha.linkerd.io/proxy-wait-before-exit-seconds: {{ .Values.preStopWait.proxy | quote }}
         {{- end }}
+        {{- if (.Values.reloader).enabled }}
+        reloader.stakater.com/auto: "true"
+        {{- end }}
       labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ $relName }}

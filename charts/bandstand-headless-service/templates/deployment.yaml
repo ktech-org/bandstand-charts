@@ -14,6 +14,9 @@ spec:
     metadata:
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
+        {{- if (.Values.reloader).enabled }}
+        reloader.stakater.com/auto: "true"
+        {{- end }}
       labels: {{- include "bandstand-headless-service.labels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ $relName }}
