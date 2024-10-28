@@ -5,4 +5,4 @@ bandstand-web-service:
   imageName: my-custom-image
 
   ingress:
-    enabled: false
+    enabled: true
