@@ -43,6 +43,7 @@ workflows:
                 - test-charts/web-service/with-external-config-map
                 - test-charts/web-service/with-ephemeral-volume
                 - test-charts/web-service/with-persistent-volume
+                - test-charts/web-service/reloader
                 - test-charts/headless-service/defaults
                 - test-charts/headless-service/advanced-scaling
                 - test-charts/headless-service/image-override
@@ -53,6 +54,7 @@ workflows:
                 - test-charts/headless-service/with-external-config-map
                 - test-charts/headless-service/with-ephemeral-volume
                 - test-charts/headless-service/with-persistent-volume
+                - test-charts/headless-service/reloader
                 - test-charts/job/defaults
                 - test-charts/job/image-override
                 - test-charts/job/resources
