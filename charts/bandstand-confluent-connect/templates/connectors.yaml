@@ -16,4 +16,5 @@ spec:
   {{- $config := merge $.Values.commonConnectorConfig (.config | default dict ) }}
   configs:
     {{- tpl ($config | toYaml) $ | nindent 4 }}
+---
 {{- end }}
