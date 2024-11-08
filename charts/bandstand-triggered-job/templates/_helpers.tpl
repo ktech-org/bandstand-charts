@@ -80,5 +80,5 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
 - name: QUEUE_URL
   value: https://sqs.eu-west-1.amazonaws.com/{{ .Values.global.aws.account | toYaml }}/{{ .Values.queueName }}
 - name: AWS_ACCOUNT_ID
-  value: {{ .Values.global.aws.account }}
+  value: {{ .Values.global.aws.account | toYaml }}
 {{- end -}}
