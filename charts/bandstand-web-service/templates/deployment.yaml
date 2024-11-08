@@ -129,7 +129,7 @@ spec:
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: host=$(DD_AGENT_HOST),service={{ $relName }},env={{ .Values.global.env }}
             - name: AWS_ACCOUNT_ID
-              value: {{ .Values.global.aws.account | toYaml }}
+              value: {{ .Values.global.aws.account | quote }}
             {{- if .Values.additionalEnvVars }}
               {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}

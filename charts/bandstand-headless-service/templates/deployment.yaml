@@ -101,7 +101,7 @@ spec:
             - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
               value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
             - name: AWS_ACCOUNT_ID
-              value: {{ .Values.global.aws.account | toYaml }}
+              value: {{ .Values.global.aws.account | quote }}
             {{- if .Values.additionalEnvVars }}
               {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}

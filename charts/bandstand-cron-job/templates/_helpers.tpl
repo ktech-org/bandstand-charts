@@ -92,5 +92,5 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
     fieldRef:
       fieldPath: status.hostIP
 - name: AWS_ACCOUNT_ID
-  value: {{ .Values.global.aws.account | toYaml }}
+  value: {{ .Values.global.aws.account | quote }}
 {{- end -}}
