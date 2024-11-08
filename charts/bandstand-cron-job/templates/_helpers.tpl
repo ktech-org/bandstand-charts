@@ -91,4 +91,6 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   valueFrom:
     fieldRef:
       fieldPath: status.hostIP
+- name: AWS_ACCOUNT_ID
+  value: {{ .Values.global.aws.account }}
 {{- end -}}
