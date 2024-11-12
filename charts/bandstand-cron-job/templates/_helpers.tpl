@@ -91,6 +91,22 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   valueFrom:
     fieldRef:
       fieldPath: status.hostIP
+- name: OTEL_SERVICE_NAME
+  value: {{ .Release.Name }}
+- name: OTEL_EXPORTER_OTLP_ENDPOINT
+  value: http://collector.linkerd-jaeger:4317
+- name: OTEL_PROPAGATORS
+  value: b3multi
+- name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+  value: http://$(DD_AGENT_HOST):4317
+- name: OTEL_EXPORTER_OTLP_METRICS_PROTOCOL
+  value: grpc
+- name: OTEL_METRICS_EXPORTER
+  value: otlp
+- name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
+  value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
+- name: OTEL_RESOURCE_ATTRIBUTES
+  value: host=$(DD_AGENT_HOST),service={{ .Release.Name }},env={{ .Values.global.env }}
 - name: AWS_ACCOUNT_ID
   value: {{ .Values.global.aws.account | squote }}
 {{- end -}}
