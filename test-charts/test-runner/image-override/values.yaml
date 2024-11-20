@@ -6,3 +6,6 @@ bandstand-test-runner:
 
   testRuns:
     - name: test-suite-1
+
+global:
+  dockerRegistry: 067805054192.dkr.ecr.eu-west-1.amazonaws.com
