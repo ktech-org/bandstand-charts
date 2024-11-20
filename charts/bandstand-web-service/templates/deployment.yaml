@@ -29,7 +29,7 @@ spec:
       serviceAccountName: {{ $relName }}
       containers:
         - name: {{ $relName }}
-          image: {{ .Values.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $.Values.imageName | default $relName }}:{{ .Values.global.image.tag }}
+          image: {{ .Values.dockerRegistry | default .Values.global.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $.Values.imageName | default $relName }}:{{ .Values.global.image.tag }}
           imagePullPolicy: Always
           {{- $serverContainer := .Values.serverContainer | default dict }}
           {{- if $serverContainer.command }}
