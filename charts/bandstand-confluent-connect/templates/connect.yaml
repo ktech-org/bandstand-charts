@@ -31,11 +31,16 @@ spec:
           "confluent_platform": {
             "init_config": {
               "is_jmx": true,
-              "collect_default_metrics": true
+              "collect_default_metrics": false
             },
             "instances": [{
               "host": "%%host%%",
-              "port": "7203"
+              "port": "7203",
+              "conf": {
+                "include": [
+                  "confluent.kafka.connect.*"
+                ]
+              }
             }]
           }
         }
