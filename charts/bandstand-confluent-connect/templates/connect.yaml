@@ -32,15 +32,24 @@ spec:
             "init_config": {
               "is_jmx": true,
               "collect_default_metrics": false
+              "conf": {
+                "include": {
+                  "confluent.kafka.connect.source_task.source_record_write_total"
+                  "confluent.kafka.connect.worker.connector_total_task_count"
+                  "confluent.kafka.connect.worker.connector_running_task_count"
+                  "confluent.kafka.connect.source_task.source_record_write_rate"
+                  "confluent.kafka.connect.worker.connector_count"
+                  "confluent.kafka.connect.connector_metrics.status"
+                  "confluent.kafka.connect.connect_metrics.outgoing_byte_rate"
+                  "confluent.kafka.connect.source_task.source_record_poll_total"
+                  "confluent.kafka.connect.source_task.source_record_poll_rate"
+                  "confluent.kafka.connect.connect_metrics.incoming_byte_rate"
+                }
+              }
             },
             "instances": [{
               "host": "%%host%%",
               "port": "7203",
-              "conf": {
-                "include": [
-                  "confluent.kafka.connect.*"
-                ]
-              }
             }]
           }
         }
