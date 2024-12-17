@@ -98,7 +98,7 @@ spec:
                     "type": "connect-metrics",
                     "bean_regex": "kafka.connect:type=connect-metrics,client-id=.*",
                     "attribute": {
-                      "incoming_byte_rate": {
+                      "incoming-byte-rate": {
                         "alias": "confluent.kafka.connect.connect_metrics.incoming_byte_rate"
                       }
                     }
