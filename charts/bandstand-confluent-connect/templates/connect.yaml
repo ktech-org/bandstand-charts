@@ -26,21 +26,153 @@ spec:
         {{- end }}
   podTemplate:
     annotations:
-      ad.datadoghq.com/{{ $relName }}.checks: |
+      ad.datadoghq.com/royid-connect-svc.checks: |
         {
           "confluent_platform": {
             "init_config": {
               "is_jmx": true,
-              "collect_default_metrics": false
+              "collect_default_metrics": false,
+              "conf": [
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "connector-task-metrics",
+                    "bean_regex": "kafka.connect:type=connector-task-metrics,connector=.*,task=.*",
+                    "attribute": {
+                      "status": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.connector_metrics.status",
+                        "values": {
+                          "running": 0,
+                          "paused": 1,
+                          "failed": 2,
+                          "destroyed": 3,
+                          "unassigned": -1
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "connect-worker-metrics",
+                    "bean_regex": "kafka.connect:type=connect-worker-metrics,connector=.*",
+                    "attribute": {
+                      "connector-total-task-count": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.worker.connector-total-task-count"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "connect-worker-metrics",
+                    "bean_regex": "kafka.connect:type=connect-worker-metrics,connector=.*",
+                    "attribute": {
+                      "connector-running-task-count": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.worker.connector-running-task-count"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "connect-worker-metrics",
+                    "bean": "kafka.connect:type=connect-worker-metrics",
+                    "attribute": {
+                      "connector-count": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.worker.connector-count"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "connect-metrics",
+                    "bean_regex": "kafka.connect:type=connect-metrics,client-id=.*",
+                    "attribute": {
+                      "incoming_byte_rate": {
+                        "alias": "confluent.kafka.connect.connect_metrics.incoming_byte_rate"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "connect-metrics",
+                    "bean_regex": "kafka.connect:type=connect-metrics,client-id=.*",
+                    "attribute": {
+                      "outgoing-byte-rate": {
+                        "alias": "confluent.kafka.connect.connect_metrics.outgoing_byte_rate"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "source-task-metrics",
+                    "bean_regex": "kafka.connect:type=source-task-metrics,connector=.*,task=.*",
+                    "attribute": {
+                      "source-record-write-total": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.source_task.source-record-write-total"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "source-task-metrics",
+                    "bean_regex": "kafka.connect:type=source-task-metrics,connector=.*,task=.*",
+                    "attribute": {
+                      "source-record-write-rate": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.source_task.source-record-write-rate"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "source-task-metrics",
+                    "bean_regex": "kafka.connect:type=source-task-metrics,connector=.*,task=.*",
+                    "attribute": {
+                      "source-record-poll-total": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.source_task.source-record-poll-total"
+                      }
+                    }
+                  }
+                },
+                {
+                  "include": {
+                    "domain": "kafka.connect",
+                    "type": "source-task-metrics",
+                    "bean_regex": "kafka.connect:type=source-task-metrics,connector=.*,task=.*",
+                    "attribute": {
+                      "source-record-poll-rate": {
+                        "metric_type": "gauge",
+                        "alias": "confluent.kafka.connect.source_task.source-record-poll-rate"
+                      }
+                    }
+                  }
+                }
+              ]
             },
             "instances": [{
               "host": "%%host%%",
-              "port": "7203",
-              "conf": {
-                "include": [
-                  "confluent.kafka.connect.*"
-                ]
-              }
+              "port": "7203"
             }]
           }
         }
