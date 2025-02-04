@@ -22,7 +22,7 @@ spec:
       serviceAccountName: {{ $relName }}
       containers:
         - name: {{ $relName }}
-          image: {{ .Values.dockerRegistry | default .Values.global.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $.Values.imageName | default $relName }}:{{ .Values.global.image.tag }}
+          image: {{ .Values.dockerRegistry | default .Values.global.dockerRegistry | default "067805054192.dkr.ecr.eu-west-1.amazonaws.com" }}/{{ $.Values.imageName | default $relName }}:{{ .Values.global.image.tag }}
           imagePullPolicy: Always
           {{- $serverContainer := .Values.serverContainer | default dict }}
           {{- if $serverContainer.command }}
