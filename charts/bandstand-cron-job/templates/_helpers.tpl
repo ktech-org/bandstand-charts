@@ -103,6 +103,10 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   value: grpc
 - name: OTEL_METRICS_EXPORTER
   value: otlp
+- name: OTEL_EXPORTER_OTLP_PROTOCOL
+  value: "grpc"
+- name: OTEL_LOGS_EXPORTER
+  value: "none"
 - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
   value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
 - name: OTEL_RESOURCE_ATTRIBUTES
