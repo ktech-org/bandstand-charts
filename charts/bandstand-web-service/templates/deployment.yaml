@@ -97,7 +97,6 @@ spec:
             httpGet:
               path: {{ (.Values.livenessProbe).path | default "/" }}
               port: http
-              scheme: HTTP
             timeoutSeconds: 5
             periodSeconds: 5
             failureThreshold: 30
