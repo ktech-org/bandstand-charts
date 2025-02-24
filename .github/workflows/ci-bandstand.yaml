@@ -14,8 +14,8 @@ jobs:
       matrix:
         environment:
           - test
-          #- prod
-        chart:
+          - prod
+        test-charts:
           - test-charts/web-service/defaults
           - test-charts/web-service/advanced-scaling
           - test-charts/web-service/image-override
@@ -89,5 +89,5 @@ jobs:
       business: ktech
       environment: ${{ matrix.environment }}
       namespace: lab
-      values: ${{ matrix.chart }}/values.yaml
-      chart: ${{ matrix.chart }}/
+      values: ${{ matrix.test-charts }}/values.yaml
+      chart: ${{ matrix.test-charts }}/
