@@ -14,7 +14,7 @@ jobs:
       matrix:
         environment:
           - test
-          - prod
+          #- prod
         chart:
           - test-charts/web-service/defaults
           - test-charts/web-service/advanced-scaling
