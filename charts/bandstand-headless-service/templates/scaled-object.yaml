@@ -36,13 +36,25 @@ spec:
         value: {{ quote (.threshold | default 75) }}
       metricType: Utilization
     {{- end }}
-    {{- if eq .type "kafka" }}
+    {{- if eq .type "msk" }}
     - type: kafka
       metadata:
         bootstrapServersFromEnv: {{ .bootstrapServersEnvVar | default "KAFKA_BROKERS" }}
         consumerGroup: {{ .consumerGroup }}
         topic:  {{ .topic }}
         tls: {{ quote (.tls | default "enable") }}
+    {{- end }}
+    {{- if eq .type "confluent" }}
+    - type: confluent
+      metadata:
+        bootstrapServersFromEnv: {{ .bootstrapServersEnvVar | default "KAFKA_BROKERS" }}
+        consumerGroup: {{ .consumerGroup }}
+        topic:  {{ .topic }}
+        tls: enable
+        unsafeSsl: 'true'
+      authenticationRef:
+        name: keda-confluent-credentials
+        kind: ClusterTriggerAuthentication
     {{- end }}
   {{- end }}
 {{- end }}
