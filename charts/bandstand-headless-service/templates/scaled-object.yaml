@@ -45,7 +45,7 @@ spec:
         tls: {{ quote (.tls | default "enable") }}
     {{- end }}
     {{- if eq .type "confluent" }}
-    - type: confluent
+    - type: kafka
       metadata:
         bootstrapServersFromEnv: {{ .bootstrapServersEnvVar | default "KAFKA_BROKERS" }}
         consumerGroup: {{ .consumerGroup }}
