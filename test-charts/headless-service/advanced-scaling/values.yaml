@@ -24,8 +24,12 @@ bandstand-web-service:
         desiredReplicas: 1
         start: 0 7 * * MON-FRI
         end: 0 19 * * MON-FRI
-      - type: kafka
+      - type: msk
         topic: event.msk.reference.dummy
         consumerGroup: keda-consumer
         bootstrapServersEnvVar: MSK_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
         tls: enable
+      - type: confluent
+        topic: event.confluent.reference.dummy
+        consumerGroup: keda-consumer
+        bootstrapServersEnvVar: CONFLUENT_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
