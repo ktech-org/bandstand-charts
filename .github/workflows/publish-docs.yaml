@@ -1,0 +1,17 @@
+name: Publish Tech Docs To Backstage
+
+run-name: Publish Tech Docs To Backstage
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/**"
+      - "docs/**"
+      - "mkdocs.yml"
+
+jobs:
+  publish-docs:
+    uses: ktech-org/actions/.github/workflows/techdocs-publish.yaml@v0
+    secrets: inherit
