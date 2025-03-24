@@ -17,6 +17,7 @@ spec:
         metadata:
           annotations:
             "linkerd.io/inject": disabled
+            "karpenter.sh/do-not-disrupt": "true"
           labels: {{- include "bandstand-cron-job.labels" . | nindent 12 }}
         spec:
           serviceAccountName: {{ .Release.Name }}

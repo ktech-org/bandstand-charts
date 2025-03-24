@@ -18,6 +18,7 @@ metadata:
     "polaris.fairwinds.com/readinessProbeMissing-exempt": "true"
     "polaris.fairwinds.com/livenessProbeMissing-exempt": "true"
     "linkerd.io/inject": disabled
+    "karpenter.sh/do-not-disrupt": "true"
 spec:
   {{- if (.Values.test).createServiceAccount }}
   serviceAccountName: {{ $relName }}-acceptance-tests
