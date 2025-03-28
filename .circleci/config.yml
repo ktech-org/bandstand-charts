@@ -66,6 +66,7 @@ workflows:
                 - test-charts/job/with-ephemeral-volume
                 - test-charts/job/with-persistent-volume
                 - test-charts/cron-job/defaults
+                - test-charts/cron-job/envvars
                 - test-charts/cron-job/image-override
                 - test-charts/cron-job/resources
                 - test-charts/cron-job/resource-limits
