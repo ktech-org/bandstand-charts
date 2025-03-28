@@ -1,4 +1,4 @@
-bandstand-cron-job:
+bandstand-job:
   owner: ktech-developer-platform
   env: test
   business: ktech

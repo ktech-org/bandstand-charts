@@ -1,6 +1,6 @@
 apiVersion: v2
 name: bandstand-web-service
-version: 4.10.2
+version: 4.11.0
 description: Application chart for a web service
 type: application
 maintainers:
