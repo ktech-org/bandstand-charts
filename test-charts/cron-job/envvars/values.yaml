@@ -1,0 +1,12 @@
+bandstand-cron-job:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  additionalEnvVars:
+    - name: SOME_URL
+      value: https://exmaple.{{ .Values.global.env }}.com
+
+  environmentEnvVars:
+    - name: SOME_ENV_URL
+      value: https://example.env.{{ .Values.global.env }}.com
