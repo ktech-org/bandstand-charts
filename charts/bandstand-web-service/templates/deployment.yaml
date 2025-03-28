@@ -140,10 +140,10 @@ spec:
             - name: AWS_ACCOUNT_ID
               value: {{ .Values.global.aws.account | squote }}
             {{- if .Values.additionalEnvVars }}
-              {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+              {{- tpl (.Values.additionalEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
             {{- if .Values.environmentEnvVars }}
-              {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
+              {{- tpl (.Values.environmentEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
           {{- if or (.Values.envFrom) (.Values.secrets) }}
           envFrom:

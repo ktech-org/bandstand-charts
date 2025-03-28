@@ -1,0 +1,15 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  additionalEnvVars:
+    - name: SOME_URL
+      value: https://example.{{ .Values.global.env }}.com
+
+  environmentEnvVars:
+    - name: SOME_ENV_URL
+      value: https://example.env.{{ .Values.global.env }}.com
