@@ -28,6 +28,7 @@ bandstand-web-service:
         topic: event.msk.reference.dummy
         consumerGroup: keda-consumer
         bootstrapServersEnvVar: MSK_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
+        lagThreshold: 100
         tls: enable
       - type: confluent
         topic: event.confluent.reference.dummy
