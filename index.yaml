@@ -146,6 +146,17 @@ entries:
     version: 1.0.0
   bandstand-cron-job:
   - apiVersion: v2
+    created: "2025-03-31T09:21:26.008361134Z"
+    description: Application chart for a simple cron job
+    digest: 5f15860617f26c12f1145c62a293ac5f1dbefd2e236a25378eb132fff817281e
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-cron-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-cron-job-4.4.0/bandstand-cron-job-4.4.0.tgz
+    version: 4.4.0
+  - apiVersion: v2
     created: "2025-03-24T10:25:42.851313673Z"
     description: Application chart for a simple cron job
     digest: fbc301fddf4731fa5e2dcdeded8df762fb15d664adb99fc97bfd73df78998fa8
@@ -785,6 +796,17 @@ entries:
     version: 1.0.0
   bandstand-headless-service:
   - apiVersion: v2
+    created: "2025-03-31T09:21:26.127455125Z"
+    description: Chart for a standalone (non-web) service
+    digest: 030c1dc39d69b35921a841acb76db1f3486609bfdd31c9d1b93925adde4aeaef
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-headless-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-headless-service-3.7.0/bandstand-headless-service-3.7.0.tgz
+    version: 3.7.0
+  - apiVersion: v2
     created: "2025-03-12T18:01:59.73953975Z"
     description: Chart for a standalone (non-web) service
     digest: 412c81b79df8575db61aa3611cb8be556fbf109f5c123b2760090b70ee3de11c
@@ -1126,6 +1148,17 @@ entries:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-headless-service-1.0.0/bandstand-headless-service-1.0.0.tgz
     version: 1.0.0
   bandstand-job:
+  - apiVersion: v2
+    created: "2025-03-31T09:21:26.270847394Z"
+    description: Application chart for a simple job starting immediately after deployment
+    digest: b06b82b3dae3d717539d120929cc44b45367f023209e76aad8667fc69a79fe53
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-job-1.4.0/bandstand-job-1.4.0.tgz
+    version: 1.4.0
   - apiVersion: v2
     created: "2025-03-24T10:25:43.065876626Z"
     description: Application chart for a simple job starting immediately after deployment
@@ -1514,6 +1547,17 @@ entries:
     version: 0.1.0
   bandstand-triggered-job:
   - apiVersion: v2
+    created: "2025-03-31T09:21:26.388407725Z"
+    description: Application chart for a job triggered from SQS
+    digest: e99ee510101ac5459950bd292fc8e9f1fa08673ce1ae62b5851744bab70e9fc3
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-triggered-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-triggered-job-1.5.0/bandstand-triggered-job-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     created: "2025-01-15T17:32:39.928181167Z"
     description: Application chart for a job triggered from SQS
     digest: bc2c4ccb3fef6844f8d50014e86c74f2447dd609741538425b75bedfa110faf5
@@ -1690,6 +1734,17 @@ entries:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-triggered-job-1.0.0/bandstand-triggered-job-1.0.0.tgz
     version: 1.0.0
   bandstand-web-service:
+  - apiVersion: v2
+    created: "2025-03-31T09:21:26.511470125Z"
+    description: Application chart for a web service
+    digest: b0ffba7b8a15e07be66f675f6f722abbacce7495866df472b56c2a9fceadab13
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-web-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-web-service-4.11.0/bandstand-web-service-4.11.0.tgz
+    version: 4.11.0
   - apiVersion: v2
     created: "2025-03-24T10:25:43.269939985Z"
     description: Application chart for a web service
@@ -2967,4 +3022,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-24T10:25:43.27055892Z"
+generated: "2025-03-31T09:21:26.512827151Z"
