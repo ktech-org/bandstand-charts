@@ -42,7 +42,7 @@ spec:
         bootstrapServersFromEnv: {{ .bootstrapServersEnvVar | default "KAFKA_BROKERS" }}
         consumerGroup: {{ .consumerGroup }}
         topic:  {{ .topic }}
-        lagThreshold: {{ .lagThreshold | default '10'}}
+        lagThreshold: {{ .lagThreshold | default 10}}
         tls: {{ quote (.tls | default "enable") }}
     {{- end }}
     {{- if eq .type "confluent" }}
@@ -51,7 +51,7 @@ spec:
         bootstrapServersFromEnv: {{ .bootstrapServersEnvVar | default "KAFKA_BROKERS" }}
         consumerGroup: {{ .consumerGroup }}
         topic:  {{ .topic }}
-        lagThreshold: {{ .lagThreshold | default '10'}}
+        lagThreshold: {{ .lagThreshold | default 10}}
         tls: enable
         unsafeSsl: 'true'
       authenticationRef:
