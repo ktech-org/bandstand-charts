@@ -49,10 +49,10 @@ spec:
         - name: ENV
           value: {{ .Values.global.env }}
         {{- if (.Values.test).additionalEnvVars }}
-          {{- .Values.test.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
+          {{- tpl (.Values.test.additionalEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
         {{- end }}
         {{- if (.Values.test).environmentEnvVars }}
-          {{- .Values.test.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
+          {{- tpl (.Values.test.environmentEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
         {{- end }}
       {{- if or ((.Values.test).envFrom) ((.Values.test).secrets) }}
       envFrom:

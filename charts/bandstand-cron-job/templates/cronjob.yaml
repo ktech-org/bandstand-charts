@@ -69,10 +69,10 @@ spec:
                   ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
               env: {{- include "bandstand-cron-job.common-envvars" . | nindent 16 }}
                 {{- if .Values.additionalEnvVars }}
-                {{- .Values.additionalEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+                {{- tpl (.Values.additionalEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
                 {{- if .Values.environmentEnvVars }}
-                {{- .Values.environmentEnvVars | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+                {{- tpl (.Values.environmentEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
               {{- if or (.Values.envFrom) (.Values.secrets) }}
               envFrom:
