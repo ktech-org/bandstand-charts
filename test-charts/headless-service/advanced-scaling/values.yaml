@@ -1,4 +1,4 @@
-bandstand-web-service:
+bandstand-headless-service:
   owner: ktech-developer-platform
   env: test
   business: ktech
@@ -11,7 +11,7 @@ bandstand-web-service:
 
   advancedScaling:
     enabled: true
-    idleReplicas: 0
+    idleReplicas: 1
     minReplicas: 2
     maxReplicas: 10
 
