@@ -12,6 +12,7 @@ spec:
   maxReplicaCount: {{ ((.Values.advancedScaling).maxReplicas) | default 3 }}
   minReplicaCount: {{ ((.Values.advancedScaling).minReplicas) | default 1 }}
   {{- if eq (((.Values.advancedScaling).idleReplicas) | default 0) 0 }}
+  {{ - printf "idleReplicas is %d" ((.Values.advancedScaling).idleReplicas) | default 0 }}
   idleReplicaCount: {{ ((.Values.advancedScaling).idleReplicas) | default 0 }}
   {{- end }}
   scaleTargetRef:
