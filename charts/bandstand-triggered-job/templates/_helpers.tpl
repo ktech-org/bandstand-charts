@@ -46,6 +46,7 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
             storage: {{ .Values.volume.ephemeral }}
 {{- else }}
   emptyDir: {}
+{{- end }}
 {{- if .Values.config }}
 - name: config
   configMap:
