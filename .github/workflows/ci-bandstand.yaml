@@ -99,7 +99,6 @@ jobs:
       business: ${{ matrix.business }}
       environment: ${{ matrix.environment }}
       namespace: lab
-      chart: ./charts/${{ matrix.chart }}
       values: ${{ matrix.chart }}/values.yaml
       values-to-override: global.image.tag=sha-${{ github.sha }}
       image-tag: dummy-tag

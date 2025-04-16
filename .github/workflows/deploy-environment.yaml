@@ -127,8 +127,7 @@ jobs:
           - test-charts/connect/ingress
     uses: ktech-org/actions/.github/workflows/bandstand-deploy.yaml@v0
     secrets: inherit   
-    with:
-      chart: chart/     
+    with:  
       namespace: lab
       values: ${{ matrix.chart }}/values.yaml
       dry-run: false
