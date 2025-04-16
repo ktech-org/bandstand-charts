@@ -88,12 +88,18 @@ jobs:
           - test-charts/connect/connectors-with-overrides
           - test-charts/connect/connectors-with-templating
           - test-charts/connect/ingress
+        business:
+          - ktech
+        environment:
+          - test
     uses: ktech-org/actions/.github/workflows/bandstand-deploy.yaml@v0
     secrets: inherit
     with:
       dry-run: true
-      business: ktech
-      environment: test
+      business: ${{ matrix.business }}
+      environment: ${{ matrix.environment }}
       chart: chart/
       namespace: lab
-      values: chart/values.yaml,chart/values-${{ matrix.business }}-${{ matrix.environment }}.yaml
+      values: ${{ matrix.chart }}/values.yaml
+      values-to-override: global.image.tag=sha-${{ github.sha }}
+      image-tag: dummy-tag
