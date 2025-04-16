@@ -1,6 +1,6 @@
 name: On Main Branch Push
 
-run-name: Deploy main branch to  environments
+run-name: Deploy main branch to test
 
 on:
   push:
@@ -8,3 +8,15 @@ on:
       - main
 
 jobs:
+  deploy-test:
+    uses: ./.github/workflows/deploy-environment.yaml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        business:
+          - ktech
+    with:
+      business: ${{ matrix.business }}
+      environment: test
+      image-tag: ''
