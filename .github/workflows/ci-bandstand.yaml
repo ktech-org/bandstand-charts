@@ -98,7 +98,6 @@ jobs:
       dry-run: true
       business: ${{ matrix.business }}
       environment: ${{ matrix.environment }}
-      chart: chart/
       namespace: lab
       values: ${{ matrix.chart }}/values.yaml
       values-to-override: global.image.tag=sha-${{ github.sha }}
