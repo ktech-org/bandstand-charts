@@ -101,4 +101,3 @@ jobs:
       namespace: lab
       values: ${{ matrix.chart }}/values.yaml
       values-to-override: global.image.tag=sha-${{ github.sha }}
-      image-tag: dummy-tag
