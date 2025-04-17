@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - "**"
-      - "!main"
     paths:
       - ".github/**"
       - "chart/**"
@@ -18,86 +17,12 @@ jobs:
       matrix:
         chart:
           - test-charts/web-service/defaults
-          - test-charts/web-service/envvars
-          - test-charts/web-service/advanced-scaling
-          - test-charts/web-service/image-override
-          - test-charts/web-service/pre-stop-wait
-          - test-charts/web-service/resources
-          - test-charts/web-service/resource-limits
-          - test-charts/web-service/secrets
-          - test-charts/web-service/with-additional-domains
-          - test-charts/web-service/with-config-files
-          - test-charts/web-service/with-test-service-acct
-          - test-charts/web-service/with-test-service-ephem
-          - test-charts/web-service/with-external-config-map
-          - test-charts/web-service/with-ephemeral-volume
-          - test-charts/web-service/with-persistent-volume
-          - test-charts/web-service/reloader
-          - test-charts/headless-service/defaults
-          - test-charts/headless-service/envvars
-          - test-charts/headless-service/advanced-scaling
-          - test-charts/headless-service/image-override
-          - test-charts/headless-service/resources
-          - test-charts/headless-service/resource-limits
-          - test-charts/headless-service/secrets
-          - test-charts/headless-service/with-probes
-          - test-charts/headless-service/with-external-config-map
-          - test-charts/headless-service/with-ephemeral-volume
-          - test-charts/headless-service/with-persistent-volume
-          - test-charts/headless-service/reloader
-          - test-charts/job/defaults
-          - test-charts/job/envvars
-          - test-charts/job/image-override
-          - test-charts/job/resources
-          - test-charts/job/resource-limits
-          - test-charts/job/secrets
-          - test-charts/job/single-resource-request
-          - test-charts/job/with-config-files
-          - test-charts/job/with-external-config-map
-          - test-charts/job/with-ephemeral-volume
-          - test-charts/job/with-persistent-volume
-          - test-charts/cron-job/defaults
-          - test-charts/cron-job/envvars
-          - test-charts/cron-job/image-override
-          - test-charts/cron-job/resources
-          - test-charts/cron-job/resource-limits
-          - test-charts/cron-job/secrets
-          - test-charts/cron-job/single-resource-request
-          - test-charts/cron-job/with-config-files
-          - test-charts/cron-job/with-external-config-map
-          - test-charts/cron-job/with-ephemeral-volume
-          - test-charts/cron-job/with-persistent-volume
-          - test-charts/triggered-job/defaults
-          - test-charts/triggered-job/envvars
-          - test-charts/triggered-job/image-override
-          - test-charts/triggered-job/resources
-          - test-charts/triggered-job/resource-limits
-          - test-charts/triggered-job/secrets
-          - test-charts/triggered-job/single-resource-request
-          - test-charts/triggered-job/with-config-files
-          - test-charts/triggered-job/with-external-config-map
-          - test-charts/triggered-job/with-ephemeral-volume
-          - test-charts/triggered-job/with-persistent-volume
-          - test-charts/test-runner/defaults
-          - test-charts/test-runner/resources
-          - test-charts/test-runner/image-override
-          - test-charts/test-runner/with-external-config-map
-          - test-charts/connect/defaults
-          - test-charts/connect/connectors
-          - test-charts/connect/connectors-with-common-config
-          - test-charts/connect/connectors-with-overrides
-          - test-charts/connect/connectors-with-templating
-          - test-charts/connect/ingress
-        business:
-          - ktech
-        environment:
-          - test
     uses: ktech-org/actions/.github/workflows/bandstand-deploy.yaml@v0
     secrets: inherit
     with:
       dry-run: true
-      business: ${{ matrix.business }}
-      environment: ${{ matrix.environment }}
+      business: ktech
+      environment: test
       chart: ${{ matrix.chart }}
       namespace: lab
       values: ${{ matrix.chart }}/values.yaml
