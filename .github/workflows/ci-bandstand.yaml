@@ -17,7 +17,7 @@ jobs:
       matrix:
         chart:
           - test-charts/web-service/defaults
-    uses: ktech-org/actions/.github/workflows/bandstand-deploy.yaml@v0
+    uses: ktech-org/actions/.github/workflows/bandstand-deploy.yaml@main
     secrets: inherit
     with:
       dry-run: true
