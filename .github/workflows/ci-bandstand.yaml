@@ -1,0 +1,30 @@
+name: Check Deployments - Bandstand
+
+run-name: Check Bandstand Charts are Deployable
+
+on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - ".github/**"
+      - "chart/**"
+
+jobs:
+  bandstand-chart:
+    strategy:
+      fail-fast: false
+      matrix:
+        chart:
+          - test-charts/web-service/defaults
+    uses: ktech-org/actions/.github/workflows/bandstand-deploy.yaml@main
+    secrets: inherit
+    with:
+      dry-run: true
+      business: ktech
+      environment: test
+      chart: ${{ matrix.chart }}
+      namespace: lab
+      values: ${{ matrix.chart }}/values.yaml
+      values-to-override: global.image.tag=sha-${{ github.sha }}
+      image-tag: dummy-tag

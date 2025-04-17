@@ -1,0 +1,41 @@
+name: Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: "Are you sure you want to destroy? If yes, type the name of the repository"
+        required: true
+      environment:
+        description: Environment to destroy
+        type: choice
+        options:
+          - all
+        required: true
+      dry-run:
+        description: Perform a dry run
+        type: boolean
+        default: false
+      delete-from-ecr:
+        description: Delete images from ECR (only applicable when destroying all envs)
+        default: false
+        type: boolean
+
+jobs:
+  prepare-destroy:
+    uses: ktech-org/actions/.github/workflows/prepare-destroy.yaml@v0
+    with:
+      confirmation: ${{ inputs.confirmation }}
+      environment: ${{ inputs.environment }}
+
+  # Destroy docker images & tech docs
+  destroy:
+    uses: ktech-org/actions/.github/workflows/destroy.yaml@v0
+    needs:
+      - prepare-destroy
+    if: inputs.environment == 'all'
+    secrets: inherit
+    with:
+      environment: ${{ inputs.environment }}
+      delete-from-ecr: ${{ inputs.delete-from-ecr }}
+      dry-run: ${{ inputs.dry-run }}
