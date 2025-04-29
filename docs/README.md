@@ -28,7 +28,7 @@ because they are defined as a list and helm doesn't support merging lists,
 that is why the charts provide two different values to for setting env vars
 `additionalEnvVars` (for `values.yaml`) and `environmentEnvVars` (for `values-<env>.yaml`).
 
-__NB__: The precedence is actually based on the ordering in the CircleCi config
+__NB__: The precedence is actually based on the ordering in the ci-bandstand file
 (last file wins). The templates specify the env values file later, but if you
 modify the ordering the behaviour will change.
 

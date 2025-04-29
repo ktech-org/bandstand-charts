@@ -1,0 +1,15 @@
+workload:
+  build:
+    gradle: []
+    node: []
+    dockerImages: []
+  helm: []
+  terraform: []
+deployment:
+  businesses: []
+  testTrigger: main
+  preprodTrigger: main
+  approvals:
+    - test
+    - preprod
+    - prod
