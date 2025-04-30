@@ -90,7 +90,6 @@ spec:
           prefix: {{ .prefix }}
           {{- end }}
         {{- end }}
-        {{- end }}
       {{- end }}
       volumeMounts:
         - name: tmp
