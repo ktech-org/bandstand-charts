@@ -72,7 +72,7 @@ spec:
         {{- if $testRun.env }}
         {{- toYaml $testRun.env | nindent 8 }}
         {{- end }}
-      {{- if or ($.Values.commonEnvFrom) ($testRun.envFrom) }}
+      {{- if or ($.Values.commonEnvFrom) ($testRun.envFrom) ($.Values.secrets) }}
       envFrom:
         {{- if $.Values.commonEnvFrom }}
         {{- $.Values.commonEnvFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
