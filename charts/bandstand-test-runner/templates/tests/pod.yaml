@@ -80,7 +80,7 @@ spec:
         {{- if $testRun.envFrom }}
         {{- $testRun.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 8 }}
         {{- end }}
-        {{- range .Values.secrets }}
+        {{- range $.Values.secrets }}
         {{- $secretHash := sha256sum .secret | substr 0 6 }}
         {{- $secretName := list $.Release.Name .name $secretHash | join "-" }}
         - secretRef:
