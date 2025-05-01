@@ -7,7 +7,7 @@ bandstand-test-runner:
     - name: SOME_ENV_VAR
       value: some value
     - name: TEMPLATED_ENV_VAR
-      value: templated-${ .Values.global.business }
+      value: templated-{{ .Values.global.business }}
 
   testRuns:
     - name: suite-1
@@ -19,4 +19,4 @@ bandstand-test-runner:
         - name: ADDITIONAL_ENV_VAR
           value: an-additional-env-var
         - name: ADDITIONAL_ENV_VAR_2
-          value: an-additional-env-var-${ .Values.global.env }
+          value: an-additional-env-var-{{ .Values.global.env }}
