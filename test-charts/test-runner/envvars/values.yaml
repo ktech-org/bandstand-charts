@@ -1,0 +1,22 @@
+bandstand-test-runner:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  commonEnv:
+    - name: SOME_ENV_VAR
+      value: some value
+    - name: TEMPLATED_ENV_VAR
+      value: templated-${ .Values.global.business }
+
+  testRuns:
+    - name: suite-1
+      env:
+        - name: ADDITIONAL_ENV_VAR
+          value: an-additional-env-var
+    - name: suite-2
+      env:
+        - name: ADDITIONAL_ENV_VAR
+          value: an-additional-env-var
+        - name: ADDITIONAL_ENV_VAR_2
+          value: an-additional-env-var-${ .Values.global.env }

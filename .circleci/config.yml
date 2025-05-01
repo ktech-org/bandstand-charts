@@ -92,6 +92,7 @@ workflows:
                 - test-charts/triggered-job/with-persistent-volume
                 - test-charts/test-runner/defaults
                 - test-charts/test-runner/resources
+                - test-charts/test-runner/envvars
                 - test-charts/test-runner/image-override
                 - test-charts/test-runner/secrets
                 - test-charts/test-runner/with-external-config-map

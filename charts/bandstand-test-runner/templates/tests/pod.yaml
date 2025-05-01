@@ -67,10 +67,10 @@ spec:
             fieldRef:
               fieldPath: status.hostIP
         {{- if $.Values.commonEnv }}
-        {{- toYaml $.Values.commonEnv | nindent 8 }}
+        {{- tpl ($.Values.commonEnv | toYaml) $ | nindent 8 }}
         {{- end }}
         {{- if $testRun.env }}
-        {{- toYaml $testRun.env | nindent 8 }}
+        {{- tpl ($testRun.env | toYaml) $ | nindent 8 }}
         {{- end }}
       {{- if or ($.Values.commonEnvFrom) ($testRun.envFrom) ($.Values.secrets) }}
       envFrom:
