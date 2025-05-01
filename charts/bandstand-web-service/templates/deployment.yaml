@@ -26,6 +26,10 @@ spec:
         {{- end }}
       labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
     spec:
+      nodeSelector:
+      {{- with .Values.nodeSelector }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ $relName }}
       containers:
         - name: {{ $relName }}
