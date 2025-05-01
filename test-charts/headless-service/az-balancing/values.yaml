@@ -1,0 +1,7 @@
+bandstand-headless-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  azBalancing:
+    enabled: true

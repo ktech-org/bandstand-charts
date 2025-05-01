@@ -30,6 +30,14 @@ spec:
       {{- with .Values.nodeSelector }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if (.Values.azBalancing).enabled }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: {{- include "bandstand-web-service.selectorLabels" . | nindent 14 }}
+      {{- end }}
       serviceAccountName: {{ $relName }}
       containers:
         - name: {{ $relName }}
