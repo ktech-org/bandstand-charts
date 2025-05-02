@@ -85,6 +85,7 @@ workflows:
                 - test-charts/cron-job/with-persistent-volume
                 - test-charts/triggered-job/defaults
                 - test-charts/triggered-job/envvars
+                - test-charts/triggered-job/ignore-in-flight
                 - test-charts/triggered-job/image-override
                 - test-charts/triggered-job/resources
                 - test-charts/triggered-job/resource-limits
