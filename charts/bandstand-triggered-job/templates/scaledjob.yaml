@@ -13,10 +13,6 @@ spec:
     {{- if hasKey .Values "backoffLimit" }}
     backoffLimit: {{ .Values.backoffLimit }}
     {{- end }}
-    {{- if .Values.ignoreInFlight }}
-    scalingStrategy:
-      strategy: "accurate"
-    {{- end }}
     template:
       metadata:
         annotations:
@@ -101,7 +97,11 @@ spec:
   rollout:
     strategy: gradual
   scalingStrategy:
+    {{- if .Values.ignoreInFlight }}
+    strategy: accurate
+    {{- else }}
     strategy: default
+    {{- end }}
   triggers:
     - type: aws-sqs-queue
       metadata:
