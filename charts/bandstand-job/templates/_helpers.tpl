@@ -40,7 +40,7 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
           type: temp-volume
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: "gp2"
+        storageClassName: "general-storage"
         resources:
           requests:
             storage: {{ .Values.volume.ephemeral }}
