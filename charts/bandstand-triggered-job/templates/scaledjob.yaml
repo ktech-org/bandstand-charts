@@ -4,8 +4,8 @@ metadata:
   name: {{ .Release.Name }}
   labels: {{- include "bandstand-triggered-job.labels" . | nindent 4 }}
 spec:
-  successfulJobsHistoryLimit: 30
-  failedJobsHistoryLimit: 50
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit | default 10 }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit | default 10 }}
   jobTargetRef:
     parallelism: 1                            # [max number of desired pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
     completions: 1                            # [desired number of successfully finished pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
