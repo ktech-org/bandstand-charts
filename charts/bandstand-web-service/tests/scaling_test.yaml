@@ -1,0 +1,185 @@
+suite: bandstand-web-service additional tests
+set:
+  global.image.tag: latest
+  global.aws.account: 1234567890
+tests:
+  # Scaling Options Tests
+  - it: should use the default scaling settings
+    values:
+      - ./default-values.yaml
+    template: hpa.yaml
+    asserts:
+      - containsDocument:
+          kind: HorizontalPodAutoscaler
+          apiVersion: autoscaling/v1
+      - equal:
+          path: spec.minReplicas
+          value: 1
+      - equal:
+          path: spec.maxReplicas
+          value: 3
+      - equal:
+          path: spec.targetCPUUtilizationPercentage
+          value: 50
+
+  - it: should not create an HPA when disabled
+    values:
+      - ./default-values.yaml
+    template: hpa.yaml
+    set:
+      hpa.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should configure HPA with correct min and max replicas
+    values:
+      - ./default-values.yaml
+    set:
+      hpa.minReplicas: 2
+      hpa.maxReplicas: 5
+    template: hpa.yaml
+    asserts:
+      - equal:
+          path: spec.minReplicas
+          value: 2
+      - equal:
+          path: spec.maxReplicas
+          value: 5
+
+  - it: should configure HPA with correct target CPU utilization
+    values:
+      - ./default-values.yaml
+    set:
+      hpa.averageCpuUtilization: 75
+      hpa.maxReplicas: 5
+    template: hpa.yaml
+    asserts:
+      - equal:
+          path: spec.targetCPUUtilizationPercentage
+          value: 75
+
+  # Advanced Scaling Options
+  - it: should create a KEDA ScaledObject with default min and max replicas
+    values:
+      - ./default-values.yaml
+    set:
+      advancedScaling.enabled: true
+      advancedScaling.scalers:
+        - type: cpu
+          threshold: 50
+    template: scaled-object.yaml
+    asserts:
+      - containsDocument:
+          kind: ScaledObject
+          apiVersion: keda.sh/v1alpha1
+      - equal:
+          path: spec.idleReplicaCount
+          value: 0
+      - equal:
+          path: spec.minReplicaCount
+          value: 1
+      - equal:
+          path: spec.maxReplicaCount
+          value: 3
+
+  - it: should configure KEDA ScaledObject with CPU triggers
+    values:
+      - ./default-values.yaml
+    set:
+      advancedScaling.enabled: true
+      advancedScaling.scalers:
+        - type: cpu
+          threshold: 70
+    template: scaled-object.yaml
+    asserts:
+      - equal:
+          path: spec.triggers[0]
+          value:
+            type: cpu
+            metricType: Utilization
+            metadata:
+              value: '70'
+
+  - it: should configure KEDA ScaledObject with memory trigger
+    values:
+      - ./default-values.yaml
+    set:
+      advancedScaling.enabled: true
+      advancedScaling.scalers:
+        - type: memory
+          threshold: 80
+
+    template: scaled-object.yaml
+    asserts:
+      - equal:
+          path: spec.triggers[0]
+          value:
+            type: memory
+            metricType: Utilization
+            metadata:
+              value: '80'
+
+  - it: should configure KEDA ScaledObject with MSK trigger
+    values:
+      - ./default-values.yaml
+    set:
+      advancedScaling.enabled: true
+      advancedScaling.scalers:
+        - type: msk
+          topic: event.msk.reference.dummy
+          consumerGroup: keda-consumer
+          bootstrapServersEnvVar: MSK_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
+          lagThreshold: 100
+          tls: enabled
+    template: scaled-object.yaml
+    asserts:
+      - equal:
+          path: spec.triggers[0]
+          value:
+            type: kafka
+            metadata:
+              bootstrapServersFromEnv: MSK_BOOTSTRAP_SERVERS
+              consumerGroup: keda-consumer
+              lagThreshold: "100"
+              tls: enabled
+              topic: event.msk.reference.dummy
+
+  - it: should configure KEDA ScaledObject with Confluent trigger
+    values:
+      - ./default-values.yaml
+    set:
+      advancedScaling.enabled: true
+      advancedScaling.scalers:
+        - type: confluent
+          topic: event.confluent.reference.dummy
+          consumerGroup: keda-consumer
+          bootstrapServersEnvVar: CONFLUENT_BOOTSTRAP_SERVERS # optional - defaults to KAFKA_BROKERS
+          lagThreshold: 100
+    template: scaled-object.yaml
+    asserts:
+      - equal:
+          path: spec.triggers[0]
+          value:
+            type: kafka
+            metadata:
+              bootstrapServersFromEnv: CONFLUENT_BOOTSTRAP_SERVERS
+              consumerGroup: keda-consumer
+              lagThreshold: "100"
+              sasl: plaintext
+              tls: enable
+              topic: event.confluent.reference.dummy
+              unsafeSsl: "true"
+            authenticationRef:
+              kind: ClusterTriggerAuthentication
+              name: keda-confluent-credentials
+
+  - it: should fail if required KEDA trigger parameters are missing
+    values:
+      - ./default-values.yaml
+    set:
+      advancedScaling.enabled: true
+    template: scaled-object.yaml
+    asserts:
+      - failedTemplate:
+          errorMessage: "advancedScaling.scalers is required but missing"

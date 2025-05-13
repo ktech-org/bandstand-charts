@@ -1,4 +1,5 @@
 {{- if ((.Values.advancedScaling).enabled) }}
+{{- $_ := required "advancedScaling.scalers is required but missing" .Values.advancedScaling.scalers }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.nameSuffix }}

@@ -1,0 +1,6 @@
+owner: ktech-developer-platform
+env: test
+business: ktech
+
+ingress:
+  enabled: false

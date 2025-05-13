@@ -1,0 +1,55 @@
+suite: test deployment
+set:
+  global.image.tag: latest
+  global.aws.account: 1234567890
+#templates:
+#  - deployment.yaml
+tests:
+  - it: should contain a deployment
+    values:
+      - ./default-values.yaml
+    template: deployment.yaml
+    asserts:
+      - containsDocument:
+          kind: Deployment
+          apiVersion: apps/v1
+          name: RELEASE-NAME
+  - it: should pull the default image from artifactory
+    template: deployment.yaml
+    values:
+      - ./default-values.yaml
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: ktechartifacts-docker.jfrog.io/RELEASE-NAME:latest
+  - it: should allow global overrides of the image repo
+    template: deployment.yaml
+    values:
+      - ./default-values.yaml
+    set:
+      global.dockerRegistry: my-custom-registry
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: my-custom-registry/RELEASE-NAME:latest
+  - it: should allow local overrides of the image repo and image
+    template: deployment.yaml
+    values:
+      - ./default-values.yaml
+    set:
+      imageName: my-custom-image
+      dockerRegistry: my-custom-registry
+      global.dockerRegistry: my-global-registry
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: my-custom-registry/my-custom-image:latest
+#  - it: should fail if required values are missing
+#    values:
+#      - ./default-values.yaml
+#    set:
+#      global.image.tag: "cc"
+#    template: deployment.yaml
+#    asserts:
+#      - failedTemplate:
+#          errorMessage: "global.image.tag is required but missing"
