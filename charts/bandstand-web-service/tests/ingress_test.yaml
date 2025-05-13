@@ -1,0 +1,34 @@
+suite: bandstand-web-service additional tests
+set:
+  global.image.tag: latest
+  global.aws.account: 1234567890
+tests:
+  # Ingress Tests
+  - it: should not create an ingress when disabled
+    values:
+      - ./default-values.yaml
+    template: ingress.yaml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create an ingress with the correct host and path when enabled
+    values:
+      - ./default-values.yaml
+    set:
+      ingress.enabled: true
+      ingress.domain: example.com
+      ingress.path: /
+      global.env: test
+    template: ingress.yaml
+    asserts:
+      - containsDocument:
+          kind: Ingress
+          apiVersion: networking.k8s.io/v1
+          name: RELEASE-NAME
+      - equal:
+          path: spec.rules[0].host
+          value: RELEASE-NAME.test.example.com
+      - equal:
+          path: spec.rules[0].http.paths[0].path
+          value: /
