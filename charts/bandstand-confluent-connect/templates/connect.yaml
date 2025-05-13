@@ -13,6 +13,8 @@ spec:
     application: {{ .Values.applicationImage }}
     init: {{ .Values.initImage }}
     pullPolicy: Always
+    pullSecretRef:
+      - name: dockerhub-config
   build:
     type: onDemand
     onDemand:
