@@ -6,6 +6,8 @@ metadata:
 spec:
   successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit | default 10 }}
   failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit | default 10 }}
+  minReplicaCount: {{ .Values.minReplicas | default 0 }}
+  maxReplicaCount: {{ .Values.maxReplicas | default 100 }}
   jobTargetRef:
     parallelism: 1                            # [max number of desired pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
     completions: 1                            # [desired number of successfully finished pods](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)

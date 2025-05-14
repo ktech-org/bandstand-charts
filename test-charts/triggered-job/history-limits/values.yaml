@@ -5,3 +5,5 @@ bandstand-triggered-job:
 
   successfulJobsHistoryLimit: 5
   failedJobsHistoryLimit: 3
+  minReplicas: 10
+  maxReplicas: 50
