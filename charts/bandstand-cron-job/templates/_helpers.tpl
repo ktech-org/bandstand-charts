@@ -113,6 +113,8 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   value: "true"
 - name: OTEL_RESOURCE_PROVIDERS_AWS_ENABLED
   value: "true"
+- name: OTEL_RESOURCE_ATTRIBUTES
+  value: service={{ .Release.Name }},env={{ .Values.global.env }}
 - name: AWS_ACCOUNT_ID
   value: {{ .Values.global.aws.account | squote }}
 - name: K8S_POD_UID
