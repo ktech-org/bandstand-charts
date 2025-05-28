@@ -116,8 +116,22 @@ spec:
               value: none
             - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
               value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
+            - name: OTEL_INSTRUMENTATION_MICROMETER_ENABLED
+              value: "true"
+            - name: OTEL_RESOURCE_PROVIDERS_AWS_ENABLED
+              value: "true"
             - name: AWS_ACCOUNT_ID
               value: {{ .Values.global.aws.account | squote }}
+            - name: K8S_POD_UID
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.uid
+            - name: K8S_POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
             {{- if .Values.additionalEnvVars }}
               {{- tpl (.Values.additionalEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 12 }}
             {{- end }}
