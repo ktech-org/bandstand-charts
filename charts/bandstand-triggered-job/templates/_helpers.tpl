@@ -113,6 +113,22 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   value: host=$(DD_AGENT_HOST),service={{ .Release.Name }},env={{ .Values.global.env }}
 - name: QUEUE_URL
   value: https://sqs.eu-west-1.amazonaws.com/{{ .Values.global.aws.account | toYaml }}/{{ .Values.queueName }}
+- name: OTEL_INSTRUMENTATION_MICROMETER_ENABLED
+  value: "true"
+- name: OTEL_RESOURCE_PROVIDERS_AWS_ENABLED
+  value: "true"
+- name: OTEL_RESOURCE_ATTRIBUTES
+  value: service={{ .Release.Name }},env={{ .Values.global.env }}
 - name: AWS_ACCOUNT_ID
   value: {{ .Values.global.aws.account | squote }}
+- name: K8S_POD_UID
+  valueFrom:
+    fieldRef:
+      apiVersion: v1
+      fieldPath: metadata.uid
+- name: K8S_POD_NAME
+  valueFrom:
+    fieldRef:
+      apiVersion: v1
+      fieldPath: metadata.name
 {{- end -}}

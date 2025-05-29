@@ -109,8 +109,22 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   value: none
 - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
   value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
+- name: OTEL_INSTRUMENTATION_MICROMETER_ENABLED
+  value: "true"
+- name: OTEL_RESOURCE_PROVIDERS_AWS_ENABLED
+  value: "true"
 - name: OTEL_RESOURCE_ATTRIBUTES
-  value: host=$(DD_AGENT_HOST),service={{ .Release.Name }},env={{ .Values.global.env }}
+  value: service={{ .Release.Name }},env={{ .Values.global.env }}
 - name: AWS_ACCOUNT_ID
   value: {{ .Values.global.aws.account | squote }}
+- name: K8S_POD_UID
+  valueFrom:
+    fieldRef:
+      apiVersion: v1
+      fieldPath: metadata.uid
+- name: K8S_POD_NAME
+  valueFrom:
+    fieldRef:
+      apiVersion: v1
+      fieldPath: metadata.name
 {{- end -}}
