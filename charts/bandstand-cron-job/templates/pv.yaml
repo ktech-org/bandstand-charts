@@ -1,4 +1,4 @@
-{{- if and .Values.volume .Values.volume.s3Volume.enabled }}
+{{- if and .Values.volume .Values.volume.s3Volume (default false .Values.volume.s3Volume.enabled) }}
 {{- $relName := .Release.Name -}}
 {{- if .Values.volume.nameSuffix }}
 {{- $relName = print .Release.Name "-" .Values.volume.nameSuffix }}
