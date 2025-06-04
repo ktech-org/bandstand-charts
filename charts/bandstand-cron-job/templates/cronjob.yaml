@@ -103,6 +103,6 @@ spec:
             {{- if .Values.s3Volume.enabled }}
             - name: {{ .Values.s3Volume.name }}
               persistentVolumeClaim:
-                claimName: {{ $s3ClaimName }}
+                claimName: {{ .Values.s3Volume.claimName }}
             {{- end }}
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
