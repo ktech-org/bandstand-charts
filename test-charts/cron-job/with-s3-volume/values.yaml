@@ -8,6 +8,4 @@ bandstand-cron-job:
   
   volume:
     bucketName: bucket-name
-    prefix: bucket/prefix/path:
-    bucketName: bucket-name
     prefix: bucket/prefix/path
