@@ -5,3 +5,9 @@ bandstand-cron-job:
 
   s3Volume:
     enabled: true
+  
+  volume:
+    bucketName: bucket-name
+    prefix: bucket/prefix/path:
+    bucketName: bucket-name
+    prefix: bucket/prefix/path
