@@ -56,9 +56,9 @@ spec:
                 - name: {{ .Release.Name }}
                   mountPath: "/var/{{ .Release.Name }}"
                 {{- end }}
-                {{- if .Values.s3Volume.enabled }}
-                - name: {{ .Values.s3Volume.name }}
-                  mountPath: {{ .Values.s3Volume.mountPath }}
+                {{- if and .Values.s3Volume (default false .Values.s3Volume.enabled) }}
+                - name: {{ .Values.s3Volume.name | default "s3-volume" }}
+                  mountPath: {{ .Values.s3Volume.mountPath | default "/mnt/s3" }}
                   readOnly: true
                 {{- end }}
               resources:
@@ -100,8 +100,8 @@ spec:
             - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
           volumes:
             {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
-            {{- if .Values.s3Volume.enabled }}
-            - name: {{ .Values.s3Volume.name }}
+            {{- if and .Values.s3Volume (default false .Values.s3Volume.enabled) }}
+            - name: {{ .Values.s3Volume.name | default "s3-volume" }}
               persistentVolumeClaim:
                 claimName: {{ .Values.s3Volume.claimName }}
             {{- end }}
