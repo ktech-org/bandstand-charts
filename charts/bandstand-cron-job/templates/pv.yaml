@@ -1,29 +1,30 @@
-{{- if and .Values.volume .Values.volume.s3Volume (default false .Values.volume.s3Volume.enabled) }}
+{{- if and .Values.s3Volume (default false .Values.s3Volume.enabled) }}
 {{- $relName := .Release.Name -}}
-{{- if .Values.volume.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.volume.nameSuffix }}
+{{- if .Values.s3Volume.nameSuffix }}
+{{- $relName = print .Release.Name "-" .Values.s3Volume.nameSuffix }}
 {{- end }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.volume.pvName | default (print $relName "-pv") }}
+  name: {{ .Values.s3Volume.pvName | default (print $relName "-pv") }}
   labels:
     {{- include "bandstand-cron-job.labels" . | nindent 4 }}
 spec:
   capacity:
-    storage: {{ .Values.volume.persistent | default "5Gi" }}
+    storage: {{ .Values.s3Volume.persistent | default "5Gi" }}
   volumeMode: Filesystem
   accessModes:
     - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: s3.csi.aws.com
-    volumeHandle: {{ .Values.volume.volumeHandle | default (print "s3-" $relName "-volume") }}
+    volumeHandle: {{ .Values.s3Volume.volumeHandle | default (print "s3-" $relName "-volume") }}
     volumeAttributes:
       bucketName: {{ required "s3Volume.bucketName is required" .Values.s3Volume.bucketName }}
-      prefix: {{ required "s3Volume.prefix is required" .Values.s3Volume.prefix }}
       authenticationSource: {{ .Values.s3Volume.authenticationSource | default "pod" }}
+  mountOptions:
+    - prefix {{ required "s3Volume.prefix is required" .Values.s3Volume.prefix }}
   claimRef:
     namespace: {{ .Release.Namespace }}
-    name: {{ .Values.volume.pvcName | default $relName }}
+    name: {{ .Values.s3Volume.pvcName | default $relName }}
 {{- end }}
