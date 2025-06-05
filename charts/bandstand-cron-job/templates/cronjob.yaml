@@ -28,13 +28,12 @@ spec:
               imagePullPolicy: Always
               {{- $jobContainer := .Values.jobContainer | default dict }}
               {{- if $jobContainer.command }}
-              command: {{ $jobContainer.command }}
+              command:
+              {{- toYaml $jobContainer.command | nindent 16 }}
               {{- end }}
               {{- if $jobContainer.arguments }}
               args:
-              {{- range $jobContainer.arguments }}
-                - {{ . }}
-              {{- end }}
+              {{- toYaml $jobContainer.arguments | nindent 16 }}
               {{- end }}
               volumeMounts:
                 - name: tmp-dir
@@ -56,11 +55,15 @@ spec:
                 - name: {{ .Release.Name }}
                   mountPath: "/var/{{ .Release.Name }}"
                 {{- end }}
-                {{- if and .Values.s3Volume (default false .Values.s3Volume.enabled) }}
-                - name: {{ .Values.s3Volume.name | default "s3-volume" }}
-                  mountPath: {{ .Values.s3Volume.mountPath | default "/mnt/s3" }}
+
+                {{- if and .Values.s3Volumes (gt (len .Values.s3Volumes) 0) }}
+                {{- range .Values.s3Volumes }}
+                - name: {{ .name | default "s3-volume" }}
+                  mountPath: {{ .mountPath | default "/mnt/s3" }}
                   readOnly: true
                 {{- end }}
+                {{- end }}
+
               resources:
                 requests:
                   cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
@@ -72,6 +75,7 @@ spec:
                   {{- end }}
                   memory: {{ (.Values.resources).requests.memory | default "256Mi" }}
                   ephemeral-storage: {{ (.Values.resources).requests.ephemeralStorage | default "64Mi" }}
+
               env: {{- include "bandstand-cron-job.common-envvars" . | nindent 16 }}
                 {{- if .Values.additionalEnvVars }}
                 {{- tpl (.Values.additionalEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
@@ -79,30 +83,37 @@ spec:
                 {{- if .Values.environmentEnvVars }}
                 {{- tpl (.Values.environmentEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
+
               {{- if or (.Values.envFrom) (.Values.secrets) }}
               envFrom:
-              {{- if .Values.envFrom }}
-              {{- .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
-              {{- end }}
-              {{- range .Values.secrets }}
-              {{- $secretHash := sha256sum .secret | substr 0 6 }}
-              {{- $secretName := list $.Release.Name $.Values.nameSuffix .name $secretHash | join "-" }}
-              - secretRef:
-                  name: {{ $secretName }}
-                  optional: {{ .optional | default false }}
-                {{- if .prefix }}
-                prefix: {{ .prefix }}
+                {{- if .Values.envFrom }}
+                {{- .Values.envFrom | toYaml | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
+                {{- end }}
+                {{- range .Values.secrets }}
+                {{- $secretHash := sha256sum .secret | substr 0 6 }}
+                {{- $secretName := list $.Release.Name $.Values.nameSuffix .name $secretHash | join "-" }}
+                - secretRef:
+                    name: {{ $secretName }}
+                    optional: {{ .optional | default false }}
+                  {{- if .prefix }}
+                  prefix: {{ .prefix }}
+                  {{- end }}
                 {{- end }}
               {{- end }}
-              {{- end }}
+
               securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
+
           imagePullSecrets:
             - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
+
           volumes:
             {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
-            {{- if and .Values.s3Volume (default false .Values.s3Volume.enabled) }}
-            - name: {{ .Values.s3Volume.name | default "s3-volume" }}
+            {{- if and .Values.s3Volumes (gt (len .Values.s3Volumes) 0) }}
+            {{- range .Values.s3Volumes }}
+            - name: {{ .name | default "s3-volume" }}
               persistentVolumeClaim:
-                claimName: {{ .Values.s3Volume.claimName }}
+                claimName: {{ .claimName }}
             {{- end }}
+            {{- end }}
+
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}
