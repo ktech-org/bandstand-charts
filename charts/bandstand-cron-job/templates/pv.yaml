@@ -20,7 +20,7 @@ spec:
     driver: s3.csi.aws.com
     volumeHandle: {{ .Values.s3Volume.volumeHandle | default (print "s3-" $relName "-volume") }}
     volumeAttributes:
-      bucketName: {{ Values.s3Volume.bucketName }}
+      bucketName: {{ .Values.s3Volume.bucketName }}
       authenticationSource: {{ .Values.s3Volume.authenticationSource | default "pod" }}
   mountOptions:
     - prefix {{ .Values.s3Volume.prefix }}
