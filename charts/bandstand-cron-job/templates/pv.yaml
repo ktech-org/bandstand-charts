@@ -1,12 +1,13 @@
-{{- if .Values.s3Volumes }}
-{{- range $volume := .Values.s3Volumes }}
-{{- $volName := printf "%s-%s" .Release.Name $volume.name }}
+{{- $root := . }}
+{{- if $root.Values.s3Volumes }}
+{{- range $volume := $root.Values.s3Volumes }}
+{{- $volName := printf "%s-%s" $root.Release.Name $volume.name }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: {{ printf "%s-pv" $volName }}
   labels:
-    {{- include "bandstand-cron-job.labels" $ | nindent 4 }}
+    {{- include "bandstand-cron-job.labels" $root | nindent 4 }}
 spec:
   capacity:
     storage: {{ $volume.persistent | default "5Gi" }}
@@ -25,7 +26,7 @@ spec:
     - prefix {{ $volume.prefix }}
   {{- end }}
   claimRef:
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ $root.Release.Namespace }}
     name: {{ printf "%s-pvc" $volName }}
 ---
 {{- end }}
