@@ -83,6 +83,7 @@ workflows:
                 - test-charts/cron-job/with-external-config-map
                 - test-charts/cron-job/with-ephemeral-volume
                 - test-charts/cron-job/with-persistent-volume
+                - test-charts/cron-job/with-s3-volume
                 - test-charts/triggered-job/defaults
                 - test-charts/triggered-job/envvars
                 - test-charts/triggered-job/history-limits

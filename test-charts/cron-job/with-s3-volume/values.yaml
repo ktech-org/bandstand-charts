@@ -1,0 +1,14 @@
+bandstand-cron-job:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  s3Volumes:
+    - name: my-bucket1
+      bucketName: bucket1
+      prefix: bucket1/prefix/path
+      mountPath: /mnt/bucket1 
+    - name: my-bucket2
+      bucketName: bucket2
+      prefix: bucket2/prefix/path
+

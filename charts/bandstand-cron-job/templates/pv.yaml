@@ -1,0 +1,33 @@
+{{- $root := . }}
+{{- if $root.Values.s3Volumes }}
+{{- range $volume := $root.Values.s3Volumes }}
+{{- $volName := printf "%s-%s" $root.Release.Name $volume.name }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ printf "%s-pv" $volName }}
+  labels:
+    {{- include "bandstand-cron-job.labels" $root | nindent 4 }}
+spec:
+  capacity:
+    storage: {{ $volume.persistent | default "5Gi" }}
+  volumeMode: Filesystem
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: s3.csi.aws.com
+    volumeHandle: {{ printf "s3-%s-volume" $volName }}
+    volumeAttributes:
+      bucketName: {{ $volume.bucketName }}
+      authenticationSource: pod
+  {{- if $volume.prefix }}
+  mountOptions:
+    - prefix {{ $volume.prefix }}
+  {{- end }}
+  claimRef:
+    namespace: {{ $root.Release.Namespace }}
+    name: {{ printf "%s-pvc" $volName }}
+---
+{{- end }}
+{{- end }}
