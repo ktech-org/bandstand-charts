@@ -42,3 +42,8 @@
 | volume.persistent                   | string |                                  | Adds a persistent volume of the amount set, e.g. 1G                                                                                                                                                                                                                                                  |
 | volume.ephemeral                    | string |                                  | Size of ephemeral storage, e.g. 10G mounted at /tmp standard emptyfile tmp directory added if not set.                                                                                                                                                                                               |
 | ttlSecondsAfterFinished             | number | 604800 (1 week)                  | How long to keep a Job around for after it has completed                                                                                                                                                                                                                                             |
+| s3Volumes.name                      | list   | `[]`                             | The name of the S3 volume to mount |
+| s3Volumes.bucketName                | list   | `[]`                             | The name of the S3 bucket to mount |
+| s3Volumes.prefix                    | list   | `[]`                             | The path within the S3 bucket that will be mounted and made visible in the pod |
+| s3Volumes.mountPath                 | list   | `[]`                             | The directory inside the container where the S3 bucket contents will be made accessible |
+
