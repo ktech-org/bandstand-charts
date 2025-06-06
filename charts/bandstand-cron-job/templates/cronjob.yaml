@@ -57,12 +57,10 @@ spec:
                   mountPath: "/var/{{ .Release.Name }}"
                 {{- end }}
 
-                {{- if and .Values.s3Volumes (gt (len .Values.s3Volumes) 0) }}
                 {{- range .Values.s3Volumes }}
                 - name: {{ .name | default "s3-volume" }}
                   mountPath: {{ .mountPath | default "/mnt/s3" }}
                   readOnly: true
-                {{- end }}
                 {{- end }}
 
               resources:
@@ -107,12 +105,9 @@ spec:
 
           volumes:
             {{- include "bandstand-cron-job.common-volumes" . | nindent 12 }}
-            {{- if and .Values.s3Volumes (gt (len .Values.s3Volumes) 0) }}
             {{- range .Values.s3Volumes }}
             - name: {{ .name | default "s3-volume" }}
               persistentVolumeClaim:
                 claimName: {{ printf "%s-%s-pvc" $.Release.Name .name }}
             {{- end }}
-            {{- end }}
-
           securityContext: {{- include "bandstand-cron-job.podSecurityContext" . | nindent 12 }}

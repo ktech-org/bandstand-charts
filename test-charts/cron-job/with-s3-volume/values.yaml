@@ -11,4 +11,4 @@ bandstand-cron-job:
     - name: my-bucket2
       bucketName: bucket2
       prefix: bucket2/prefix/path
-      mountPath: /mnt/bucket2 
+

@@ -1,10 +1,10 @@
-{{- if and .Values.s3Volumes (gt (len .Values.s3Volumes) 0) }}
+{{- if .Values.s3Volumes }}
 {{- range $volume := .Values.s3Volumes }}
-{{- $relName := printf "%s-%s" .Release.Name $volume.name }}
+{{- $volName := printf "%s-%s" .Release.Name $volume.name }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ printf "%s-pv" $relName }}
+  name: {{ printf "%s-pv" $volName }}
   labels:
     {{- include "bandstand-cron-job.labels" $ | nindent 4 }}
 spec:
@@ -16,7 +16,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: s3.csi.aws.com
-    volumeHandle: {{ $volume.volumeHandle | default (print "s3-" $relName "-volume") }}
+    volumeHandle: {{ $volume.volumeHandle | default (printf "s3-%s-volume" $volName) }}
     volumeAttributes:
       bucketName: {{ $volume.bucketName }}
       authenticationSource: pod
@@ -26,7 +26,7 @@ spec:
   {{- end }}
   claimRef:
     namespace: {{ .Release.Namespace }}
-    name: {{ $volume.pvcName | default $relName }}
+    name: {{ printf "%s-pvc" $volName }}
 ---
 {{- end }}
 {{- end }}

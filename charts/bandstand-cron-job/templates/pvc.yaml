@@ -1,10 +1,9 @@
-{{- if and .Values.s3Volumes (gt (len .Values.s3Volumes) 0) }}
+{{- if .Values.s3Volumes }}
 {{- range $volume := .Values.s3Volumes }}
-{{- $relName := printf "%s-%s" .Release.Name $volume.name }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ printf "%s-pvc" $relName }}
+  name: {{ printf "%s-%s-pvc" $.Release.Name $volume.name }}
   labels:
     {{- include "bandstand-cron-job.labels" $ | nindent 4 }}
 spec:
