@@ -35,6 +35,7 @@ spec:
               args:
               {{- toYaml $jobContainer.arguments | nindent 16 }}
               {{- end }}
+
               volumeMounts:
                 - name: tmp-dir
                   mountPath: /tmp
@@ -83,7 +84,6 @@ spec:
                 {{- if .Values.environmentEnvVars }}
                 {{- tpl (.Values.environmentEnvVars | toYaml) $ | trimPrefix "|" | trimPrefix "\n" | nindent 16 }}
                 {{- end }}
-
               {{- if or (.Values.envFrom) (.Values.secrets) }}
               envFrom:
                 {{- if .Values.envFrom }}
@@ -100,9 +100,8 @@ spec:
                   {{- end }}
                 {{- end }}
               {{- end }}
-
               securityContext: {{- include "bandstand-cron-job.containerSecurityContext" . | nindent 16 }}
-
+              
           imagePullSecrets:
             - name: {{ .Values.imagePullSecret | default "rt-docker-config" }}
 
@@ -112,7 +111,7 @@ spec:
             {{- range .Values.s3Volumes }}
             - name: {{ .name | default "s3-volume" }}
               persistentVolumeClaim:
-                claimName: {{ .claimName }}
+                claimName: {{ .claimName | default (printf "%s-%s-pvc" $.Release.Name .name) }}
             {{- end }}
             {{- end }}
 
