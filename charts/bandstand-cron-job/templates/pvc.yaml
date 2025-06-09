@@ -1,17 +1,17 @@
-{{- if (.Values.volume).persistent }}
-{{- $relName := .Release.Name -}}
-{{- if .Values.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
-{{- end }}
+{{- if .Values.s3Volumes }}
+{{- range $volume := .Values.s3Volumes }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $relName }}
-  labels: {{- include "bandstand-cron-job.labels" . | nindent 4 }}
+  name: {{ printf "%s-%s-pvc" $.Release.Name $volume.name }}
+  labels:
+    {{- include "bandstand-cron-job.labels" $ | nindent 4 }}
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ (.Values.volume).persistent }}
-{{- end -}}
+      storage: {{ $volume.persistent | default "5Gi" }}
+---
+{{- end }}
+{{- end }}
