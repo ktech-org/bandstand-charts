@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ printf "%s-pvc" $.Release.Name $volume.name }}
+  name: {{ printf "%s-pvc" $volume.name }}
   labels:
     {{- include "bandstand-cron-job.labels" $ | nindent 4 }}
 spec:
