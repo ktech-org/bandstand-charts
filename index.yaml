@@ -172,6 +172,17 @@ entries:
     version: 1.0.0
   bandstand-cron-job:
   - apiVersion: v2
+    created: "2025-06-11T13:54:23.033610997Z"
+    description: Application chart for a simple cron job
+    digest: 837a71ffb3418d3c867392e18c9990fd45e23f9cd70b6d48f1c5dc658f22d909
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-cron-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-cron-job-4.6.4/bandstand-cron-job-4.6.4.tgz
+    version: 4.6.4
+  - apiVersion: v2
     created: "2025-06-11T08:20:43.792902679Z"
     description: Application chart for a simple cron job
     digest: ef61afa4782fc24b9b88722e496a1c0fd74ecabca97acd609013b26b8b627c35
@@ -3433,4 +3444,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-11T08:20:43.793504542Z"
+generated: "2025-06-11T13:54:23.034371956Z"
