@@ -22,10 +22,11 @@ spec:
     volumeAttributes:
       bucketName: {{ $volume.bucketName }}
       authenticationSource: pod
-  {{- if $volume.prefix }}
   mountOptions:
-    - prefix {{ $volume.prefix }}
-  {{- end }}
+    {{- if $volume.prefix }}
+    - prefix={{ $volume.prefix }}
+    {{- end }}
+    - allow-other
   claimRef:
     namespace: {{ $root.Release.Namespace }}
     name: {{ printf "%s-pvc" $volName }}
