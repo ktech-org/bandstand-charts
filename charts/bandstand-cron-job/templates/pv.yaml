@@ -15,6 +15,7 @@ spec:
   accessModes:
     - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ $volume.storageClassName | default "object-storage" }}
   csi:
     driver: s3.csi.aws.com
     volumeHandle: {{ printf "s3-%s-volume" $volName }}
