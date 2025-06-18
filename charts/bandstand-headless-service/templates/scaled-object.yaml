@@ -7,6 +7,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: {{ $relName }}
+  labels: {{- include "bandstand-headless-service.labels" . | nindent 4 }}
 spec:
   cooldownPeriod: {{ (.Values.advancedScaling.cooldown) | default 30 }}
   maxReplicaCount: {{ (.Values.advancedScaling.maxReplicas) | default 3 }}
