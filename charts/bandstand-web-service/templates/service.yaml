@@ -6,6 +6,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ $relName }}
+  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 spec:
   selector: {{- include "bandstand-web-service.selectorLabels" . | nindent 4 }}
   ports:
