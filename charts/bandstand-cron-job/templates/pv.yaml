@@ -13,7 +13,7 @@ spec:
     storage: {{ $volume.persistent | default "5Gi" }}
   volumeMode: Filesystem
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: {{ $volume.storageClassName | default "object-storage" }}
   csi:
