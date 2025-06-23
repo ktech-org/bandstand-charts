@@ -8,7 +8,7 @@ metadata:
     {{- include "bandstand-cron-job.labels" $ | nindent 4 }}
 spec:
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   storageClassName: {{ $volume.storageClassName | default "object-storage" }}
   resources:
     requests:
