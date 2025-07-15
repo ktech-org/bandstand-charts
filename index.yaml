@@ -1541,6 +1541,17 @@ entries:
     version: 1.0.0
   bandstand-test-runner:
   - apiVersion: v2
+    created: "2025-07-15T14:30:44.528573137Z"
+    description: Application for running standalone test pod
+    digest: df5d7716670bd3e0070ba964d04e42579b62c25caa1fcf83b34fe3f1d0dd492b
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-test-runner
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-2.6.3/bandstand-test-runner-2.6.3.tgz
+    version: 2.6.3
+  - apiVersion: v2
     created: "2025-06-18T12:22:13.69777536Z"
     description: Application for running standalone test pod
     digest: ead8100082830e78688954eafad59d516a22eafad873a31c42985460a441a166
@@ -1838,6 +1849,17 @@ entries:
     - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-test-runner-0.1.0/bandstand-test-runner-0.1.0.tgz
     version: 0.1.0
   bandstand-triggered-job:
+  - apiVersion: v2
+    created: "2025-07-15T14:30:44.683092348Z"
+    description: Application chart for a job triggered from SQS
+    digest: 79bd87ad3646a31a9d3a4d2ed8cabb1fbd37343fdb50acf18a367cefe0d55bca
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-triggered-job
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-triggered-job-1.8.2/bandstand-triggered-job-1.8.2.tgz
+    version: 1.8.2
   - apiVersion: v2
     created: "2025-06-18T12:22:13.826381176Z"
     description: Application chart for a job triggered from SQS
@@ -3534,4 +3556,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-23T13:10:44.484638168Z"
+generated: "2025-07-15T14:30:44.684286207Z"
