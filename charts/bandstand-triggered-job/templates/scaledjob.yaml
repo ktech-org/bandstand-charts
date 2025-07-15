@@ -19,6 +19,7 @@ spec:
       metadata:
         annotations:
           "linkerd.io/inject": disabled
+          "karpenter.sh/do-not-disrupt": "true"
         labels: {{- include "bandstand-triggered-job.labels" . | nindent 10 }}
       spec:
         serviceAccountName: {{ .Release.Name }}
