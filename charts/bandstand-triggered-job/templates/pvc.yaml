@@ -1,8 +1,8 @@
-{{- if (.Values.volume).enabled }}
-{{- $relName := .Release.Name -}}
-{{- if .Values.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
-{{- end }}
+{{- if (.Values.volume).persistent }}
+  {{- $relName := .Release.Name -}}
+  {{- if .Values.nameSuffix }}
+  {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+  {{- end }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -11,7 +11,8 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: {{ .Values.volume.storageClass | default "general-storage" }}
   resources:
     requests:
-      storage: {{ (.Values.volume).storage | default "1Gi" }}
-{{- end -}}
+      storage: {{ (.Values.volume).persistent }}
+  {{- end -}}

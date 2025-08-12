@@ -5,3 +5,4 @@ bandstand-triggered-job:
 
   volume:
     ephemeral: 5G
+    storageClass: gp3-iops-5k
