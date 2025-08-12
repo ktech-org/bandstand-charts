@@ -5,3 +5,4 @@ bandstand-triggered-job:
 
   volume:
     persistent: 2Gi
+    storageClass: gp3-iops-10k

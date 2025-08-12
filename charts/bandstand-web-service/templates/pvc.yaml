@@ -11,6 +11,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: {{ .Values.volume.storageClass | default "general-storage" }}
   resources:
     requests:
       storage: {{ (.Values.volume).persistent }}
