@@ -22,9 +22,5 @@ tags.datadoghq.com/env: {{ .Values.global.env }}
 {{- end }}
 
 {{- define "bandstand-headless-service.selectorLabels" -}}
-{{- if .Values.nameSuffix }}
-application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-{{- else }}
-application: {{ .Release.Name }}
-{{- end }}
+application: {{ include "bandstand-headless-service.fullname" $ }}
 {{- end }}
