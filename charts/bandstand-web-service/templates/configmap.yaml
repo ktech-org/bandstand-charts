@@ -1,7 +1,4 @@
-{{- $relName := .Release.Name -}}
-{{- if .Values.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
-{{- end }}
+{{- $relName := include "bandstand-web-service.fullname" $ -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:

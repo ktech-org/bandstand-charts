@@ -1,29 +1,27 @@
-{{- define "bandstand-web-service.labels" -}}
-system-code: {{ default .Release.Name .Values.systemCode }}
-{{- if .Values.systemGroup }}
-system-group: {{  .Values.systemGroup }}
+{{- define "bandstand-web-service.fullname" -}}
+{{- if .Values.nameSuffix -}}
+{{ .Release.Name }}-{{ .Values.nameSuffix }}
+{{- else -}}
+{{ .Release.Name }}
+{{- end -}}
 {{- end }}
-git-repo: {{ default .Release.Name .Values.gitRepo }}
-provisioner: "Helm"
-{{- if .Values.nameSuffix }}
-application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-tags.datadoghq.com/service: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-{{- else }}
-application: {{ .Release.Name }}
-tags.datadoghq.com/service: {{ .Release.Name }}
 
+
+{{- define "bandstand-web-service.labels" -}}
+application: {{ include "bandstand-web-service.fullname" $ }}
+app.kubernetes.io/name: {{ include "bandstand-web-service.fullname" $ }}
+app.kubernetes.io/version: {{ .Values.global.image.tag }}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+ktech.com/backstage-component: {{ .Values.releaseTags.backstageComponent }}
+ktech.com/backstage-owner: {{ .Values.releaseTags.backstageOwner }}
+{{- if .Values.releaseTags.backstageSystem }}
+ktech.com/backstage-system: {{ .Values.releaseTags.backstageSystem }}
 {{- end }}
-version: {{ .Values.global.image.tag }}
+tags.datadoghq.com/service: {{ include "bandstand-web-service.fullname" $ }}
 tags.datadoghq.com/version: {{ .Values.global.image.tag }}
-environment: {{ .Values.global.env }}
 tags.datadoghq.com/env: {{ .Values.global.env }}
-owner: {{ .Values.owner }}
 {{- end }}
 
 {{- define "bandstand-web-service.selectorLabels" -}}
-{{- if .Values.nameSuffix }}
-application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-{{- else }}
-application: {{ .Release.Name }}
-{{- end }}
+application: {{ include "bandstand-web-service.fullname" $ }}
 {{- end }}
