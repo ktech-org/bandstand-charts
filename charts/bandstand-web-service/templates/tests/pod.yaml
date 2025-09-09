@@ -4,7 +4,7 @@ kind: Pod
 metadata:
   name: {{ $relName }}-acceptance-tests
   labels:
-    application: { { $relName } }-acceptance-tests
+    application: {{ $relName }}-acceptance-tests
     application-under-test: {{ $relName }}
     app.kubernetes.io/name: {{ include "bandstand-web-service.fullname" $ }}
     app.kubernetes.io/version: {{ .Values.global.image.tag }}
