@@ -1,8 +1,5 @@
 {{- if .Values.ingress.enabled }}
-{{- $relName := .Release.Name -}}
-{{- if .Values.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
-{{- end }}
+{{- $relName := include "bandstand-web-service.fullname" $ -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

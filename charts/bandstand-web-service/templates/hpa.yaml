@@ -1,8 +1,5 @@
 {{- if ne ((.Values.hpa).enabled) false }}
-{{- $relName := .Release.Name -}}
-{{- if .Values.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
-{{- end }}
+{{- $relName := include "bandstand-web-service.fullname" $ -}}
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:

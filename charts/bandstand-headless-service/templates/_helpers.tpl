@@ -1,28 +1,26 @@
+{{- define "bandstand-headless-service.fullname" -}}
+{{- if .Values.nameSuffix -}}
+{{ .Release.Name }}-{{ .Values.nameSuffix }}
+{{- else -}}
+{{ .Release.Name }}
+{{- end -}}
+{{- end }}
+
 {{- define "bandstand-headless-service.labels" -}}
-system-code: {{ default .Release.Name .Values.systemCode }}
-{{- if .Values.systemGroup }}
-system-group: {{  .Values.systemGroup }}
+application: {{ include "bandstand-headless-service.fullname" $ }}
+app.kubernetes.io/name: {{ include "bandstand-headless-service.fullname" $ }}
+app.kubernetes.io/version: {{ .Values.global.image.tag }}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+ktech.com/backstage-component: {{ .Values.global.releaseTags.backstageComponent }}
+ktech.com/backstage-owner: {{ .Values.global.releaseTags.backstageOwner }}
+{{- if .Values.global.releaseTags.backstageSystem }}
+ktech.com/backstage-system: {{ .Values.global.releaseTags.backstageSystem }}
 {{- end }}
-git-repo: {{ default .Release.Name .Values.gitRepo }}
-provisioner: "Helm"
-{{- if .Values.nameSuffix }}
-application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-tags.datadoghq.com/service: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-{{- else }}
-application: {{ .Release.Name }}
-tags.datadoghq.com/service: {{ .Release.Name }}
-{{- end }}
-version: {{ .Values.global.image.tag }}
+tags.datadoghq.com/service: {{ include "bandstand-headless-service.fullname" $ }}
 tags.datadoghq.com/version: {{ .Values.global.image.tag }}
-environment: {{ .Values.global.env }}
 tags.datadoghq.com/env: {{ .Values.global.env }}
-owner: {{ .Values.owner }}
 {{- end }}
 
 {{- define "bandstand-headless-service.selectorLabels" -}}
-{{- if .Values.nameSuffix }}
-application: {{ .Release.Name }}-{{ .Values.nameSuffix}}
-{{- else }}
-application: {{ .Release.Name }}
-{{- end }}
+application: {{ include "bandstand-headless-service.fullname" $ }}
 {{- end }}

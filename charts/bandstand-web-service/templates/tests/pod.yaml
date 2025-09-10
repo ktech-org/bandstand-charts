@@ -1,7 +1,4 @@
-{{- $relName := .Release.Name -}}
-{{- if .Values.nameSuffix }}
-{{- $relName = print .Release.Name "-" .Values.nameSuffix }}
-{{- end }}
+{{- $relName := include "bandstand-web-service.fullname" $ -}}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -9,9 +6,17 @@ metadata:
   labels:
     application: {{ $relName }}-acceptance-tests
     application-under-test: {{ $relName }}
-    version: {{ .Values.global.image.tag }}
-    environment: {{ .Values.global.env }}
-    owner: {{ .Values.owner }}
+    app.kubernetes.io/name: {{ include "bandstand-web-service.fullname" $ }}
+    app.kubernetes.io/version: {{ .Values.global.image.tag }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    ktech.com/backstage-component: {{ .Values.global.releaseTags.backstageComponent }}
+    ktech.com/backstage-owner: {{ .Values.global.releaseTags.backstageOwner }}
+    {{- if .Values.global.releaseTags.backstageSystem }}
+    ktech.com/backstage-system: {{ .Values.global.releaseTags.backstageSystem }}
+    {{- end }}
+    tags.datadoghq.com/service: {{ $relName }}-acceptance-tests
+    tags.datadoghq.com/version: {{ .Values.global.image.tag }}
+    tags.datadoghq.com/env: {{ .Values.global.env }}
   annotations:
     "helm.sh/hook": test
     "helm.sh/hook-delete-policy": before-hook-creation
