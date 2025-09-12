@@ -15,9 +15,7 @@ spec:
         config.linkerd.io/proxy-memory-limit: {{ .Values.resources.requests.linkerd.memory }}
         config.linkerd.io/proxy-memory-request: {{ .Values.resources.requests.linkerd.memory }}
         {{- end }}
-        {{- if (.Values.preStopWait).proxy }}
-        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: {{ .Values.preStopWait.proxy | quote }}
-        {{- end }}
+        config.alpha.linkerd.io/proxy-enable-native-sidecar: 'true'
         {{- if (.Values.reloader).enabled }}
         reloader.stakater.com/auto: "true"
         {{- end }}
