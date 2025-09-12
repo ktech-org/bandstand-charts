@@ -1,4 +1,4 @@
-bandstand-web-service:
+aliased-chart:
   owner: ktech-developer-platform
   env: test
   business: ktech
