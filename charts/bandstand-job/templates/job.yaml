@@ -9,7 +9,7 @@ spec:
   template:
     metadata:
       annotations:
-        "linkerd.io/inject": disabled
+        "config.alpha.linkerd.io/proxy-enable-native-sidecar": "true"
         "karpenter.sh/do-not-disrupt": "true"
       labels: {{- include "bandstand-job.labels" . | nindent 8 }}
     spec:
