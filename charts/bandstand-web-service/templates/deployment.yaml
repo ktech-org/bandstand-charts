@@ -77,6 +77,12 @@ spec:
             - name: {{ $relName }}
               mountPath: "/var/{{ $relName }}"
             {{- end }}
+            {{- if .Values.s3Volumes }}
+            {{- range .Values.s3Volumes }}
+            - name: {{ .name | default "s3-volume" }}
+              mountPath: {{ .mountPath | default "/mnt/s3" }}
+              readOnly: true
+            {{- end }}
           resources:
             requests:
               cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
@@ -235,6 +241,12 @@ spec:
           persistentVolumeClaim:
             claimName: {{ $relName }}
         {{- end }}
+        {{- if .Values.s3Volumes }}
+        {{- range .Values.s3Volumes }}
+        - name: {{ .name | default "s3-volume" }}
+          persistentVolumeClaim:
+            claimName: {{ printf "%s-%s-pvc" $.Release.Name .name }}
+      {{- end }}
       securityContext:
         fsGroup: 1000
         {{- if .Values.runAsUser }}

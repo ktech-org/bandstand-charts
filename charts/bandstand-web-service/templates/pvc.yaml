@@ -1,15 +1,18 @@
-{{- if (.Values.volume).persistent }}
-{{- $relName := include "bandstand-web-service.fullname" $ -}}
+{{- if .Values.s3Volumes }}
+{{- range $volume := .Values.s3Volumes }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ $relName }}
-  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
+  name: {{ printf "%s-%s-pvc" $.Release.Name $volume.name }}
+  labels:
+    {{- include "bandstand-cron-job.labels" $ | nindent 4 }}
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: {{ .Values.volume.storageClass | default "general-storage" }}
+    - ReadWriteMany
+  storageClassName: {{ $volume.storageClassName | default "object-storage" }}
   resources:
     requests:
-      storage: {{ (.Values.volume).persistent }}
-{{- end -}}
+      storage: {{ $volume.persistent | default "5Gi" }}
+---
+{{- end }}
+{{- end }}
