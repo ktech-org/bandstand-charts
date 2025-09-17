@@ -67,10 +67,11 @@
 
 
 
-| s3Volumes.name                      | list   | `[]`          | The name of the S3 volume to mount |
-| s3Volumes.bucketName                | list   | `[]`          | The name of the S3 bucket to mount |
-| s3Volumes.prefix                    | list   | `[]`          | The path within the S3 bucket that will be mounted and made visible in the pod |
-| s3Volumes.mountPath                 | list   | `[]`          | The directory inside the container where the S3 bucket contents will be made accessible |
+| s3Volumes                          | list of objects | `[]`          | A list of S3 volume objects to mount. Each object should have the following string properties: `name`, `bucketName`, `prefix`, `mountPath`. |
+| s3Volumes.name                     | string          |               | The name of the S3 volume to mount (property of each object in `s3Volumes`) |
+| s3Volumes.bucketName               | string          |               | The name of the S3 bucket to mount (property of each object in `s3Volumes`) |
+| s3Volumes.prefix                   | string          |               | The path within the S3 bucket that will be mounted and made visible in the pod (property of each object in `s3Volumes`) |
+| s3Volumes.mountPath                | string          |               | The directory inside the container where the S3 bucket contents will be made accessible (property of each object in `s3Volumes`) |
 
 
 
