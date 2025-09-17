@@ -247,6 +247,7 @@ spec:
           persistentVolumeClaim:
             claimName: {{ printf "%s-%s-pvc" $.Release.Name .name }}
       {{- end }}
+      {{- end }}
       securityContext:
         fsGroup: 1000
         {{- if .Values.runAsUser }}
