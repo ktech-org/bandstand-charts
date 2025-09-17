@@ -64,17 +64,10 @@
 | secrets[].upperCaseKeys             | bool   | `false`                                                       | Flag to indicate if keys should be transformed to be upper case.                                                                                                                                                                                                                                           |
 | serverContainer.arguments           | list   |                                                               | Override the default container (Helm) arguments (this is the docker CMD) for the service Pod                                                                                                                                                                                                               |
 | serverContainer.command             | string |                                                               | Override the default container (Helm) command (this is the docker ENTRYPOINT) for the service Pod                                                                                                                                                                                                          |
-
-
-
 | s3Volumes.name                      | list   | `[]`          | The name of the S3 volume to mount |
 | s3Volumes.bucketName                | list   | `[]`          | The name of the S3 bucket to mount |
 | s3Volumes.prefix                    | list   | `[]`          | The path within the S3 bucket that will be mounted and made visible in the pod |
 | s3Volumes.mountPath                 | list   | `[]`          | The directory inside the container where the S3 bucket contents will be made accessible |
-
-
-
-
 | terminationGracePeriodSeconds       | number | `30`                                                          | The time in seconds to wait for the pod to terminate gracefully                                                                                                                                                                                                                                            |
 | test.additionalEnvVars              | object | `{}`                                                          | An object containing additional environment variables. Use these in the values.yaml file.                                                                                                                                                                                                                  |
 | test.environmentEnvVars             | object | `{}`                                                          | An object containing environment specific additional environment variables. Use this in *-values.yaml files to not overwrite the additionalEnvVars object                                                                                                                                                  |
