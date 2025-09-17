@@ -83,6 +83,7 @@ spec:
               mountPath: {{ .mountPath | default "/mnt/s3" }}
               readOnly: true
             {{- end }}
+            {{- end }}
           resources:
             requests:
               cpu: {{ (.Values.resources).requests.cpu | default "100m" }}
