@@ -7,7 +7,7 @@ kind: PersistentVolume
 metadata:
   name: {{ printf "%s-pv" $volName }}
   labels:
-    {{- include "bandstand-cron-job.labels" $root | nindent 4 }}
+    {{- include "bandstand-web-service.labels" $root | nindent 4 }}
 spec:
   capacity:
     storage: {{ $volume.persistent | default "5Gi" }}
