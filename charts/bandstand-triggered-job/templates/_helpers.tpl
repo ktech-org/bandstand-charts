@@ -108,8 +108,6 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   value: none
 - name: OTEL_JAVA_DISABLED_RESOURCE_PROVIDERS
   value: io.opentelemetry.sdk.extension.resources.HostResourceProvider,io.opentelemetry.sdk.extension.resources.ContainerResourceProvider
-- name: OTEL_RESOURCE_ATTRIBUTES
-  value: host=$(DD_AGENT_HOST),service={{ .Release.Name }},env={{ .Values.global.env }}
 - name: QUEUE_URL
   value: https://sqs.eu-west-1.amazonaws.com/{{ .Values.global.aws.account | toYaml }}/{{ .Values.queueName }}
 - name: OTEL_INSTRUMENTATION_MICROMETER_ENABLED
