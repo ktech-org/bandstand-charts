@@ -46,6 +46,7 @@ workflows:
                 - test-charts/web-service/with-external-config-map
                 - test-charts/web-service/with-ephemeral-volume
                 - test-charts/web-service/with-persistent-volume
+                - test-charts/web-service/with-s3-volume
                 - test-charts/web-service/reloader
                 - test-charts/headless-service/defaults
                 - test-charts/headless-service/az-balancing
