@@ -22,8 +22,8 @@ spec:
     volumeAttributes:
       bucketName: {{ $volume.bucketName }}
       authenticationSource: pod
-      uid: "{{ .Values.runAsUser | default 1000 }}"
-      gid: "{{ .Values.fsGroup | default 1000  }}"
+      uid: "{{ $.Values.runAsUser | default 1000 }}"
+      gid: "{{ $.Values.fsGroup | default 1000  }}"
   mountOptions:
     {{- if $volume.prefix }}
     - prefix={{ $volume.prefix }}
