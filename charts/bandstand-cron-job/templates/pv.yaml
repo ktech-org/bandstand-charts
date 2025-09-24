@@ -27,6 +27,8 @@ spec:
     - prefix={{ $volume.prefix }}
     {{- end }}
     - allow-other
+    - allow-delete
+    - allow-overwrite
     - uid={{ $.Values.runAsUser | default 1000 }}
     - gid={{ $.Values.fsGroup | default 1000  }}
   claimRef:
