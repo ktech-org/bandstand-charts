@@ -98,6 +98,7 @@ workflows:
                 - test-charts/triggered-job/with-external-config-map
                 - test-charts/triggered-job/with-ephemeral-volume
                 - test-charts/triggered-job/with-persistent-volume
+                - test-charts/triggered-job/with-linkerd-mem
                 - test-charts/test-runner/defaults
                 - test-charts/test-runner/resources
                 - test-charts/test-runner/envvars
