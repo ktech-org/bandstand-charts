@@ -34,6 +34,15 @@ spec:
                 name: {{ default $relName .Values.ingress.defaultBackend }}
                 port:
                   number: 80
+          {{- if .Values.ingress.authenticationBackend }}
+          - path: "/authentication"
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.ingress.authenticationBackend }}
+                port:
+                  number: 80
+          {{- end }}
           {{- if .Values.ingress.additionalPaths }}
             {{- toYaml .Values.ingress.additionalPaths | nindent 10 }}
           {{- end }}
