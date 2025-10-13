@@ -18,6 +18,10 @@ spec:
     template:
       metadata:
         annotations:
+          {{- if ((((.Values.resources).requests).linkerd).memory) }}
+          config.linkerd.io/proxy-memory-limit: {{ .Values.resources.requests.linkerd.memory }}
+          config.linkerd.io/proxy-memory-request: {{ .Values.resources.requests.linkerd.memory }}
+          {{- end }}
           "config.alpha.linkerd.io/proxy-enable-native-sidecar": "true"
           "karpenter.sh/do-not-disrupt": "true"
         labels: {{- include "bandstand-triggered-job.labels" . | nindent 10 }}
