@@ -1,0 +1,12 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  startupProbe:
+    timeoutSeconds: 6
+    periodSeconds: 6
+    failureThreshold: 31
