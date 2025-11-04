@@ -39,6 +39,7 @@ workflows:
                 - test-charts/web-service/resources
                 - test-charts/web-service/resource-limits
                 - test-charts/web-service/secrets
+                - test-charts/web-service/startup-probe-time
                 - test-charts/web-service/with-additional-domains
                 - test-charts/web-service/with-config-files
                 - test-charts/web-service/with-test-service-acct
