@@ -111,9 +111,9 @@ spec:
             httpGet:
               path: {{ (.Values.livenessProbe).path | default "/" }}
               port: http
-            timeoutSeconds: 5
-            periodSeconds: 5
-            failureThreshold: 30
+            timeoutSeconds: {{ (.Values.startupProbe).timeoutSeconds | default 5 }}
+            periodSeconds: {{ (.Values.startupProbe).periodSeconds | default 5 }}
+            failureThreshold: {{ (.Values.startupProbe).failureThreshold | default 30 }}
           env:
             - name: ENV
               value: {{ .Values.global.env }}
