@@ -119,7 +119,11 @@ spec:
             - name: OTEL_RESOURCE_PROVIDERS_AWS_ENABLED
               value: "true"
             - name: OTEL_RESOURCE_ATTRIBUTES
-              value: service={{ $relName }},env={{ .Values.global.env }}
+            {{- if .Values.global.releaseTags.backstageSystem }}
+              value: service={{ $relName }},env={{ .Values.global.env }},team={{ .Values.global.releaseTags.backstageOwner }},system={{ .Values.global.releaseTags.backstageSystem }}
+            {{- else }}
+              value: service={{ $relName }},env={{ .Values.global.env }},team={{ .Values.global.releaseTags.backstageOwner }}
+            {{- end }}
             - name: AWS_ACCOUNT_ID
               value: {{ .Values.global.aws.account | squote }}
             - name: K8S_POD_UID
