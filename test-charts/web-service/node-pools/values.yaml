@@ -1,0 +1,34 @@
+graviton:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  nodeStrategy:
+    pool: graviton
+    arch: arm64
+
+spot:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  nodeStrategy:
+    pool: high-performance
+    arch: arm64
+
+high-performance:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  nodeStrategy:
+    pool: high-performance
