@@ -44,7 +44,7 @@ nodeSelector:
 {{- /* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */}}
 tolerations:
   {{- if eq $arch "arm64" }}
-  - key: "acme.com/arch"
+  - key: "ktech.com/arch"
     operator: "Equal"
     value: "arm64"
     effect: "NoSchedule"
@@ -52,7 +52,7 @@ tolerations:
 
   {{- /* Only relevant in prod. For non-prod envs spot automatically takes precedence */}}
   {{- if eq $cap "spot" }}
-  - key: "acme.com/capacity"
+  - key: "ktech.com/capacity-type"
     operator: "Equal"
     value: "spot"
     effect: "NoSchedule"
