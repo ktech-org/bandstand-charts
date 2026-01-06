@@ -25,3 +25,36 @@ tags.datadoghq.com/env: {{ .Values.global.env }}
 {{- define "bandstand-web-service.selectorLabels" -}}
 application: {{ include "bandstand-web-service.fullname" $ }}
 {{- end }}
+
+{{/* Standardizes compute strategy logic.
+      Input: nodeStrategy { pool: string, arch: string }
+*/}}
+{{- define "bandstand-web-service.workload.compute" -}}
+{{- $s := .Values.nodeStrategy | default dict -}}
+{{- $arch := $s.arch | default "amd64" -}}
+{{- $cap := $s.capacityType | default "on-demand" -}}
+
+{{- /* 1. SELECTORS: We only hard-code the Architecture, capacity type is managed by tolerations and pool weights */}}
+nodeSelector:
+  kubernetes.io/arch: {{ $arch | quote }}
+  {{- with .Values.nodeSelector }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+
+{{- /* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */}}
+tolerations:
+  {{- if eq $arch "arm64" }}
+  - key: "ktech.com/arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
+  {{- end }}
+
+  {{- /* Only relevant in prod. For non-prod envs spot automatically takes precedence */}}
+  {{- if eq $cap "spot" }}
+  - key: "ktech.com/capacity-type"
+    operator: "Equal"
+    value: "spot"
+    effect: "NoSchedule"
+  {{- end }}
+{{- end -}}

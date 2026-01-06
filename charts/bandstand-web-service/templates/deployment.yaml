@@ -21,10 +21,7 @@ spec:
         {{- end }}
       labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
     spec:
-      nodeSelector:
-      {{- with .Values.nodeSelector }}
-      {{- toYaml . | nindent 8 }}
-      {{- end }}
+      {{- include "bandstand-web-service.workload.compute" . | nindent 6 }}
       {{- if (.Values.azBalancing).enabled }}
       topologySpreadConstraints:
         - maxSkew: 1
