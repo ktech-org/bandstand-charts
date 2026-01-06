@@ -34,14 +34,14 @@ application: {{ include "bandstand-web-service.fullname" $ }}
 {{- $arch := $s.arch | default "amd64" -}}
 {{- $cap := $s.capacityType | default "on-demand" -}}
 
-{{- /* 1. SELECTORS: We only hard-code the Architecture, capacity type is managed by tolerations and pool weights */ -}}
+{{- /* 1. SELECTORS: We only hard-code the Architecture, capacity type is managed by tolerations and pool weights */}}
 nodeSelector:
   kubernetes.io/arch: {{ $arch | quote }}
   {{- with .Values.nodeSelector }}
   {{- toYaml . | nindent 2 }}
   {{- end }}
 
-{{- /* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */ -}}
+{{- /* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */}}
 tolerations:
   {{- if eq $arch "arm64" }}
   - key: "acme.com/arch"
@@ -50,7 +50,7 @@ tolerations:
     effect: "NoSchedule"
   {{- end }}
 
-  {{- /* Only relevant in prod. For non-prod envs spot automatically takes precedence */ -}}
+  {{- /* Only relevant in prod. For non-prod envs spot automatically takes precedence */}}
   {{- if eq $cap "spot" }}
   - key: "acme.com/capacity"
     operator: "Equal"
