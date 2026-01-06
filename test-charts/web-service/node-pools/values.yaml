@@ -30,4 +30,4 @@ spot-arm:
 
   nodeStrategy:
     capacityType: spot
-    architecture: arm64
+    arch: arm64
