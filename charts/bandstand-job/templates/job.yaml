@@ -13,6 +13,7 @@ spec:
         "karpenter.sh/do-not-disrupt": "true"
       labels: {{- include "bandstand-job.labels" . | nindent 8 }}
     spec:
+      {{- include "bandstand-job.workload.compute" . | nindent 6 }}
       serviceAccountName: {{ .Release.Name }}
       restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
       containers:

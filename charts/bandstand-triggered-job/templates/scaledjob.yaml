@@ -26,6 +26,7 @@ spec:
           "karpenter.sh/do-not-disrupt": "true"
         labels: {{- include "bandstand-triggered-job.labels" . | nindent 10 }}
       spec:
+        {{- include "bandstand-triggered-job.workload.compute" . | nindent 8 }}
         serviceAccountName: {{ .Release.Name }}
         restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
         containers:

@@ -25,6 +25,7 @@ metadata:
     "karpenter.sh/do-not-disrupt": "true"
     "botkube.io/disable": "true"
 spec:
+  {{- include "bandstand-test-runner.workload.compute" $ | nindent 2 }}
   serviceAccountName: {{ $.Release.Name }}
   containers:
     - name: {{ $.Release.Name }}

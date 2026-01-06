@@ -57,6 +57,7 @@ workflows:
                 - test-charts/headless-service/advanced-scaling
                 - test-charts/headless-service/image-override
                 - test-charts/headless-service/node-selector
+                - test-charts/headless-service/node-pools
                 - test-charts/headless-service/resources
                 - test-charts/headless-service/resource-limits
                 - test-charts/headless-service/secrets
@@ -68,6 +69,7 @@ workflows:
                 - test-charts/job/defaults
                 - test-charts/job/envvars
                 - test-charts/job/image-override
+                - test-charts/job/node-pools
                 - test-charts/job/resources
                 - test-charts/job/resource-limits
                 - test-charts/job/secrets
@@ -79,6 +81,7 @@ workflows:
                 - test-charts/cron-job/defaults
                 - test-charts/cron-job/envvars
                 - test-charts/cron-job/image-override
+                - test-charts/cron-job/node-pools
                 - test-charts/cron-job/resources
                 - test-charts/cron-job/resource-limits
                 - test-charts/cron-job/secrets
@@ -93,6 +96,7 @@ workflows:
                 - test-charts/triggered-job/history-limits
                 - test-charts/triggered-job/ignore-in-flight
                 - test-charts/triggered-job/image-override
+                - test-charts/triggered-job/node-pools
                 - test-charts/triggered-job/resources
                 - test-charts/triggered-job/resource-limits
                 - test-charts/triggered-job/secrets
@@ -106,6 +110,7 @@ workflows:
                 - test-charts/test-runner/resources
                 - test-charts/test-runner/envvars
                 - test-charts/test-runner/image-override
+                - test-charts/test-runner/node-pools
                 - test-charts/test-runner/secrets
                 - test-charts/test-runner/with-external-config-map
                 - test-charts/connect/defaults
