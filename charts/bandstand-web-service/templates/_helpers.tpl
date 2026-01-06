@@ -31,28 +31,30 @@ application: {{ include "bandstand-web-service.fullname" $ }}
 */}}
 {{- define "bandstand-web-service.workload.compute" -}}
 {{- $s := .Values.nodeStrategy | default dict -}}
-{{- $pool := $s.pool | default "default" -}}
 {{- $arch := $s.arch | default "amd64" -}}
+{{- $cap := $s.capacityType | default "on-demand" -}}
 
-{{/* SAFETY CHECK: Hard-stop if someone tries Graviton on AMD binaries */}}
-{{- if and (eq $pool "graviton") (ne $arch "arm64") -}}
-  {{- fail "\n[FATAL] The 'graviton' pool requires architecture to be set to 'arm64'." -}}
-{{- end -}}
-
-{{/* 1. SELECTORS: High-level intent + custom overrides */}}
+{{/* 1. SELECTORS: We only hard-code the Architecture, capacity type is managed by tolerations and pool weights */}}
 nodeSelector:
-  ktech.com/nodepool: {{ $pool | quote }}
   kubernetes.io/arch: {{ $arch | quote }}
-{{- with .Values.nodeSelector }}
-{{- toYaml . | nindent 2 }}
-{{- end }}
+  {{- with .Values.nodeSelector }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
 
-{{/* 2. TOLERATIONS: Generic lock/key logic */}}
-{{- if ne $pool "default" }}
+{{/* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */}}
 tolerations:
-  - key: "ktech.com/nodepool"
+  {{- if eq $arch "arm64" }}
+  - key: "acme.com/arch"
     operator: "Equal"
-    value: {{ $pool | quote }}
+    value: "arm64"
     effect: "NoSchedule"
-{{- end }}
+  {{- end }}
+
+  {{- /* Only relevant in prod. For non-prod envs spot automatically takes precedence */ -}}
+  {{- if eq $cap "spot" }}
+  - key: "acme.com/capacity"
+    operator: "Equal"
+    value: "spot"
+    effect: "NoSchedule"
+  {{- end }}
 {{- end -}}

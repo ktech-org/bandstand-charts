@@ -7,7 +7,6 @@ graviton:
     enabled: false
 
   nodeStrategy:
-    pool: graviton
     arch: arm64
 
 spot:
@@ -19,10 +18,9 @@ spot:
     enabled: false
 
   nodeStrategy:
-    pool: high-performance
-    arch: arm64
+    capacityType: spot
 
-high-performance:
+spot-arm:
   owner: ktech-developer-platform
   env: test
   business: ktech
@@ -31,4 +29,5 @@ high-performance:
     enabled: false
 
   nodeStrategy:
-    pool: high-performance
+    capacityType: spot
+    architecture: arm64
