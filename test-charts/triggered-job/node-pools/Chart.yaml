@@ -1,0 +1,22 @@
+apiVersion: v2
+name: triggered-job-node-pools
+version: 1.0.0
+description: testing bandstand-triggered-job chart node pools
+type: application
+sources:
+  - https://github.com/ktech-org/bandstand-charts
+dependencies:
+  - name: bandstand-triggered-job
+    version: ">= 1.0.0"
+    repository: "file://../../../charts/bandstand-triggered-job/"
+    alias: graviton
+  - name: bandstand-triggered-job
+    version: ">= 1.0.0"
+    repository: "file://../../../charts/bandstand-triggered-job/"
+    alias: spot
+  - name: bandstand-triggered-job
+    version: ">= 1.0.0"
+    repository: "file://../../../charts/bandstand-triggered-job/"
+    alias: spot-arm
+maintainers:
+  - name: ktech-developer-platform

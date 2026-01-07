@@ -1,0 +1,24 @@
+graviton:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  nodeStrategy:
+    arch: arm64
+
+spot:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  nodeStrategy:
+    capacityType: spot
+
+spot-arm:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  nodeStrategy:
+    capacityType: spot
+    arch: arm64
