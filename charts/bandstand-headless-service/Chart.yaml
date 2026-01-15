@@ -1,7 +1,11 @@
 apiVersion: v2
 name: bandstand-headless-service
-version: 3.12.1
+version: 3.13.0
 description: Chart for a standalone (non-web) service
 type: application
 maintainers:
   - name: ktech-developer-platform
+dependencies:
+  - name: bandstand-common
+    version: "~0.1.0"
+    repository: "file://../bandstand-common/"

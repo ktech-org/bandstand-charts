@@ -1,7 +1,11 @@
 apiVersion: v2
 name: bandstand-job
-version: 1.8.1
+version: 1.9.0
 description: Application chart for a simple job starting immediately after deployment
 type: application
 maintainers:
   - name: ktech-developer-platform
+dependencies:
+  - name: bandstand-common
+    version: "~0.1.0"
+    repository: "file://../bandstand-common/"

@@ -1,132 +1,28 @@
+{{/*
+Bandstand Job Chart Helpers
+These helpers wrap the bandstand-common library chart for backwards compatibility.
+*/}}
+
 {{- define "bandstand-job.labels" -}}
-application: {{ .Release.Name }}
-app.kubernetes.io/name: {{ .Release.Name }}
-app.kubernetes.io/version: {{ .Values.global.image.tag }}
-helm.sh/chart: bandstand-job-{{ .Chart.Version | replace "+" "_" }}
-ktech.com/backstage-component: {{ .Values.global.releaseTags.backstageComponent }}
-ktech.com/backstage-owner: {{ .Values.global.releaseTags.backstageOwner }}
-{{- if .Values.global.releaseTags.backstageSystem }}
-ktech.com/backstage-system: {{ .Values.global.releaseTags.backstageSystem }}
-{{- end }}
-tags.datadoghq.com/service: {{ .Release.Name }}
-tags.datadoghq.com/version: {{ .Values.global.image.tag }}
-tags.datadoghq.com/env: {{ .Values.global.env }}
+{{- include "bandstand-common.labels.standard" (dict "serviceName" .Release.Name "context" .) }}
 {{- end -}}
 
 {{- define "bandstand-job.containerSecurityContext" -}}
-runAsNonRoot: true
-allowPrivilegeEscalation: false
-readOnlyRootFilesystem: true
-capabilities:
-  drop:
-    - ALL
-seccompProfile:
-  type: RuntimeDefault
+{{- include "bandstand-common.security.container" . }}
 {{- end -}}
 
 {{- define "bandstand-job.podSecurityContext" -}}
-runAsUser: {{ .Values.runAsUser | default 1000  }}
-fsGroup: {{ .Values.fsGroup | default 1000  }}
+{{- include "bandstand-common.security.pod" . }}
 {{- end -}}
 
 {{- define "bandstand-job.common-volumes" -}}
-- name: tmp-dir
-{{- if (.Values.volume).ephemeral }}
-  ephemeral:
-    volumeClaimTemplate:
-      metadata:
-        labels:
-          type: temp-volume
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: {{ .Values.volume.storageClass | default "general-storage" }}
-        resources:
-          requests:
-            storage: {{ .Values.volume.ephemeral }}
-{{- else }}
-  emptyDir: {}
-{{- end }}
-{{- if .Values.config }}
-- name: config
-  configMap:
-    name: {{ .Release.Name }}
-    items:
-      {{- range .Values.config }}
-      - key: {{ .filename }}
-        path: {{ .filename }}
-      {{- end }}
-{{- end }}
-{{- if .Values.envConfig }}
-- name: env-config
-  configMap:
-    name: {{ .Release.Name }}-env
-    items:
-      {{- range .Values.envConfig }}
-      - key: {{ .filename }}
-        path: {{ .filename }}
-      {{- end }}
-{{- end }}
-{{- if (.Values.volume).persistent }}
-- name: {{ .Release.Name }}
-  persistentVolumeClaim:
-    claimName: {{ .Release.Name }}
-{{- end }}
+{{- include "bandstand-common.volumes.standard" (dict "releaseName" .Release.Name "context" .) }}
 {{- end -}}
 
 {{- define "bandstand-job.common-envvars" -}}
-- name: ENV
-  value: {{ .Values.global.env }}
-- name: VERSION
-  value: {{ .Values.global.image.tag }}
-- name: BUSINESS
-  value: {{ .Values.global.business | default "none"  }}
-- name: DD_ENV
-  value: {{ .Values.global.env }}
-- name: DD_SERVICE
-  value: {{ .Release.Name }}
-- name: DD_VERSION
-  value: {{ .Values.global.image.tag }}
-- name: DD_AGENT_HOST
-  valueFrom:
-    fieldRef:
-      fieldPath: status.hostIP
-- name: AWS_ACCOUNT_ID
-  value: {{ .Values.global.aws.account | squote }}
+{{- include "bandstand-common.envvars.base" (dict "serviceName" .Release.Name "context" .) }}
 {{- end -}}
 
-{{/* Standardizes compute strategy logic.
-      Input: nodeStrategy { pool: string, arch: string }
-*/}}
 {{- define "bandstand-job.workload.compute" -}}
-{{- $s := .Values.nodeStrategy | default dict -}}
-{{- $arch := $s.arch | default "amd64" -}}
-{{- $cap := $s.capacityType | default "on-demand" -}}
-
-{{- /* 1. SELECTORS: We only hard-code the Architecture, capacity type is managed by tolerations and pool weights */}}
-{{- if or (ne $arch "any") .Values.nodeSelector }}
-nodeSelector:
-  {{- if ne $arch "any" }}
-  kubernetes.io/arch: {{ $arch | quote }}
-  {{- end }}
-  {{- with .Values.nodeSelector }}
-  {{- toYaml . | nindent 2 }}
-  {{- end }}
-{{- end }}
-
-{{- /* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */}}
-tolerations:
-  {{- if or (eq $arch "arm64") (eq $arch "any") }}
-  - key: "ktech.com/arch"
-    operator: "Equal"
-    value: "arm64"
-    effect: "NoSchedule"
-  {{- end }}
-
-  {{- /* Only relevant in prod. For non-prod envs spot automatically takes precedence */}}
-  {{- if eq $cap "spot" }}
-  - key: "ktech.com/capacity-type"
-    operator: "Equal"
-    value: "spot"
-    effect: "NoSchedule"
-  {{- end }}
+{{- include "bandstand-common.workload.compute" . }}
 {{- end -}}

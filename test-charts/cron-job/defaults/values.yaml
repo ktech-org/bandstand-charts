@@ -2,3 +2,13 @@ bandstand-cron-job:
   owner: ktech-developer-platform
   env: test
   business: ktech
+  global:
+    env: test
+    business: ktech
+    aws:
+      account: "123456789"
+    image:
+      tag: "test-1.0.0"
+    releaseTags:
+      backstageComponent: test-component
+      backstageOwner: ktech-developer-platform

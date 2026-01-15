@@ -1,32 +1,18 @@
+{{/*
+Bandstand Triggered Job Chart Helpers
+These helpers wrap the bandstand-common library chart for backwards compatibility.
+*/}}
+
 {{- define "bandstand-triggered-job.labels" -}}
-application: {{ .Release.Name }}
-app.kubernetes.io/name: {{ .Release.Name }}
-app.kubernetes.io/version: {{ .Values.global.image.tag }}
-helm.sh/chart: bandstand-triggered-job-{{ .Chart.Version | replace "+" "_" }}
-ktech.com/backstage-component: {{ .Values.global.releaseTags.backstageComponent }}
-ktech.com/backstage-owner: {{ .Values.global.releaseTags.backstageOwner }}
-{{- if .Values.global.releaseTags.backstageSystem }}
-ktech.com/backstage-system: {{ .Values.global.releaseTags.backstageSystem }}
-{{- end }}
-tags.datadoghq.com/service: {{ .Release.Name }}
-tags.datadoghq.com/version: {{ .Values.global.image.tag }}
-tags.datadoghq.com/env: {{ .Values.global.env }}
+{{- include "bandstand-common.labels.standard" (dict "serviceName" .Release.Name "context" .) }}
 {{- end -}}
 
 {{- define "bandstand-triggered-job.containerSecurityContext" -}}
-runAsNonRoot: true
-allowPrivilegeEscalation: false
-readOnlyRootFilesystem: true
-capabilities:
-  drop:
-    - ALL
-seccompProfile:
-  type: RuntimeDefault
+{{- include "bandstand-common.security.container" . }}
 {{- end -}}
 
 {{- define "bandstand-triggered-job.podSecurityContext" -}}
-runAsUser: {{ .Values.runAsUser | default 1000  }}
-fsGroup: {{ .Values.fsGroup | default 1000  }}
+{{- include "bandstand-common.security.pod" . }}
 {{- end -}}
 
 {{- define "bandstand-triggered-job.common-volumes" -}}
@@ -134,39 +120,6 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
       fieldPath: metadata.name
 {{- end -}}
 
-{{/* Standardizes compute strategy logic.
-      Input: nodeStrategy { pool: string, arch: string }
-*/}}
 {{- define "bandstand-triggered-job.workload.compute" -}}
-{{- $s := .Values.nodeStrategy | default dict -}}
-{{- $arch := $s.arch | default "amd64" -}}
-{{- $cap := $s.capacityType | default "on-demand" -}}
-
-{{- /* 1. SELECTORS: We only hard-code the Architecture, capacity type is managed by tolerations and pool weights */}}
-{{- if or (ne $arch "any") .Values.nodeSelector }}
-nodeSelector:
-  {{- if ne $arch "any" }}
-  kubernetes.io/arch: {{ $arch | quote }}
-  {{- end }}
-  {{- with .Values.nodeSelector }}
-  {{- toYaml . | nindent 2 }}
-  {{- end }}
-{{- end }}
-
-{{- /* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */}}
-tolerations:
-  {{- if or (eq $arch "arm64") (eq $arch "any") }}
-  - key: "ktech.com/arch"
-    operator: "Equal"
-    value: "arm64"
-    effect: "NoSchedule"
-  {{- end }}
-
-  {{- /* Only relevant in prod. For non-prod envs spot automatically takes precedence */}}
-  {{- if eq $cap "spot" }}
-  - key: "ktech.com/capacity-type"
-    operator: "Equal"
-    value: "spot"
-    effect: "NoSchedule"
-  {{- end }}
+{{- include "bandstand-common.workload.compute" . }}
 {{- end -}}

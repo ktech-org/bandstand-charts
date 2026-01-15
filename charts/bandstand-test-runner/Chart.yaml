@@ -1,7 +1,11 @@
 apiVersion: v2
 name: bandstand-test-runner
-version: 2.9.1
+version: 2.10.0
 description: Application for running standalone test pod
 type: application
 maintainers:
   - name: ktech-developer-platform
+dependencies:
+  - name: bandstand-common
+    version: "~0.1.0"
+    repository: "file://../bandstand-common/"

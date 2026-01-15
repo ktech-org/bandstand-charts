@@ -2,3 +2,14 @@ bandstand-triggered-job:
   owner: ktech-developer-platform
   env: test
   business: ktech
+  queueName: test-queue
+  global:
+    env: test
+    business: ktech
+    aws:
+      account: "123456789"
+    image:
+      tag: "test-1.0.0"
+    releaseTags:
+      backstageComponent: test-component
+      backstageOwner: ktech-developer-platform

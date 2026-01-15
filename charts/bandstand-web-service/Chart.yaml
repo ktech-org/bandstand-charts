@@ -1,7 +1,11 @@
 apiVersion: v2
 name: bandstand-web-service
-version: 4.18.1
+version: 4.19.0
 description: Application chart for a web service
 type: application
 maintainers:
   - name: ktech-developer-platform
+dependencies:
+  - name: bandstand-common
+    version: "~0.1.0"
+    repository: "file://../bandstand-common/"
