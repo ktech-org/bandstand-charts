@@ -143,15 +143,19 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
 {{- $cap := $s.capacityType | default "on-demand" -}}
 
 {{- /* 1. SELECTORS: We only hard-code the Architecture, capacity type is managed by tolerations and pool weights */}}
+{{- if or (ne $arch "any") .Values.nodeSelector }}
 nodeSelector:
+  {{- if ne $arch "any" }}
   kubernetes.io/arch: {{ $arch | quote }}
+  {{- end }}
   {{- with .Values.nodeSelector }}
   {{- toYaml . | nindent 2 }}
   {{- end }}
+{{- end }}
 
 {{- /* 2. TOLERATIONS: These act as the 'Opt-in' mechanism */}}
 tolerations:
-  {{- if eq $arch "arm64" }}
+  {{- if or (eq $arch "arm64") (eq $arch "any") }}
   - key: "ktech.com/arch"
     operator: "Equal"
     value: "arm64"
