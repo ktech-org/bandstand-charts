@@ -16,6 +16,9 @@ ktech.com/backstage-owner: {{ .Values.global.releaseTags.backstageOwner }}
 {{- if .Values.global.releaseTags.backstageSystem }}
 ktech.com/backstage-system: {{ .Values.global.releaseTags.backstageSystem }}
 {{- end }}
+{{- if .Values.costSaverOptOut }}
+ktech.com/cost-saver-opt-out: "true"
+{{- end }}
 tags.datadoghq.com/service: {{ include "bandstand-headless-service.fullname" $ }}
 tags.datadoghq.com/version: {{ .Values.global.image.tag }}
 tags.datadoghq.com/env: {{ .Values.global.env }}
