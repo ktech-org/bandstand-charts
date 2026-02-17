@@ -58,6 +58,11 @@ spec:
             - name: tmp-dir
               mountPath: /tmp
               readOnly: false
+            {{- range .Values.emptyDirMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              readOnly: {{ .readOnly | default false }}
+            {{- end }}
             {{- range .Values.config }}
             - name: config
               mountPath: {{ .path }}/{{ .filename }}
@@ -237,6 +242,16 @@ spec:
                     storage: {{ .Values.volume.ephemeral }}
         {{- else }}
           emptyDir: {}
+        {{- end }}
+        {{- range .Values.emptyDirMounts }}
+        - name: {{ .name }}
+          emptyDir:
+            {{- if .sizeLimit }}
+            sizeLimit: {{ .sizeLimit }}
+            {{- end }}
+            {{- if .medium }}
+            medium: {{ .medium }}
+            {{- end }}
         {{- end }}
         {{- if (.Values.volume).persistent }}
         - name: {{ $relName }}

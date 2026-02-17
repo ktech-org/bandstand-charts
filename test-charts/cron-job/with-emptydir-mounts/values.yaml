@@ -1,0 +1,17 @@
+bandstand-cron-job:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  schedule: "0 * * * *"
+
+  emptyDirMounts:
+    - name: cache-dir
+      mountPath: /app/cache
+    - name: shared-memory
+      mountPath: /dev/shm
+      medium: Memory
+      sizeLimit: 512Mi
+    - name: scratch-space
+      mountPath: /var/scratch
+      sizeLimit: 1Gi

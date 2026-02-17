@@ -1,0 +1,18 @@
+bandstand-web-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  ingress:
+    enabled: false
+
+  emptyDirMounts:
+    - name: cache-dir
+      mountPath: /app/cache
+    - name: shared-memory
+      mountPath: /dev/shm
+      medium: Memory
+      sizeLimit: 512Mi
+    - name: scratch-space
+      mountPath: /var/scratch
+      sizeLimit: 1Gi
