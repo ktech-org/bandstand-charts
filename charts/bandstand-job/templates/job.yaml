@@ -34,6 +34,11 @@ spec:
             - name: tmp-dir
               mountPath: /tmp
               readOnly: false
+            {{- range .Values.emptyDirMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              readOnly: {{ .readOnly | default false }}
+            {{- end }}
             {{- range .Values.config }}
             - name: config
               mountPath: {{ .path }}/{{ .filename }}

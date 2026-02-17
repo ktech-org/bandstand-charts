@@ -71,6 +71,16 @@ fsGroup: {{ .Values.fsGroup | default 1000  }}
   persistentVolumeClaim:
     claimName: {{ .Release.Name }}
 {{- end }}
+{{- range .Values.emptyDirMounts }}
+- name: {{ .name }}
+  emptyDir:
+    {{- if .sizeLimit }}
+    sizeLimit: {{ .sizeLimit }}
+    {{- end }}
+    {{- if .medium }}
+    medium: {{ .medium }}
+    {{- end }}
+{{- end }}
 {{- end -}}
 
 {{- define "bandstand-cron-job.common-envvars" -}}
