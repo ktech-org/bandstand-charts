@@ -16,7 +16,7 @@ spec:
         config.linkerd.io/proxy-memory-request: {{ .Values.resources.requests.linkerd.memory }}
         {{- end }}
         config.alpha.linkerd.io/proxy-enable-native-sidecar: 'true'
-        {{- if (.Values.reloader).enabled }}
+        {{- if ne (.Values.reloader).enabled false }}
         reloader.stakater.com/auto: "true"
         {{- end }}
       labels: {{- include "bandstand-web-service.labels" . | nindent 8 }}
