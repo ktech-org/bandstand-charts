@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $relName }}
+  annotations:
+    deployment.reloader.stakater.com/pause-period: 10s
   labels: {{- include "bandstand-headless-service.labels" . | nindent 4 }}
 spec:
   selector:
