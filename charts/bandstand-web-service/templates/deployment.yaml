@@ -1,3 +1,4 @@
+{{- if not .Values.ingressOnly -}}
 {{- $relName := include "bandstand-web-service.fullname" $ -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -275,3 +276,4 @@ spec:
         runAsUser: 1000
         {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds | default 30 }}
+{{- end }}

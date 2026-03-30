@@ -1,4 +1,4 @@
-{{- if ne ((.Values.hpa).enabled) false }}
+{{- if and (not .Values.ingressOnly) (ne ((.Values.hpa).enabled) false) }}
 {{- $relName := include "bandstand-web-service.fullname" $ -}}
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler

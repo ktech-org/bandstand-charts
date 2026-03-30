@@ -1,3 +1,4 @@
+{{- if not .Values.ingressOnly -}}
 {{- $relName := include "bandstand-web-service.fullname" $ -}}
 apiVersion: v1
 kind: Service
@@ -9,3 +10,4 @@ spec:
   ports:
     - port: 80
       targetPort: {{ .Values.containerPort | default 8080 }}
+{{- end }}
