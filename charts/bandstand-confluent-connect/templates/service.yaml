@@ -1,0 +1,22 @@
+{{- if .Values.ingress.enabled }}
+{{- $relName := .Release.Name -}}
+{{- if .Values.nameSuffix }}
+  {{- $relName = print .Release.Name "-" .Values.nameSuffix }}
+{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $relName }}-proxy
+  labels: {{- include "bandstand-confluent-connect.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ $relName }}
+    clusterId: {{ .Release.Namespace }}
+    confluent-platform: "true"
+    type: {{ $relName }}
+  ports:
+    - port: {{ .Values.ingress.port }}
+      targetPort: {{ .Values.ingress.port }}
+      protocol: TCP
+{{- end }}
