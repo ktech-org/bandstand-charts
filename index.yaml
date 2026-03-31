@@ -2,6 +2,19 @@ apiVersion: v1
 entries:
   bandstand-confluent-connect:
   - apiVersion: v2
+    created: "2026-03-31T06:59:03.06224209Z"
+    description: Chart for deploying confluent connect clusters and connectors
+    digest: 062768556f78c51a99c5feb0358606f8e31b44762a4b626ca7cc9534268b8fe8
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-confluent-connect
+    sources:
+    - https://github.com/ktech-org/bandstand-charts
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-confluent-connect-1.4.0/bandstand-confluent-connect-1.4.0.tgz
+    version: 1.4.0
+  - apiVersion: v2
     created: "2025-09-12T11:02:21.272011696Z"
     description: Chart for deploying confluent connect clusters and connectors
     digest: befcef0f2b3f6db6c4c715a2156575d4016a834ae88050151c17870273ea23d6
@@ -4409,4 +4422,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2026-03-16T18:14:00.918788623Z"
+generated: "2026-03-31T06:59:03.063018884Z"
