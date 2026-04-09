@@ -70,7 +70,7 @@ messages. To see examples of scalers that can be used see the [test chart](https
 To migrate to advanced scaling you must first disable the HPA by setting `hpa.enabled`
 to `false` in your `values.yaml` file. That change should be deployed to all clusters before proceeding. As a separate
 deployment you can enable advanced scaling using KEDA by setting `advancedScaling.enabled` to `true` in your `values.yaml`
-file and adding the required scalers.
+file and adding the required scalers. Remember to set `upperCaseKeys` on the secret if using an uppercase variable for the `bootstrapServersEnvVar`, or else use a lowercase variable. 
 
 If HPA is disabled and advanced scaling is enabled in the same deployment, the deployment will fail. If this is the case
 contact the dev platform team for assistance as we will need to manually delete the old HPA resources from the clusters
@@ -78,3 +78,8 @@ to allow the deployment to proceed.
 
 If you are interested in enabling other [KEDA scalers](https://keda.sh/docs/2.13/scalers/), please contact the dev
 platform team or raise a PR.
+
+### Troubleshooting KEDA errors in Datadog
+
+KEDA operator logs are shipped to Datadog under `source:keda`, but are tagged with `kube_namespace:platform` (where the operator runs), not your service's namespace. To find errors for your service, use the KEDA facet group in Logs Explorer: filter by `source:keda status:error` and select your service name from the `Name` or `ScaledObject Name` facets, or search directly with `source:keda status:error @name:<your-service-name>`. For ScaledJobs, use `@scaledJob Name:<your-scaledjob-name>` instead. The `@error` attribute contains the root cause detail (e.g. missing secret keys, broker connection failures).
+
