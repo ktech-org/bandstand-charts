@@ -1,0 +1,26 @@
+{{- range $.Values.additionalDomains -}}
+{{- $certHash := sha256sum . | substr 0 6 }}
+{{- $certName := list $.Release.Name $.Values.nameSuffix $certHash | join "-" }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ $certName }}
+  labels: {{- include "bandstand-router.labels" $ | nindent 4 }}
+spec:
+  commonName: {{ . }}
+  dnsNames:
+    - "*.{{ . }}"
+  duration: 2160h
+  issuerRef:
+    group: awspca.cert-manager.io
+    kind: AWSPCAClusterIssuer
+    name: cluster-issuer
+  renewBefore: 360h
+  secretName: additional-domain-cert
+  usages:
+    - server auth
+    - client auth
+  privateKey:
+    algorithm: "RSA"
+    size: 2048
+{{- end -}}

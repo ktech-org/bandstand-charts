@@ -7,6 +7,7 @@ nav:
   - Home: README.md
   - Usage:
     - Web Service: bandstand-web-service.md
+    - Router: bandstand-router.md
     - Headless Service: bandstand-headless-service.md
     - Cron Job: bandstand-cron-job.md
     - Test Runner: bandstand-test-runner.md
