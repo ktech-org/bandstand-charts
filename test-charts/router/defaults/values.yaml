@@ -1,0 +1,12 @@
+bandstand-router:
+  ingress:
+    enabled: true
+    visibility: private
+    domain: ktech.com
+    defaultBackend: some-other-service
+
+  global:
+    env: test
+    releaseTags:
+      backstageComponent: my-component
+      backstageOwner: my-team

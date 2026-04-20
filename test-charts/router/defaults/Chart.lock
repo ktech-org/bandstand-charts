@@ -1,0 +1,6 @@
+dependencies:
+- name: bandstand-router
+  repository: file://../../../charts/bandstand-router/
+  version: 1.0.0
+digest: sha256:a1414ead2b81d564ff2550978069e9a87dfc21a587b18609959f078e68fb631c
+generated: "2026-04-14T17:44:50.836421+01:00"

@@ -1,0 +1,1 @@
+Bandstand router installed in environment {{ .Values.global.env }}.
