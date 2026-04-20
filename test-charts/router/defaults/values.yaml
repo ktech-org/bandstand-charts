@@ -2,6 +2,7 @@ bandstand-router:
   ingress:
     enabled: true
     visibility: private
+    subdomain: my-router
     domain: ktech.com
     defaultBackend: some-other-service
 

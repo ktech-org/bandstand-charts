@@ -1,9 +1,11 @@
 {{- if .Values.ingress.enabled }}
-{{- $relName := include "bandstand-router.fullname" $ -}}
+{{- $subdomain := required "ingress.subdomain is required" .Values.ingress.subdomain -}}
+{{- $domain := required "ingress.domain is required" .Values.ingress.domain -}}
+{{- $host := printf "%s.%s.%s" $subdomain .Values.global.env $domain -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $relName }}
+  name: {{ .Release.Name }}
   labels: {{- include "bandstand-router.labels" . | nindent 4 }}
   annotations:
     bandstand.ktech.com/service-visibility: {{ .Values.ingress.visibility }}
@@ -19,12 +21,12 @@ spec:
   ingressClassName: nginx-{{ .Values.ingress.visibility }}
   tls:
     - hosts:
-      - "{{ $relName }}.{{ .Values.global.env }}.{{ .Values.ingress.domain }}"
+      - {{ $host | quote }}
       {{- range $.Values.additionalDomains }}
       - {{ . | quote }}
       {{- end }}
   rules:
-    - host: "{{ $relName }}.{{ .Values.global.env }}.{{ .Values.ingress.domain }}"
+    - host: {{ $host | quote }}
       http: &http_rules
         paths:
           - path: "/"
