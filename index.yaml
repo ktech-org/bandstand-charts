@@ -1989,6 +1989,18 @@ entries:
     version: 1.0.0
   bandstand-router:
   - apiVersion: v2
+    created: "2026-04-21T08:25:02.653210719Z"
+    description: Application chart for a routing-only service (ingress with no backend
+      deployment)
+    digest: 5e011016e655dc44924309083cd3219fa62c13265f297870d0be765f8340ba99
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-router
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-router-1.0.1/bandstand-router-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2026-04-20T09:25:49.253595665Z"
     description: Application chart for a routing-only service (ingress with no backend
       deployment)
@@ -4435,4 +4447,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2026-04-20T09:25:49.254276286Z"
+generated: "2026-04-21T08:25:02.653889766Z"
