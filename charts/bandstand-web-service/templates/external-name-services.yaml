@@ -1,0 +1,20 @@
+{{- $fullname := include "bandstand-web-service.fullname" $ -}}
+{{- range .Values.externalNamespaces }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullname }}{{ with .nameSuffix }}-{{ . }}{{ end }}
+  namespace: {{ .namespace }}
+  labels:
+    application: {{ $fullname }}
+    tags.datadoghq.com/service: {{ $fullname }}
+    tags.datadoghq.com/env: {{ $.Values.global.env }}
+spec:
+  type: ExternalName
+  externalName: {{ $fullname }}.{{ $.Release.Namespace }}.svc.cluster.local
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+{{- end }}
