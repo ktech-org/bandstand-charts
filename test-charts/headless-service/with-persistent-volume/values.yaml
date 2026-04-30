@@ -2,5 +2,8 @@ bandstand-headless-service:
   owner: ktech-developer-platform
   env: test
   business: ktech
+  hpa:
+    maxReplicas: 1
+
   volume:
     persistent: 1G

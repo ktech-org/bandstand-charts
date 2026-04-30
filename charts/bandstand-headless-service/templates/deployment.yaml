@@ -1,12 +1,27 @@
 {{- $relName := include "bandstand-headless-service.fullname" $ -}}
+{{- if (.Values.volume).persistent }}
+{{- if and (ne ((.Values.hpa).enabled) false) (gt (int ((.Values.hpa).maxReplicas | default 3)) 1) }}
+{{- fail "volume.persistent requires a single replica. Set hpa.maxReplicas=1 or disable the HPA (hpa.enabled=false). EBS volumes (ReadWriteOncePod) cannot be shared across pods." }}
+{{- end }}
+{{- if and ((.Values.advancedScaling).enabled) (gt (int ((.Values.advancedScaling).maxReplicas | default 3)) 1) }}
+{{- fail "volume.persistent requires a single replica. Set advancedScaling.maxReplicas=1. EBS volumes (ReadWriteOncePod) cannot be shared across pods." }}
+{{- end }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $relName }}
   annotations:
     deployment.reloader.stakater.com/pause-period: 10s
+    {{- if (.Values.volume).persistent }}
+    bandstand.ktech.com/persistent-volume-notice: "Persistent EBS volume in use. Recreate strategy is active — pods will have downtime during rollouts."
+    {{- end }}
   labels: {{- include "bandstand-headless-service.labels" . | nindent 4 }}
 spec:
+  {{- if (.Values.volume).persistent }}
+  strategy:
+    type: Recreate
+  {{- end }}
   selector:
     matchLabels: {{- include "bandstand-headless-service.selectorLabels" . | nindent 6 }}
   template:
