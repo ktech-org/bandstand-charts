@@ -5,5 +5,8 @@ bandstand-web-service:
 
   ingress:
     enabled: false
+  hpa:
+    maxReplicas: 1
+
   volume:
     persistent: 8G
