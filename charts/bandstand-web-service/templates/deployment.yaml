@@ -13,9 +13,6 @@ metadata:
   name: {{ $relName }}
   annotations:
     deployment.reloader.stakater.com/pause-period: 10s
-    {{- if (.Values.volume).persistent }}
-    bandstand.ktech.com/persistent-volume-notice: "Persistent EBS volume in use. Recreate strategy is active — pods will have downtime during rollouts."
-    {{- end }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 spec:
   {{- if (.Values.volume).persistent }}
