@@ -70,7 +70,6 @@ workflows:
                 - test-charts/headless-service/with-persistent-volume
                 - test-charts/headless-service/reloader
                 - test-charts/headless-service/terminationGracePeriodSeconds
-                - test-charts/headless-service/terminationGracePeriodSeconds-default
                 - test-charts/job/defaults
                 - test-charts/job/envvars
                 - test-charts/job/image-override
@@ -84,7 +83,6 @@ workflows:
                 - test-charts/job/with-ephemeral-volume
                 - test-charts/job/with-persistent-volume
                 - test-charts/job/terminationGracePeriodSeconds
-                - test-charts/job/terminationGracePeriodSeconds-default
                 - test-charts/cron-job/defaults
                 - test-charts/cron-job/envvars
                 - test-charts/cron-job/image-override
@@ -100,7 +98,6 @@ workflows:
                 - test-charts/cron-job/with-persistent-volume
                 - test-charts/cron-job/with-s3-volume
                 - test-charts/cron-job/terminationGracePeriodSeconds
-                - test-charts/cron-job/terminationGracePeriodSeconds-default
                 - test-charts/triggered-job/defaults
                 - test-charts/triggered-job/envvars
                 - test-charts/triggered-job/history-limits
@@ -117,7 +114,6 @@ workflows:
                 - test-charts/triggered-job/with-persistent-volume
                 - test-charts/triggered-job/with-linkerd-mem
                 - test-charts/triggered-job/terminationGracePeriodSeconds
-                - test-charts/triggered-job/terminationGracePeriodSeconds-default
                 - test-charts/test-runner/defaults
                 - test-charts/test-runner/resources
                 - test-charts/test-runner/envvars
