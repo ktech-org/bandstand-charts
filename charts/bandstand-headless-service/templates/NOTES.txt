@@ -1,1 +1,5 @@
 You're installing this chart in aws account {{ .Values.global.aws.account }}.
+{{- if (.Values.volume).persistent }}
+
+WARNING: volume.persistent is set. The deployment uses the Recreate strategy — pods will have downtime during rollouts while the EBS volume is detached and reattached.
+{{- end }}
