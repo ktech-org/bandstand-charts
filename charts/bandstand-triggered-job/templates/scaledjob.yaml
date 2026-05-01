@@ -29,6 +29,7 @@ spec:
         {{- include "bandstand-triggered-job.workload.compute" . | nindent 8 }}
         serviceAccountName: {{ .Release.Name }}
         restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}
+        terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds | default 30 }}
         containers:
           - name: {{ .Release.Name }}
             image: {{ .Values.dockerRegistry | default .Values.global.dockerRegistry | default "ktechartifacts-docker.jfrog.io" }}/{{ $.Values.imageName | default .Release.Name }}:{{ .Values.global.image.tag }}
