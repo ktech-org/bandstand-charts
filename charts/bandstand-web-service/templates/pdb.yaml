@@ -6,10 +6,12 @@ metadata:
   name: {{ $relName }}
   labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
 spec:
-  {{- if ((.Values.pdb).maxUnavailable) }}
+  {{- if hasKey .Values.pdb "maxUnavailable" }}
   maxUnavailable: {{ .Values.pdb.maxUnavailable }}
+  {{- else if hasKey .Values.pdb "minAvailable" }}
+  minAvailable: {{ .Values.pdb.minAvailable }}
   {{- else }}
-  minAvailable: {{ ((.Values.pdb).minAvailable) | default 1 }}
+  minAvailable: 1
   {{- end }}
   selector:
     matchLabels: {{- include "bandstand-web-service.selectorLabels" . | nindent 6 }}
