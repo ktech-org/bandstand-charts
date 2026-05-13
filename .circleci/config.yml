@@ -53,6 +53,7 @@ workflows:
                 - test-charts/web-service/reloader
                 - test-charts/web-service/with-authentication-backend
                 - test-charts/web-service/with-external-name-services
+                - test-charts/web-service/pdb
                 - test-charts/router/defaults
                 - test-charts/headless-service/defaults
                 - test-charts/headless-service/az-balancing
@@ -70,6 +71,7 @@ workflows:
                 - test-charts/headless-service/with-persistent-volume
                 - test-charts/headless-service/reloader
                 - test-charts/headless-service/terminationGracePeriodSeconds
+                - test-charts/headless-service/pdb
                 - test-charts/job/defaults
                 - test-charts/job/envvars
                 - test-charts/job/image-override

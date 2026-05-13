@@ -1,0 +1,6 @@
+dependencies:
+- name: bandstand-headless-service
+  repository: file://../../../charts/bandstand-headless-service/
+  version: 3.14.0
+digest: sha256:54efe80b008cde1b45fa87fbec672a55bbc6cf700f04b6517ea8d5c31894f135
+generated: "2026-05-13T14:30:09.537591+01:00"
