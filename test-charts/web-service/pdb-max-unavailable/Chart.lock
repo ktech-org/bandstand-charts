@@ -1,0 +1,6 @@
+dependencies:
+- name: bandstand-web-service
+  repository: file://../../../charts/bandstand-web-service/
+  version: 4.21.0
+digest: sha256:08bcd38d276634f65eea3abd3830c40a0536d5a1d326f7738c3f5ac3c8f4380b
+generated: "2026-05-13T15:48:09.392482+01:00"

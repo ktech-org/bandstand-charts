@@ -1,0 +1,18 @@
+{{- if ((.Values.pdb).enabled) }}
+{{- $relName := include "bandstand-web-service.fullname" $ -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ $relName }}
+  labels: {{- include "bandstand-web-service.labels" . | nindent 4 }}
+spec:
+  {{- if hasKey .Values.pdb "maxUnavailable" }}
+  maxUnavailable: {{ .Values.pdb.maxUnavailable }}
+  {{- else if hasKey .Values.pdb "minAvailable" }}
+  minAvailable: {{ .Values.pdb.minAvailable }}
+  {{- else }}
+  minAvailable: 1
+  {{- end }}
+  selector:
+    matchLabels: {{- include "bandstand-web-service.selectorLabels" . | nindent 6 }}
+{{- end }}
