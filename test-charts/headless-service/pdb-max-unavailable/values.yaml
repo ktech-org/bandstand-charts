@@ -1,0 +1,8 @@
+bandstand-headless-service:
+  owner: ktech-developer-platform
+  env: test
+  business: ktech
+
+  pdb:
+    enabled: true
+    maxUnavailable: 1
