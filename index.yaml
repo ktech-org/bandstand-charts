@@ -1151,6 +1151,17 @@ entries:
     version: 1.0.0
   bandstand-headless-service:
   - apiVersion: v2
+    created: "2026-05-13T15:30:33.303814215Z"
+    description: Chart for a standalone (non-web) service
+    digest: 870f113b04a6b4793940206f7f8efdcfdd28b381cc8cacff669e313cc2c03562
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-headless-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-headless-service-3.14.0/bandstand-headless-service-3.14.0.tgz
+    version: 3.14.0
+  - apiVersion: v2
     created: "2026-05-01T12:29:24.181842684Z"
     description: Chart for a standalone (non-web) service
     digest: 1f042ddbe97783a6feef7c127c290838f960cef6235198ade60bd74a0501a092
@@ -2885,6 +2896,17 @@ entries:
     version: 1.0.0
   bandstand-web-service:
   - apiVersion: v2
+    created: "2026-05-13T15:30:33.621474303Z"
+    description: Application chart for a web service
+    digest: 960ad2bc0f119ff2cc8f7c4059486180963e56ec6d9f6d0df02986a59f2abd91
+    maintainers:
+    - name: ktech-developer-platform
+    name: bandstand-web-service
+    type: application
+    urls:
+    - https://github.com/ktech-org/bandstand-charts/releases/download/bandstand-web-service-4.21.0/bandstand-web-service-4.21.0.tgz
+    version: 4.21.0
+  - apiVersion: v2
     created: "2026-04-30T15:57:18.408841552Z"
     description: Application chart for a web service
     digest: a65f2e97dc84e34b75bad938be85dc9da20f08357a5c62de55f3f6e7c5e3016e
@@ -4524,4 +4546,4 @@ entries:
     urls:
     - https://github.com/ktech-org/bandstand-charts/releases/download/service-library-0.1.0/service-library-0.1.0.tgz
     version: 0.1.0
-generated: "2026-05-01T12:29:24.474039407Z"
+generated: "2026-05-13T15:30:33.62283965Z"
